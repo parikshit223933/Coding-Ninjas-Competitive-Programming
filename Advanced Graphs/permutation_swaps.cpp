@@ -19,7 +19,7 @@ void dfs(vector<int>*edges, int start, bool*visited, unordered_set<int>*componen
         }
     }
 }
-unordered_set<unordered_set<int>*>* get_components(vector<int>*edges, int n)
+unordered_set<unordered_set<int>*>* getComponents(vector<int>*edges, int n)
 {
     bool *visited=new bool[n];
     for(int i=0; i<n; i++)
@@ -68,5 +68,6 @@ int main()
         }
         //adjacency list completed.
         unordered_set<unordered_set<int>*>* components=getComponents(edges, n);
+        
     }
 }
