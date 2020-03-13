@@ -68,6 +68,35 @@ int main()
         }
         //adjacency list completed.
         unordered_set<unordered_set<int>*>* components=getComponents(edges, n);
-        
+
+        unordered_set<unordered_set<int>*>::iterator it1=components->begin();
+        bool flag=true;
+        while(it1!=components->end())
+        {
+            unordered_set<int>*component=*it1;
+            unordered_set<int>::iterator it2=component->begin();
+            unordered_set<int>p_index_set;
+            unordered_set<int>q_index_set;
+            while(it2!=component->end())
+            {
+                p_index_set.insert(p[*it2]);
+                q_index_set.insert(q[*it2]);
+                it2++;
+            }
+            if(p_index_set!=q_index_set)
+            {
+                flag=false;
+            }
+            it1++;
+        }
+        if(flag)
+        {
+            cout<<"YES"<<endl;
+        }
+        else
+        {
+            cout<<"NO"<<endl;
+        }
     }
+    return 0;
 }
