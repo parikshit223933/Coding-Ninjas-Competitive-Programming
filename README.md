@@ -52,3 +52,6 @@ This Repository Contains all my codes which I wrote during the competitive progr
 35. 2vs3 in segment trees
 36. Prims algorithm in graphs 2
 37. connected horses in advanced graphhs. (edited)
+
+# Lectures to be done again
+1. Greedy
