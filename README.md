@@ -1,7 +1,7 @@
 # Coding-Ninjas-Competitive-Programming
 This Repository Contains all my codes which I wrote during the competitive programming course with <a href="https://www.codingninjas.com/">Coding Ninjas</a></br></br>
 
-# Insights
+# Insights (In Hinglish)
 :slightly_smiling_face: Merge sort is better than selection sort</br>
 :slightly_smiling_face: In bubble sort we compare the first two elements then the next two elements.. and so on, multiple times. So the time complexity of bubble sort is O(n^2).</br>
 :slightly_smiling_face: time complexity of insertion sort is O(n^2) because it inserts the elements of the array into the sorted part of the array iteratively.</br>
