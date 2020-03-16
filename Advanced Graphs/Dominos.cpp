@@ -1,3 +1,4 @@
+//for simpler version of this code, please check out "c2f75e6ebb613453e6e61385fdc41984b83c0c1c" commit in the history.
 #include<iostream>
 #include<stack>
 #include<vector>
