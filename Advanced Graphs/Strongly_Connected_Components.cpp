@@ -5,7 +5,6 @@
 #include <iterator>
 #include <unordered_set>
 using namespace std;
-
 void dfs(vector<int> *edges, unordered_set<int> &visited, stack<int> &finished_vertices, int start)
 {
     visited.insert(start);

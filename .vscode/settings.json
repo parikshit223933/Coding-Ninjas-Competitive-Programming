@@ -1,6 +1,7 @@
 {
     "git.ignoreLimitWarning": true,
     "files.associations": {
-        "unordered_set": "cpp"
+        "unordered_set": "cpp",
+        "stack": "cpp"
     }
 }
