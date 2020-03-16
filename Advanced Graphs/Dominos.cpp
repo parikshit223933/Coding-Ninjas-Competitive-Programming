@@ -1,79 +1,64 @@
-#include <iostream>
-#include <vector>
-#include <stack>
-#include <unordered_set>
+
 using namespace std;
-void dfs(vector<int> *edges, int start, unordered_set<int> &visited, stack<int> &finished_vertices_stack)
-{
-    visited.insert(start);
-    for (int i = 0; i < edges[start].size(); i++)
-    {
-        int adjacent = edges[start][i];
-        if (visited.count(adjacent) == 0)
-        {
-            dfs(edges, adjacent, visited, finished_vertices_stack);
-        }
-    }
-    finished_vertices_stack.push(start);
-    return;
+
+stack<int> st;  
+vector<int> adjList[100010];
+bool visited[100010];
+
+
+void dfs2(int index){
+	visited[index]=true;
+	for(unsigned int j=0;j<adjList[index].size();j++){
+		if(!visited[adjList[index][j]]){
+			dfs2(adjList[index][j]);
+		}
+	}
 }
-void dfs2(vector<int> *edges, int start, unordered_set<int> &visited)
-{
-    visited.insert(start);
-    for (int i = 0; i < edges[start].size(); i++)
-    {
-        int adjacent = edges[start][i];
-        if (visited.count(adjacent) == 0)
-        {
-            dfs2(edges, adjacent, visited);
-        }
-    }
-    return;
+
+void dfs(int index){
+	visited[index]=true;
+	for(unsigned int j=0;j<adjList[index].size();j++){
+		if(!visited[adjList[index][j]]){
+			dfs(adjList[index][j]);
+		}
+	}
+	st.push(index);
 }
-void getSCC(vector<int> *edges, int n)
-{
-    unordered_set<int> visited;
-    stack<int> finished_vertices_stack;
-    for (int i = 0; i < n; i++)
-    {
-        if (visited.count(i) == 0)
-        {
-            dfs(edges, i, visited, finished_vertices_stack);
-        }
-    }
-    visited.clear();
-    int count = 0;
-    while (!finished_vertices_stack.empty())
-    {
-        int element = finished_vertices_stack.top();
-        finished_vertices_stack.pop();
-        if (visited.count(element) == 0)
-        {
-            count++;
-            dfs2(edges, element, visited);
-            //note that we are not using transposed graph in this question because we are not exactly looking for
-            //strongly connected components. think why? :)
-        }
-    }
-    cout << count << endl;
-}
-int main()
-{
-    int t;
-    cin >> t;
-    while (t--)
-    {
-        int n;
-        int m;
-        cin >> n >> m;
-        vector<int> *edges = new vector<int>[n];
-        int x, y;
-        for (int i = 0; i < m; i++)
-        {
-            cin >> x >> y;
-            edges[x - 1].push_back(y - 1);
-        }
-        getSCC(edges, n); //not using transposed graph.
-        delete[] edges;
-    }
+	
+
+int main(){
+	int tc;
+	scanf("%d",&tc);
+	while (tc--){
+		memset(visited,false,sizeof(visited));
+		
+		int n,m;
+		scanf("%d %d",&n,&m);
+		for(int i=0;i<m;i++){
+			int a,b;
+			scanf("%d %d",&a,&b);
+			adjList[a].push_back(b);
+		}
+		
+		for(int i=1;i<=n;i++){
+			if(!visited[i]){
+				dfs(i);
+			}
+		}
+		memset(visited,false,sizeof(visited));
+		int count=0;
+		while(!st.empty()){
+			int index=st.top();
+			st.pop();
+			if(!visited[index]){
+				count++;
+				dfs2(index);
+			}
+		}
+		printf("%d\n",count);
+		for(int i=1;i<=n;i++){
+			adjList[i].clear();
+		}
+	}
+	return 0;
 }
