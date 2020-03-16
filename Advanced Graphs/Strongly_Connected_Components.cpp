@@ -2,31 +2,31 @@
 #include <iostream>
 #include <vector>
 #include <stack>
-#include<iterator>
+#include <iterator>
 #include <unordered_set>
 using namespace std;
 
-void dfs(vector<int>*edges, unordered_set<int>&visited, stack<int>&finished_vertices, int start)
+void dfs(vector<int> *edges, unordered_set<int> &visited, stack<int> &finished_vertices, int start)
 {
     visited.insert(start);
-    for(int i=0; i<edges[start].size(); i++)
+    for (int i = 0; i < edges[start].size(); i++)
     {
-        int adjacent_element=edges[start][i];
-        if(visited.count(adjacent_element)==0)
+        int adjacent_element = edges[start][i];
+        if (visited.count(adjacent_element) == 0)
         {
             dfs(edges, visited, finished_vertices, adjacent_element);
         }
     }
     finished_vertices.push(start);
 }
-void dfs2(vector<int>*edgesT, int start, unordered_set<int>&visited, unordered_set<int>*component)
+void dfs2(vector<int> *edgesT, int start, unordered_set<int> &visited, unordered_set<int> *component)
 {
     visited.insert(start);
     component->insert(start);
-    for(int i=0; i<edgesT[start].size(); i++)
+    for (int i = 0; i < edgesT[start].size(); i++)
     {
-        int adjacent=edgesT[start][i];
-        if(visited.count(adjacent)==0)
+        int adjacent = edgesT[start][i];
+        if (visited.count(adjacent) == 0)
         {
             dfs2(edgesT, adjacent, visited, component);
         }
@@ -76,17 +76,17 @@ int main()
     }
     unordered_set<unordered_set<int> *> *components = getSCC(edges, edgesT, n);
 
-    unordered_set<unordered_set<int>*>::iterator it1=components->begin();
-    while(it1!=components->end())
+    unordered_set<unordered_set<int> *>::iterator it1 = components->begin();
+    while (it1 != components->end())
     {
-        unordered_set<int>* component=*it1;
-        unordered_set<int>::iterator it2=component->begin();
-        while(it2!=component->end())
+        unordered_set<int> *component = *it1;
+        unordered_set<int>::iterator it2 = component->begin();
+        while (it2 != component->end())
         {
-            cout<<*it2+1<<" ";
+            cout << *it2 + 1 << " ";
             it2++;
         }
-        cout<<endl;
+        cout << endl;
         delete component;
         it1++;
     }
