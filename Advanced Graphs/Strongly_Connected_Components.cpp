@@ -91,7 +91,7 @@ int main()
         it1++;
     }
 
-    delete[] components;
+    delete components;
     delete[] edges;
     delete[] edgesT;
 }
