@@ -51,7 +51,9 @@ This Repository Contains all my codes which I wrote during the competitive progr
 34. weighted job scheduling in greedy problems(very very important)
 35. 2vs3 in segment trees
 36. Prims algorithm in graphs 2
-37. connected horses in advanced graphhs. (edited)
+37. connected horses in advanced graphhs.
+38. FillMTR in Advanced Graphs.
 
 # Lectures to be done again
 1. Greedy
+2. Advanced Graphs
