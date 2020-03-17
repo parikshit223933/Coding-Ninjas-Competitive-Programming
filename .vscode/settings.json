@@ -2,6 +2,7 @@
     "git.ignoreLimitWarning": true,
     "files.associations": {
         "unordered_set": "cpp",
-        "stack": "cpp"
+        "stack": "cpp",
+        "xlocale": "cpp"
     }
 }
