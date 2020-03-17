@@ -2,7 +2,8 @@
 #include <vector>
 #include <unordered_set>
 #include <stack>
-#include<iterator>
+#include<algorithm>
+#include <iterator>
 using namespace std;
 void dfs(vector<int> *edges, int start, unordered_set<int> &visited, stack<int> &finished_vertices_stack)
 {
@@ -58,12 +59,14 @@ unordered_set<unordered_set<int> *> *getSCC(vector<int> *edges, vector<int> *edg
 }
 int main()
 {
-    int t;
-    cin >> t;
-    while (t--)
+    while (true)
     {
         int v; //vertices
         cin >> v;
+        if (v == 0)
+        {
+            return 0;
+        }
         int e;
         cin >> e;
         vector<int> *edges = new vector<int>[v];
@@ -77,9 +80,46 @@ int main()
         }
         unordered_set<unordered_set<int> *> *components = getSCC(edges, edgesT, v);
 
-        
-        delete components;
-        delete[] edges;
-        delete[] edgesT;
+        auto it = components->begin();
+        vector<int> ans;
+        while (it != components->end())
+        {
+            int flag = 0;
+            auto it2 = (*it)->begin();
+            while (it2 != (*it)->end())
+            {
+                for (int i = 0; i < edges[*it2].size(); ++i)
+                {
+
+                    if ((*it)->count(edges[*it2].at(i)) == 0)
+                    {
+                        flag = 1;
+                        break;
+                    }
+                }
+                if (flag == 1)
+                {
+                    break;
+                }
+                it2++;
+            }
+            if (flag == 0)
+            {
+                it2 = (*it)->begin();
+                while (it2 != (*it)->end())
+                {
+                    ans.push_back(*it2 + 1);
+                    it2++;
+                }
+            }
+
+            it++;
+        }
+        sort(ans.begin(), ans.end());
+        for (int i = 0; i < ans.size(); ++i)
+        {
+            cout << ans.at(i) << " ";
+        }
+        cout<<endl;
     }
 }
