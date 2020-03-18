@@ -22,7 +22,6 @@ int *getLPS(string pattern)
             if(j!=0)
             {
                 j=lps[j-1];
-
             }
             else
             {
