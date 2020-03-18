@@ -1,6 +1,8 @@
 // arr - input array
 // size - size of array
-#include<bits/stdc++.h>
+#include<iostream>
+#include<map>
+using namespace std;
 int MissingNumber(int arr[], int n)
 {
     map<int, int>m;

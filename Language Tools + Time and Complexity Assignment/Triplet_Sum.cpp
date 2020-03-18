@@ -1,7 +1,9 @@
 // arr - input array
 // size - size of array
 // x - sum of triplets
-#include<bits/stdc++.h>
+#include<iostream>
+#include<algorithm>
+using namespace std;
 void FindTriplet(int arr[], int n, int x)
 {
     sort(arr, arr+n);

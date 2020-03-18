@@ -1,4 +1,6 @@
-#include<bits/stdc++.h>
+#include<iostream>
+#include<algorithm>
+#include<map>
 using namespace std;
 
 void PairSum(int *arr, int n)
