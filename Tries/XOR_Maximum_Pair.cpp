@@ -1,6 +1,6 @@
 #include <iostream>
-#include<math.h>
-#include<climits>
+#include <math.h>
+#include <climits>
 using namespace std;
 class trienode
 {
@@ -71,21 +71,21 @@ int find_max_xor_pair(trienode *head, int *arr, int n)
         }
         //now i have my current answer stored in current_xor.
         //i have to compare it with max_xor.
-        if(max_xor<current_xor)
+        if (max_xor < current_xor)
         {
-            max_xor=current_xor;
+            max_xor = current_xor;
         }
     }
     return max_xor;
 }
 int main()
 {
-    int arr[]={8, 1, 2, 15, 10, 5};
-    trienode*head=new trienode();
-    for(int i=0; i<6; i++)
+    int arr[] = {8, 1, 2, 15, 10, 5};
+    trienode *head = new trienode();
+    for (int i = 0; i < 6; i++)
     {
         insert(arr[i], head);
     }
-    cout<<find_max_xor_pair(head, arr, 6)<<endl;
+    cout << find_max_xor_pair(head, arr, 6) << endl;
     return 0;
 }
