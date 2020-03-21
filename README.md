@@ -13,8 +13,8 @@ This Repository Contains all my codes which I wrote during the competitive progr
 :slightly_smiling_face:Map also uses a binary search tree in the backend. it also takes log(n) time for insertion, deletion, and finding as well, in this way it is different from an unordered map. unordered map is implemented using hashtable. In an unordered map, finding, inserting, and deletion takes O(1) time in average case and O(n) in worst case. worst case bohot kam aata hai. mostly average case hi use hota hai, to in general time complexity for an unordered map is considered to be of the order of 1.</br>
 :slightly_smiling_face:Jab indexes and elements ko compare karne ka man kare aur aisa lag raha ho ki tumhara solution order of n square time lega then merge sort k baare mei sochna.</br>
 :slightly_smiling_face: For flipping the ith bit we use xor operator (^). (edited)</br>
-slightly_smiling_face: Tries are the datastructures which are generally used for XOR operations.</br>
-
+:slightly_smiling_face: Tries are the datastructures which are generally used for XOR operations.</br>
+:slightly_smiling_face: The factor that we use to iterate in a fenwick tree is `x&(-x)`. where x is the index of the current node.
 # Important lectures and questions to revised again(bookmarks):
 1. **Oscillating prices of chakri** in prerequisites lecture
 2. **Arrays and pointers video lecture** in lecture: pointers(optional to understand c++)
