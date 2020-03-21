@@ -1,13 +1,22 @@
 #include <iostream>
-#include<string>
+#include <string>
 using namespace std;
 class trienode
 {
 public:
     trienode **children;
+    // bro u need a variable to check that that the leaf is node or not..
+    // app leaf node ese check kar rhe the.. ki agar kisi root ka koi child nhi hai to vo leaf hai
+    // but suppose apne insert kiya = fact, facti, facto
+    // aapne query ki "fac" ki... 
+    // to jab aapka program leaf node check karta tha vo "fact" print nhi karta
+    // because "fact" ke child hai
+    // so u have to mention the lead node
+    bool isLeaf = false;
     trienode()
     {
         children = new trienode *[26];
+        isLeaf = false;
         for (int i = 0; i < 26; i++)
         {
             children[i] = NULL;
@@ -17,7 +26,9 @@ public:
 void insert(string s, trienode *root)
 {
     if (s.length() == 0)
-    {
+    {   
+        // is insertion is over.. apko us node ko leaf node manna padega
+        root->isLeaf = true;
         return;
     }
     trienode *current;
@@ -30,24 +41,32 @@ void insert(string s, trienode *root)
     {
         current = new trienode();
         root->children[index] = current;
+        current = root->children[index];
     }
     insert(s.substr(1), current);
 }
 void helper(trienode *current, string prefix)
 {
-    bool checker=true;
-    for(int i=0; i<26; i++)
+    bool checker = true;
+    // jo apne leaf node check krne ka method kiya hai vo galat hai
+    // reason upar bata diya hai
+    // this is new method to check
+    if (current->isLeaf)
     {
-        if(current->children[i]!=NULL)
-        {
-            checker=false;//false means that this is not the leaf node.
-        }
+        cout << prefix << endl;
     }
-    if(checker==true)//leaf node
-    {
-        cout<<prefix<<endl;
-        return;
-    }
+    // for (int i = 0; i < 26; i++)
+    // {
+    //     if (current->children[i] != NULL)
+    //     {
+    //         checker = false; //false means that this is not the leaf node.
+    //     }
+    // }
+    // if (checker == true) //leaf node
+    // {
+    //     cout << prefix << endl;
+    //     return;
+    // }
     for (int i = 0; i < 26; i++)
     {
         trienode *temp = current;
@@ -75,7 +94,7 @@ void printer(trienode *root, string s)
             return;
         }
     }
-    
+
     helper(current, s);
 }
 int main()
