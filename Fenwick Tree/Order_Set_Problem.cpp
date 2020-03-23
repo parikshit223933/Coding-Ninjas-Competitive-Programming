@@ -1,75 +1,160 @@
-#include <iostream>
-#include <algorithm>
-#include <map>
+#include<iostream>
+#include<algorithm>
+#define mod 1000000007
+#define inf 1000000000000
+#define root2 1.41421
+#define root3 1.73205
+#define pi 3.14159
+#define MAX 200005
+#define ll long long int
+#define PII pair<int, int>
+#define f first
+#define s second
+#define ssf(n) scanf("%lf", &n)
+#define mk make_pair
+#define PLL pair<ll, ll>
+#define gc getchar
+#define pb push_back
 using namespace std;
-struct queries
+PII M[MAX], T[MAX];
+int BIT[MAX], A[MAX], n;
+char C[MAX];
+bool b;
+int get_count(int idx)
 {
-    char type;
-    int element;
-};
-
+    if (idx == 0)
+        return 0;
+    ll sum = 0;
+    while (idx > 0)
+    {
+        //printf("BIT: %d\n", BIT[idx]);
+        sum += BIT[idx];
+        idx -= idx & (-idx);
+    }
+    return sum;
+}
+void updateBIT(int idx, int val)
+{
+    while (idx < MAX)
+    {
+        //printf("%d ", idx);
+        BIT[idx] += val;
+        idx += idx & (-idx);
+    }
+}
+int b_search(int x)
+{
+    int lo = 0, hi = n - 1, mid, ans = -1;
+    while (lo <= hi)
+    {
+        mid = (lo + hi) >> 1;
+        //printf("M: %d %d..\n", mid, M[mid].f);
+        if (M[mid].f == x)
+        {
+            b = 1;
+            return mid;
+        }
+        else if (M[mid].f > x)
+            hi = mid - 1;
+        else
+        {
+            ans = mid;
+            lo = mid + 1;
+        }
+    }
+    b = 0;
+    return ans;
+}
 int main()
 {
-    int q;
-    cin >> q;
-    queries *query = new queries[q];
-    int inserted_elements_size = 0;
-    for (int i = 0; i < q; i++)
+    int i, Q, x, k = 0, lo, hi, mid;
+    cin>>Q;
+    for (i = 0; i < Q; i++)
     {
-        cin >> query[i].type >> query[i].element;
-        if (query[i].type == 'I')
+        C[i] = gc();
+        while (C[i] < 65 || C[i] >= 91)
+            C[i] = gc();
+        cin>>A[i];
+        if (C[i] == 'I')
         {
-            inserted_elements_size++;
+            T[k].f = A[i];
+            T[k++].s = 0;
         }
     }
-    int *inserted_elements = new int[inserted_elements_size];
-    int inserted_elements_iterative_index = 0;
-    for (int i = 0; i < q; i++)
+    sort(T, T + k);
+    M[0] = T[0];
+    n = 1;
+    for (i = 1; i < k; i++)
     {
-        if (query[i].type == 'I')
+        if (T[i].f != T[i - 1].f)
         {
-            inserted_elements[inserted_elements_iterative_index] = query[i].element;
-            inserted_elements_iterative_index++;
+            M[n++] = T[i];
+            // printf("%d\n", T[i].f);
         }
     }
-    sort(inserted_elements, inserted_elements + inserted_elements_size);
-    map<int, int> compressor_map;
-    int map_indexer = 1;
-    for (int i = 0; i < inserted_elements_size; i++)
+    for (i = 0; i < Q; i++)
     {
-        if (compressor_map[inserted_elements[i]] == 0)
+        if (C[i] == 'I')
         {
-            compressor_map[inserted_elements[i]] = map_indexer;
-        }
-        map_indexer++;
-    }
-    for(int i=0; i<q; i++)
-    {
-        if(query[i].type=='I')
-        {
-            if(query_function(m[query[i].element])==query_function(m[query[i].element]-1))
+            x = b_search(A[i]); //Find position in sorted array using binary search
+            //printf("I: %d %d\n",A[i], x);
+            if (M[x].s == 0)
             {
-                update(m[query[i].element]);
+                M[x].s = 1;
+                updateBIT(x + 1, 1); //! 1 based indexing
+                //printf("I: %d ", BIT[x+1]);
             }
         }
-        else if(query[i].type=='D')
+        else if (C[i] == 'D')
         {
-            if(query_function(m[query[i].element])!=query_fucntion(m[query[i].element]-1))
+            x = b_search(A[i]);
+            if (x != -1 && M[x].s == 1 && b)
             {
-                update(m[query[i].element]);
+                updateBIT(x + 1, -1); //! 1 based indexing
+                M[x].s = 0;
             }
         }
-        else if(query[i].type=='K')
+        else if (C[i] == 'C')
         {
-            if(query(m[query[i].element])==k)
+            x = b_search(A[i]);
+            //printf("C: %d\n", x);
+            if (b)
+                printf("%d\n", get_count(x + 1 - 1));
+            else if (x != -1)
+                printf("%d\n", get_count(x + 1));
+            else
+                printf("0\n");
+        }
+        else if (C[i] == 'K')
+        {
+            k = A[i];
+            x = -1;
+            bool mno = 0;
+            lo = 1;
+            hi = MAX - 1;
+            while (lo <= hi)
             {
-                cout<<query[i].element<<endl;
+                mid = (lo + hi) >> 1;
+                if (get_count(mid) == k && get_count(mid - 1) != k)
+                {
+                    mno = 1;
+                    x = mid;
+                    break;
+                }
+                else if (get_count(mid) < k) //! 1 based indexing
+                {
+                    x = mid;
+                    lo = mid + 1;
+                }
+                else
+                    hi = mid - 1;
             }
+            //printf("K: %d\n", x);
+            if (!mno)
+                printf("invalid\n");
+            else
+                printf("%d\n", M[x - 1].f);
         }
-        else if(query[i].type=='C')
-        {
-            
-        }
-        
     }
+    return 0;
 }
