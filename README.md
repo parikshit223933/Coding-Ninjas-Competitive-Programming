@@ -55,8 +55,10 @@ This Repository Contains all my codes which I wrote during the competitive progr
 37. **connected horses** in advanced graphhs.
 38. **FillMTR** and **AIRPORTS** in Advanced Graphs.
 39. **Monk and the islands** in advanced graphs.
-40. **Maximum XOR Subarray** in Tries
-
+40. **Maximum XOR Subarray** in Tries.
+41. **Distinct Query Problem**, **OrderSet Problem**, **KQUERY Problem**, **Shil and Wave Sequence**, **INCSEQ(Very Important)**
+ in Fenwick Tree Lecture.
+ 
 # Lectures to be done again
 1. Greedy
 2. Advanced Graphs
