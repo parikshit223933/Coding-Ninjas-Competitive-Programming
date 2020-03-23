@@ -60,3 +60,16 @@ This Repository Contains all my codes which I wrote during the competitive progr
 # Lectures to be done again
 1. Greedy
 2. Advanced Graphs
+3. Fenwick Trees
+
+# Tip for Faster C++ code Executions
+1. Avoid cin/cout, use scanf/printf at any cost. Cin/Cout are extremely time consuming functions. If you want even better performance use getchar_unlocked. <a href="http://abhisharlives.blogspot.com/2012/06/really-fast-io-methods-for-programming.html">This</a> article explains it pretty well.
+2. Try using global arrays instead of passing them to a function. Passing array as a pointer to a function is efficient, but declaring a global array and directly using it is even better. And of course, avoid passing arguments by value. Similarly, if you are passing a vector to a function, use a constant reference.
+3. Use macros and Inline functions. Calling a function involves overhead which can be avoided by using macros or inline functions, but you need to very careful.
+4. Use pre-increment instead of post-increment. Post increment is designed to return the original object, which might force the compiler to create another copy of the object in some cases.
+5. Use left/right shift in place of division/multiplication by 2. For example you can replace x = x*4 by x = x<<2.
+6. Use heap memory only when absolutely necessary. Dynamic initialization and deallocations is costly. 
+7. Use multiple arrays instead of one large array.
+8. Use unordered_map instead of the usual stl map. Use std::sort instead of qsort.
+9. In an if else block, make sure that the condition in if block, is the one that is more likely to be true.
+10. **Always use '\n' to change the line. endl takes a lot of time. HERE IS THE PROOF**
