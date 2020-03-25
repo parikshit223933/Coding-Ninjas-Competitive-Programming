@@ -1,6 +1,4 @@
-#include <iostream>
-using namespace std;
-int candies(int **like, int n, int person, int mask, int *dp)
+int candies(int like[][MAXN], int n, int person, int mask, int *dp)
 {
     if (person >= n)
     {
@@ -21,27 +19,14 @@ int candies(int **like, int n, int person, int mask, int *dp)
     dp[mask]=ans;
     return ans;
 }
-long long solve(int **like, int n)
+long long solve(int like[][MAXN],int n)
 {
-    int *dp = new int[1 << n];
+	int *dp = new int[1 << n];
     for (int i = 0; i < (1 << n); i++)
     {
         dp[i] = 0;
     }
-    return candies(like, n, 0, 0, dp);
-}
-int main()
-{
-    int n; //number of students and candies
-    cin >> n;
-    int **like = new int *[n];
-    for (int i = 0; i < n; i++)
-    {
-        like[i] = new int[n];
-        for (int j = 0; j < n; j++)
-        {
-            cin >> like[i][j];
-        }
-    }
-    cout << solve(like, n) << '\n';
+    int ans= candies(like, n, 0, 0, dp);
+    delete[]dp;
+    return ans;
 }
