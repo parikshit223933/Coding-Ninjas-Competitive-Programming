@@ -3,6 +3,7 @@
     "files.associations": {
         "unordered_set": "cpp",
         "stack": "cpp",
-        "xlocale": "cpp"
+        "xlocale": "cpp",
+        "utility": "cpp"
     }
 }
