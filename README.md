@@ -14,7 +14,9 @@ This Repository Contains all my codes which I wrote during the competitive progr
 :slightly_smiling_face:Jab indexes and elements ko compare karne ka man kare aur aisa lag raha ho ki tumhara solution order of n square time lega then merge sort k baare mei sochna.</br>
 :slightly_smiling_face: For flipping the ith bit we use xor operator (^). (edited)</br>
 :slightly_smiling_face: Tries are the datastructures which are generally used for XOR operations.</br>
-:slightly_smiling_face: The factor that we use to iterate in a fenwick tree is `x&(-x)`. where x is the index of the current node.
+:slightly_smiling_face: The factor that we use to iterate in a fenwick tree is `x&(-x)`. where x is the index of the current node.</br>
+:slightly_smiling_face: The time complexity of Sieve Of Eratosthenes is Nlog(log(N))</br>
+:slightly_smiling_face: The time complexity of Euclid's algorithm for finding the GCD of two numbers is `log2(max(a, b))`, where a and b are the numbers whose GCD is to be find out.
 # Important lectures and questions to revised again(bookmarks):
 1. **Oscillating prices of chakri** in prerequisites lecture
 2. **Arrays and pointers video lecture** in lecture: pointers(optional to understand c++)
