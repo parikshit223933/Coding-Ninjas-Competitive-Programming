@@ -4,6 +4,10 @@ using namespace std;
 typedef unsigned long long int ll;
 ll gcd(ll x, ll y)
 {
+    if(x<y)
+    {
+        return gcd(y, x);
+    }
     if(y==0)
     {
         return x;
