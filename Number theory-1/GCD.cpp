@@ -1,7 +1,8 @@
 #include<iostream>
 #include<algorithm>
 using namespace std;
-int gcd(int x, int y)
+typedef unsigned long long int ll;
+ll gcd(ll x, ll y)
 {
     if(y==0)
     {
@@ -11,7 +12,7 @@ int gcd(int x, int y)
 }
 int main()
 {
-    int x, y;
+    ll x, y;
     cin>>x>>y;
     cout<<gcd(x, y)<<endl;
 }
