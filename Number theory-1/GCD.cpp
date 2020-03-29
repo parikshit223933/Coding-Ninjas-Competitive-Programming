@@ -3,31 +3,11 @@
 using namespace std;
 int gcd(int x, int y)
 {
-    if(x<=y)
+    if(y==0)
     {
-        int maximum=1;
-        for(int i=1; i<=x; i++)
-        {
-            if(x%i==0&&y%i==0)
-            {
-                maximum=max(maximum, i);
-            }
-        }
-        return maximum;
+        return x;
     }
-    else
-    {
-        int maximum=1;
-        for(int i=1; i<=y; i++)
-        {
-            if(x%i==0&&y%i==0)
-            {
-                maximum=max(maximum, i);
-            }
-        }
-        return maximum;
-    }
-    
+    return gcd(y, x%y);   
 }
 int main()
 {
