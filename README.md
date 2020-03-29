@@ -18,7 +18,7 @@ This Repository Contains all my codes which I wrote during the competitive progr
 :slightly_smiling_face: The time complexity of Sieve Of Eratosthenes is Nlog(log(N))</br>
 :slightly_smiling_face: The time complexity of Euclid's algorithm for finding the GCD of two numbers is `log2(max(a, b))`, where a and b are the numbers whose GCD is to be find out.</br>
 :slightly_smiling_face: Diophantine Equations-> ax+by=c , this equation will have integral solution only when the gcd(a, b) divides c.</br>
-:slightly_smiling_face: Multiplicative Modulo Inverse -> `(A.B)%m=1` ->`(A.B-1)%m=0` -> `(A.B-1)=m.q` -> `(A.B)-m.q=1` -> `(A.B)+(m.Q)=1` -> Now according to extended euclid algorithm, this equation will have integral solution only when gcd(A, m) divides 1, i.e. `gcd(A, m)==1`. Which in turn means that A and m should be Coprime. Hence we can say that, `(A.B)+(m.Q)=gcd(A, m)`. Its code can be found <a href="Number theory-1/Multiplicative_modulo_inverse.cpp">here</a>.</br>
+:slightly_smiling_face: Multiplicative Modulo Inverse -> `(A.B)%m=1` ->`(A.B-1)%m=0` -> `(A.B-1)=m.q` -> `(A.B)-m.q=1` -> `(A.B)+(m.Q)=1` -> Now according to extended euclid algorithm, this equation will have integral solution only when gcd(A, m) divides 1, i.e. `gcd(A, m)==1`. Which in turn means that A and m should be Coprime. Hence we can say that, `(A.B)+(m.Q)=gcd(A, m)`. Its code can be found <a href="Number theory-1/Multiplicative_modulo_Inverse.cpp">here</a>.</br>
 
 
 # Important lectures and questions to revised again(bookmarks):
