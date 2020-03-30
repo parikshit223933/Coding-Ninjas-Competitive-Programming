@@ -1,6 +1,8 @@
 #include<iostream>
+#define m 1000000007
 using namespace std;
-int count_palindrome(int n, int total_sum, int k, int **dp)
+typedef long long int ll;
+ll count_palindrome(ll n, ll total_sum, ll k, ll **dp)
 {
     if(n==0 && total_sum%k==0)
     {
@@ -12,32 +14,32 @@ int count_palindrome(int n, int total_sum, int k, int **dp)
     }
     if(dp[n][k]!=-1)
     {
-        return dp[n][k];
+        return dp[n][k]%m;
     }
-    int count=0;
-    for(int i=1; i<=9; i++)
+    ll count=0;
+    for(ll i=1; i<=9; i++)
     {
         if(n>=2)
         {
-            count+=count_palindrome(n-2, total_sum+(2*i), k, dp);
+            count=(count%m+count_palindrome(n-2, total_sum+(2*i), k, dp)%m)%m;
         }
         else if(n==1)
         {
-            count+=count_palindrome(n-1, total_sum+i, k, dp);
+            count=(count%m+count_palindrome(n-1, total_sum+i, k, dp)%m)%m;
         }
     }
-    dp[n][k]=count;
-    return count;
+    dp[n][k]=count%m;
+    return count%m;
 }
 int main()
 {
-    int n, k;
+    ll n, k;
     cin>>n>>k;
-    int **dp=new int *[n+1];
-    for(int i=0; i<=n; i++)
+    ll **dp=new ll *[n+1];
+    for(ll i=0; i<=n; i++)
     {
-        dp[i]=new int [k+1];
-        for(int j=0; j<=k; j++)
+        dp[i]=new ll [k+1];
+        for(ll j=0; j<=k; j++)
         {
             dp[i][j]=-1;
         }
