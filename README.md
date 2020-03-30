@@ -4,21 +4,43 @@ This Repository Contains all my codes which I wrote during the competitive progr
 # Insights (In Hinglish)
 :slightly_smiling_face: Merge sort is better than selection sort</br>
 :slightly_smiling_face: In bubble sort we compare the first two elements then the next two elements.. and so on, multiple times. So the time complexity of bubble sort is O(n^2).</br>
+
 :slightly_smiling_face: Time complexity of insertion sort is O(n^2) because it inserts the elements of the array into the sorted part of the array iteratively.</br>
+
 :slightly_smiling_face: Selection sort is also of the order of n^2 because the smallest element is selected from.the unsorted array and swapped with the leftmost element and that element becomes the part of the sorted array.</br>
+
 :slightly_smiling_face: For binary search, the time complexity is O(log(n)), because .---->watch theoretical analysis - recursive algorithm in time and space complexity analysis lecture.</br>
+
 :slightly_smiling_face: Time complexity of merge sort is O(n*log(n)). Because here we divide our array into.two parts and sort them separately and then merge them.</br>
+
 :slightly_smiling_face: Time and space complexity analysis is very important lecture. kadane's algorithm video lecture is very important too. it has been asked in many popular companies.</br>
+
 :slightly_smiling_face:Set is implemented in c++ using a balanced binary search tree. it takes log(n) time to find an element in a set or in binary search tree.</br>
+
 :slightly_smiling_face:Map also uses a binary search tree in the backend. it also takes log(n) time for insertion, deletion, and finding as well, in this way it is different from an unordered map. unordered map is implemented using hashtable. In an unordered map, finding, inserting, and deletion takes O(1) time in average case and O(n) in worst case. worst case bohot kam aata hai. mostly average case hi use hota hai, to in general time complexity for an unordered map is considered to be of the order of 1.</br>
+
 :slightly_smiling_face:Jab indexes and elements ko compare karne ka man kare aur aisa lag raha ho ki tumhara solution order of n square time lega then merge sort k baare mei sochna.</br>
+
 :slightly_smiling_face: For flipping the ith bit we use xor operator (^). (edited)</br>
+
 :slightly_smiling_face: Tries are the datastructures which are generally used for XOR operations.</br>
+
 :slightly_smiling_face: The factor that we use to iterate in a fenwick tree is `x&(-x)`. where x is the index of the current node.</br>
+
 :slightly_smiling_face: The time complexity of Sieve Of Eratosthenes is Nlog(log(N))</br>
+
 :slightly_smiling_face: The time complexity of Euclid's algorithm for finding the GCD of two numbers is `log2(max(a, b))`, where a and b are the numbers whose GCD is to be find out.</br>
+
 :slightly_smiling_face: Diophantine Equations-> ax+by=c , this equation will have integral solution only when the gcd(a, b) divides c.</br>
+
 :slightly_smiling_face: Multiplicative Modulo Inverse -> `(A.B)%m=1` ->`(A.B-1)%m=0` -> `(A.B-1)=m.q` -> `(A.B)-m.q=1` -> `(A.B)+(m.Q)=1` -> Now according to extended euclid algorithm, this equation will have integral solution only when gcd(A, m) divides 1, i.e. `gcd(A, m)==1`. Which in turn means that A and m should be Coprime. Hence we can say that, `(A.B)+(m.Q)=gcd(A, m)`. Its code can be found <a href="Number theory-1/Multiplicative_modulo_Inverse.cpp">here</a>.</br>
+
+:slightly_smiling_face: If a number `N` is written in the form `p1^a.p2^b.p3^c.....pn^k`, where `a, b, c, ..... , k` are non negative integers and `p1, p2, p3....pn` are prime numbers, then the number `N` will have exactly `(a+1)*(b+1)*(c+1)*...*(k+1)` number of divisors.</br>
+
+
+
+
+
 
 
 # Important lectures and questions to revised again(bookmarks):
@@ -67,10 +89,22 @@ This Repository Contains all my codes which I wrote during the competitive progr
 42. **Counting APs** and **Number of Strings** in DP & Bitmasking.
 43. **Sachin and Varun Problem** in applications of number theory-1.
  
+
+
+
+
+
+
 # Lectures to be done again
 1. Greedy
 2. Advanced Graphs
 3. Fenwick Trees
+
+
+
+
+
+
 
 # Tips for Faster C++ code Executions
 1. Avoid cin/cout, use scanf/printf at any cost. Cin/Cout are extremely time consuming functions. If you want even better performance use getchar_unlocked. <a href="http://abhisharlives.blogspot.com/2012/06/really-fast-io-methods-for-programming.html">This</a> article explains it pretty well.
