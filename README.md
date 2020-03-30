@@ -65,6 +65,7 @@ This Repository Contains all my codes which I wrote during the competitive progr
 41. **Distinct Query Problem**, **OrderSet Problem**, **KQUERY Problem**, **Shil and Wave Sequence**, **INCSEQ(Very Important)**
  in Fenwick Tree Lecture.
 42. **Counting APs** and **Number of Strings** in DP & Bitmasking.
+43. **Sachin and Varun Problem** in applications of number theory-1.
  
 # Lectures to be done again
 1. Greedy
