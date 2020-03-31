@@ -12,7 +12,7 @@ void Seive(int *arr, int n)
     {
         sieve[arr[i]] = 1;
     }
-    for (int i = 2; i < size_of_sieve; i++)
+    for (int i = 1; i < size_of_sieve; i++)
     {
         int current_element = i;
         if (sieve[current_element] !=0)
