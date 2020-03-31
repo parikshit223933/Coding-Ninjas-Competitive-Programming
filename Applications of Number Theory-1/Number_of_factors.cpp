@@ -49,6 +49,11 @@ int main()
     {
         int a, b, n;
         cin>>a>>b>>n;
+        if(a==1&&n==0)
+        {
+            cout<<1<<endl;
+            continue;
+        }
         cout<<table[n][b]-table[n][a-1]<<endl;
     }
 }
