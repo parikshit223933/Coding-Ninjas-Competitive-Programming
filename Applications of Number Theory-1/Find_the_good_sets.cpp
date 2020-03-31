@@ -1,47 +1,49 @@
 #include <iostream>
+#define m 1000000007
+#define ll long long int
 using namespace std;
-int size_of_sieve = 750001;
-void Seive(int *arr, int n)
+ll size_of_sieve = 750001;
+void Seive(ll *arr, ll n)
 {
-    int *sieve = new int[size_of_sieve];
-    for (int i = 0; i < size_of_sieve; i++)
+    ll *sieve = new ll[size_of_sieve];
+    for (ll i = 0; i < size_of_sieve; i++)
     {
         sieve[i] = 0;
     }
-    for (int i = 0; i < n; i++)
+    for (ll i = 0; i < n; i++)
     {
         sieve[arr[i]] = 1;
     }
-    for (int i = 1; i < size_of_sieve; i++)
+    for (ll i = 1; i < size_of_sieve; i++)
     {
-        int current_element = i;
-        if (sieve[current_element] !=0)
-            for (int j = 2; j * current_element < size_of_sieve; j++)
+        ll current_element = i;
+        if (sieve[current_element] != 0)
+            for (ll j = 2; j * current_element < size_of_sieve; j++)
             {
                 if (sieve[j * current_element] != 0)
                 {
-                    sieve[j * current_element] += sieve[i];
+                    sieve[j * current_element] = (sieve[j * current_element] % m + sieve[i] % m) % m;
                 }
             }
     }
-    int total_sum = 0;
-    for (int i = 0; i < size_of_sieve; i++)
+    ll total_sum = 0;
+    for (ll i = 0; i < size_of_sieve; i++)
     {
-        total_sum += sieve[i];
+        total_sum = (total_sum % m + sieve[i] % m) % m;
     }
     cout << total_sum << endl;
     delete[] sieve;
 }
 int main()
 {
-    int t;
+    ll t;
     cin >> t;
-    int *arr = new int[750001];
+    ll *arr = new ll[750001];
     while (t--)
     {
-        int n;
+        ll n;
         cin >> n;
-        for (int i = 0; i < n; i++)
+        for (ll i = 0; i < n; i++)
         {
             cin >> arr[i];
         }
