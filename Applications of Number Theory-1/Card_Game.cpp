@@ -1,101 +1,114 @@
 #include <iostream>
+#include <algorithm>
 #include <vector>
-#include <utility>
+#include <cmath>
+#include <map>
 using namespace std;
-vector<pair<int, int>> vector_givver(int n)
+
+map<int,int> returnPrimeFactors(long k)
 {
-    vector<pair<int, int>> v;
-    for (int i = 2; i * i < n; i++)
+    map<int,int> primeFactors;
+    while(k % 2 == 0)
     {
-        if (n == 1)
-        {
-            break;
-        }
-        if (n % i == 0)
-        {
-            int count = 0;
-            while (n % i == 0)
-            {
-                n = n / i;
-                count += 1;
-            }
-            v.push_back(make_pair(i, count));
-        }
+        primeFactors[2]++;
+        k /=2 ;
     }
-    if(v.size()==0)
+
+    for(int i = 3; i <= sqrt(k) ; i++)
     {
-        v.push_back(make_pair(n, 1));
+        while(k % i == 0)
+        {
+            primeFactors[i]++;
+            k /= i;
+        } 
     }
-    return v;
+
+    if(k > 2)
+        primeFactors[k]++;
+    
+    return primeFactors;
 }
-int number_of_ways(int *arr, int n, int k)
+long long countWaysK(vector<long> arr,long n,long k)
 {
-    vector<pair<int, int>> pair_vector_k = vector_givver(k);
-    vector<pair<int, int>> pair_vector_temp;
-    for (int i = 0; i < pair_vector_k.size(); i++)
+    map<int,int> primeFactorsK = returnPrimeFactors(k);
+    map<int,int> primeFactorsA;
+    vector<bool> visited(n);
+
+    long i=0,j=0,s=0;
+    long ans = 0;
+    while(i<n && j<n)
     {
-        pair_vector_temp.push_back(make_pair(pair_vector_k[i].first, 0));
-    }
-    int j = 0;
-    int count = 0;
-    for (int i = 0; i < n; i++)
-    {
-        int current_number = arr[i];
-        for (int p = 0; p < pair_vector_temp.size(); p++)
+        // cout<<"\nj "<<j<<" i "<<i;
+        int flag = 0;
+        for(auto it:primeFactorsK)
         {
-            if (current_number == 1)
+            int p = it.first;
+            int count = 0;
+            long val = arr[j];
+            while(val % p == 0)
             {
-                break;
+                count++;
+                val /= p;
             }
-            int to_be_divided_by = pair_vector_temp[p].first;
-            while (current_number % to_be_divided_by == 0)
+            if(!visited[j])
+                primeFactorsA[p] += count;
+            // cout<<"\nFact: "<<primeFactorsA[p]<<" "<<it.second;
+            if(primeFactorsA[p] < it.second)
             {
-                pair_vector_temp[p].second++;
-                current_number /= to_be_divided_by;
+                // cout<<"\nFlagged"<<arr[j];
+                flag = 1;
             }
         }
-        bool checker = true;
-        for (int p = 0; p < pair_vector_temp.size(); p++)
+
+        if(!flag)
         {
-            if (pair_vector_temp[p].second < pair_vector_k[p].second)
+            // cout<<"\nNot Flag: "<<arr[j];
+            ans += (n-j);
+            s = i;
+            visited[j] = true;
+            // cout<<"\nAns: "<<ans;
+            i++;
+            int m = i-1;
+            while(m >= s)
             {
-                checker = false;
-                break;
-            }
-        }
-        if (checker)
-        {
-            count += n - i;
-            int element_whose_factors_are_to_be_removed = arr[j];
-            j++;
-            for (int p = 0; p < pair_vector_temp.size(); p++)
-            {
-                if (element_whose_factors_are_to_be_removed == 1)
+                int flag = 0;
+                for(auto it:primeFactorsK)
                 {
+                    int p = it.first;
+                    int count = 0;
+                    long val = arr[m];
+                    while(val % p == 0)
+                    {
+                        count++;
+                        val /= p;
+                    }
+                    primeFactorsA[p] -= count;
+                    // cout<<"\nRem "<<arr[m]<<" "<<primeFactorsA[p]<<" "<<it.second;
+                    if(primeFactorsA[p] < it.second)
+                    {
+                        flag = 1;
+                    }
+                }
+                if(flag)
                     break;
-                }
-                int to_be_divided_by = pair_vector_temp[p].first;
-                while (element_whose_factors_are_to_be_removed % to_be_divided_by == 0)
-                {
-                    pair_vector_temp[p].second--;
-                    element_whose_factors_are_to_be_removed /= to_be_divided_by;
-                }
+                m--;
             }
         }
         else
-        {
-            continue;
-        }
+            j++;
     }
-    return count;
+    return ans;
 }
+
 int main()
 {
-    int n, k;
-    int *arr = new int[n];
-    for (int i = 0; i < n; i++)
-    {
+    long n,k,i,j;
+    cin >> n >> k;
+
+    vector<long> arr(n);
+    for(i = 0; i < n ; i++)
         cin >> arr[i];
-    }
-    cout << number_of_ways(arr, n, k) << endl;
+
+    cout<<countWaysK(arr,n,k)<<endl;
+
 }
