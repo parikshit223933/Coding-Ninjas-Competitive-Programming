@@ -39,7 +39,7 @@ This Repository Contains all my codes which I wrote during the competitive progr
 
 :slightly_smiling_face: Euler's Totient Function:
 1. Φ(n) is the number of `m` such that, `1<=m<n` and **n and m are coprime** that is `gcd(m, n)==1`.
-2. `Φ(a, b)=Φ(a)*Φ(b)`, on the condition that a and b are coprime, i.e. `gcd(a, b)=1`.
+2. `Φ(a.b)=Φ(a)*Φ(b)`, on the condition that a and b are coprime, i.e. `gcd(a, b)=1`.
 
 
 
