@@ -1,64 +1,70 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
+#include<iostream>
+#include<vector>
+#include<algorithm>
 using namespace std;
-vector<int> prime_divisors(int n)
-{
-    vector<int> v;
-    int x = n;
-    for (int i = 2; x != 1; i++)
-    {
-        if (x % i == 0)
-        {
-            v.push_back(i);
-            while (x % i == 0)
-            {
-                x = x / i;
-            }
-        }
-    }
-    if (v.empty())
-    {
-        v.push_back(n);
-    }
-    return v;
-}
+#define MaxSize 2000001
 int main()
 {
-    int n;
-    cin >> n;
-    int *arr = new int[n + 1];
-    bool *marked = new bool[n + 1];
-    for (int i = 0; i < n + 1; i++)
+    int *sieve = new int[MaxSize];
+    for (int i = 0; i <= MaxSize; i++)
     {
-        arr[i] = i;
-        marked[i] = false;
+        sieve[i] = i;
     }
-
-    for (int i = n; i >= 1; i--)
+    for (int i = 2; i * i <= MaxSize; i++)
     {
-        if (marked[i])
+        for (int j = i * i; j <= MaxSize; j += i)
         {
-            continue;
-        }
-        vector<int> partial_answer;
-        int current_maximum_number = arr[i];
-        vector<int> prime_divisors_of_maximum_number = prime_divisors(current_maximum_number);
-        for (int indexer = 0; indexer < prime_divisors_of_maximum_number.size(); indexer++)
-        {
-            int current_prime_divisor = prime_divisors_of_maximum_number[indexer];
-            for (int j = current_maximum_number; j >= 1; j -= current_prime_divisor)
+            if (sieve[j] > i)
             {
-                if (!marked[j])
-                    partial_answer.push_back(j);
-                marked[j] = true;
+                sieve[j] = i;
             }
         }
-
-        sort(partial_answer.begin(), partial_answer.end(), greater<int>());
-        for (int itr = 0; itr < partial_answer.size(); itr++)
+    }
+    int n, k = 0;
+    cin >> n;
+    int *finalans = new int[n];
+    bool *marked = new bool[n + 1];
+    for (int i = 0; i <= n; i++)
+    {
+        marked[i] = false;
+    }
+    for (int i = n; i >= 1; i--)
+    {
+        if (!marked[i])
         {
-            cout << partial_answer[itr] << " ";
+            int lpd = sieve[i];
+            int x = i;
+            vector<int> v;
+            marked[i] = true;
+            v.push_back(i);
+            while (x != 1)
+            {
+                for (int j = i - lpd; j >= 1; j = j - lpd)
+                {
+                    if (!marked[j])
+                    {
+                        marked[j] = true;
+                        v.push_back(j);
+                    }
+                }
+                while (x % lpd == 0)
+                {
+                    x = x / lpd;
+                }
+                lpd = sieve[x];
+            }
+            sort(v.begin(), v.end(), greater<int>());
+            for (int i = 0; i < v.size(); i++)
+            {
+                finalans[k] = v[i];
+                k++;
+            }
         }
     }
+    finalans[n - 1] = 1;
+    for (int i = 0; i < n; i++)
+    {
+        cout << finalans[i] << " ";
+    }
+    cout << endl;
 }
