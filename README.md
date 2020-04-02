@@ -3,6 +3,7 @@ This Repository Contains all my codes which I wrote during the competitive progr
 
 # Insights (In Hinglish)
 :slightly_smiling_face: Merge sort is better than selection sort</br>
+
 :slightly_smiling_face: In bubble sort we compare the first two elements then the next two elements.. and so on, multiple times. So the time complexity of bubble sort is O(n^2).</br>
 
 :slightly_smiling_face: Time complexity of insertion sort is O(n^2) because it inserts the elements of the array into the sorted part of the array iteratively.</br>
@@ -37,10 +38,12 @@ This Repository Contains all my codes which I wrote during the competitive progr
 
 :slightly_smiling_face: If a number `N` is written in the form `p1^a.p2^b.p3^c.....pn^k`, where `a, b, c, ..... , k` are non negative integers and `p1, p2, p3....pn` are prime numbers, then the number `N` will have exactly `(a+1)*(b+1)*(c+1)*...*(k+1)` number of divisors.</br>
 
-:slightly_smiling_face: Euler's Totient Function:
+:slightly_smiling_face: **Euler's Totient Function:**
 1. Φ(n) is the number of `m` such that, `1<=m<n` and **n and m are coprime** that is `gcd(m, n)==1`.
 2. `Φ(a.b)=Φ(a)*Φ(b)`, on the condition that a and b are coprime, i.e. `gcd(a, b)=1`.
-3. Since every number `n` can be expressed in the form of its prime factors, i.e. `n=p1^a*p2^b*p3^c.....pt^k`. So according to the property of Euler totient function, we can write `Φ(n)=Φ(p1^a)Φ(p2^b)Φ(p3^c)....Φ(pt^k)`. Now lets talk about Φ(p^a). Here, according to the definition of Euler's Totient function, Φ(p^a) is the number of `m` such that `m and p^a` are coprime and m belongs to \[1, m). Now, since p is a prime, so `p, 2p, 3p, 4p..... up to p^(a-1)` are those numbers which are not coprime with p^a. so we can write: `Φ(p^a)=p^a-(total elements not coprime to p^a)`. i.e. `Φ(p^a)=p^a-p^{a-1}`. hence `Φ(p^a)=p^a(1-(1/p))`. Finally we can write that, `Φ(n)=Φ(p1^a)Φ(p2^b)Φ(p3^c)....Φ(pt^k)`, which implies `Φ(n)=p1^a(1-(1/p1))*p2^b(1-(1/p2))*p3^c(1-(1/p3)).....pt^k(1-(1/pt))`. and Finally we have **`Φ(n)=n*(1-(1/p1))*(1-(1/p2))*(1-(1/p3))*....(1-(1/pt))`**, where t is the number of distinct prime factors.
+3. Since every number `n` can be expressed in the form of its prime factors, i.e. `n=p1^a*p2^b*p3^c.....pt^k`. So according to the property of Euler totient function, we can write `Φ(n)=Φ(p1^a)Φ(p2^b)Φ(p3^c)....Φ(pt^k)`. Now lets talk about Φ(p^a). Here, according to the definition of Euler's Totient function, Φ(p^a) is the number of `m` such that `m and p^a` are coprime and m belongs to \[1, m). Now, since p is a prime, so `p, 2p, 3p, 4p..... up to p^(a-1)` are those numbers which are not coprime with p^a. so we can write: `Φ(p^a)=p^a-(total elements not coprime to p^a)`. i.e. `Φ(p^a)=p^a-p^{a-1}`. hence `Φ(p^a)=p^a(1-(1/p))`. Finally we can write that, `Φ(n)=Φ(p1^a)Φ(p2^b)Φ(p3^c)....Φ(pt^k)`, which implies `Φ(n)=p1^a(1-(1/p1))*p2^b(1-(1/p2))*p3^c(1-(1/p3)).....pt^k(1-(1/pt))`. and Finally we have **`Φ(n)=n*(1-(1/p1))*(1-(1/p2))*(1-(1/p3))*....(1-(1/pt))`**, where t is the number of distinct prime factors.</br>
+
+:slightly_smiling_face: `LCM(a, n)=(a*n)/GCD(a, n)`
 
 
 
