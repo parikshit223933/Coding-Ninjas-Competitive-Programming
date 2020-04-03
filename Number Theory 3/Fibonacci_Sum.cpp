@@ -40,6 +40,6 @@ inline ll fib(ll n)
 }
 inline unsigned long long fiboSum(unsigned long long m,unsigned long long n)
 {
-    return (fib(n + 2)%mod - fib(m + 1)%mod)%mod;
+    return (fib(n + 2)%mod - fib(m + 1)%mod+mod)%mod;
 }
 
