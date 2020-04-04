@@ -1,37 +1,31 @@
-#include<iostream>
+
+#include <iostream>
+#include<algorithm>
 using namespace std;
-int modExp(int a, int b, int c)
+int power(int x, unsigned int y, unsigned int m)
 {
-    if(a==0)
-    {
-        return 0;
-    }
-    if(b==0)
-    {
+    if (y == 0)
         return 1;
-    }
-    long ans;
-    if(b%2==0)//even
-    {
-        long small_ans=modExp(a, b/2, c);
-        ans=(small_ans*small_ans)%c;
-    }
-    else//odd
-    {
-        long small_ans=modExp(a, b-1, c);
-        ans=((a%c)*small_ans)%c;
-    }
-    return int((ans+c)%c);
+    int p = power(x, y / 2, m) % m;
+    p = (p * p) % m;
+
+    return (y % 2 == 0) ? p : (x * p) % m;
 }
-int a_inverse_mod_m(int a, int p)
+
+void modInverse(int a, int m)
 {
-    //it will be (a^(p-2))%p
-    //p should be prime
-    return modExp(a, p-2, p);
+    if (__gcd(a, m) != 1)
+        cout << "Inverse doesn't exist";
+
+    else
+    {
+        cout << "Modular multiplicative inverse is "
+             << power(a, m - 2, m);
+    }
 }
 int main()
 {
-    int a, p;
-    cin>>a>>p;
-    cout<<a_inverse_mod_m(a, p)<<endl;
+    int a = 3, m = 11;
+    modInverse(a, m);
+    return 0;
 }
