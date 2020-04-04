@@ -1,40 +1,39 @@
 #include<iostream>
-#include<vector>
+#include<algorithm>
 using namespace std;
-vector<int> prime_divisors(int n)
+int stickers(int *arr, int n, int m, int k)
 {
-    vector<int> v;
-    int x = n;
-    for (int i = 2; x != 1; i++)
+    if(n==0||m==0)
     {
-        if (x % i == 0)
-        {
-            v.push_back(i);
-            while (x % i == 0)
-            {
-                x = x / i;
-            }
-        }
+        return 0;
     }
-    if (v.empty())
+    if(k!=0)
     {
-        v.push_back(n);
+        int option1=arr[0]+stickers(arr, n, m-1, k-1);
+        int option2=arr[0]+stickers(arr+1, n-1, m-1, k);
+        int option3=stickers(arr+1, n-1, m, k);
+        return max(option1, max(option2, option3));
     }
-    return v;
+    else
+    {
+        int option1=stickers(arr+1, n-1, m, )
+    }
+    
 }
 int main()
 {
-    int t;
-    cin>>t;
-    while(t--)
-    {
-        int n;
-        cin>>n;
-        int *arr=new int [n+1];
-        bool *marked=new bool[n+1];
-        for(int i=0; i<=n; i++)
-        {
+    //n=number of stickers
+    //m=the number of times you can use stickers
+    //k=number of time i can use the same sticker in a row
 
-        }
+    int n, m, k;
+    cin>>n>>m>>k;
+    int n;
+    cin>>n;
+    int *arr=new int [n];
+    for(int i=0; i<n; i++)
+    {
+        cin>>arr[i];
     }
+    cout<<stickers(arr, n, m, k)<<endl;
 }
