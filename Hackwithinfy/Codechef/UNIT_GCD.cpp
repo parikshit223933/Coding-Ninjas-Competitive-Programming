@@ -1,33 +1,10 @@
 #include <iostream>
 #include <vector>
-#include<math.h>
-#include<algorithm>
+#include <math.h>
+#include <unordered_set>
+#include <algorithm>
 using namespace std;
-bool find(vector<int> v, int element)
-{
-    for (int i = 0; i < v.size(); i++)
-    {
-        if (v[i] == element)
-        {
-            return true;
-        }
-    }
-    return false;
-}
-bool have_any_element_in_common(vector<int> v1, vector<int> v2)
-{
-    bool ans = false;
-    ;
-    for (auto i : v1)
-    {
-        if (find(v2, i))
-        {
-            ans = true;
-            break;
-        }
-    }
-    return ans;
-}
+
 void makeSieve(int n)
 {
     bool *isprime = new bool[n + 1];
@@ -63,44 +40,54 @@ void makeSieve(int n)
         }
     }
     delete[] isprime;
-    for (int i = 2; i <= n; i++)
+    for (int i = 1; i <= n; i++)
     {
         if (marked[i])
         {
             continue;
         }
+        unordered_set<int> prime_set;
         vector<int> temp;
         temp.push_back(i);
-        if(i==2)//to adjust 1
+        for (auto prime : prime_factors[i])
         {
-            temp.push_back(1);
+            prime_set.insert(prime);
         }
-        marked[i] = true;
-        for (int j = i+1; j <= n; j++)
+        for (int j = i + 1; j <= n; j++)
         {
-            if(marked[j])
+            if (marked[j])
             {
                 continue;
             }
-            if (!have_any_element_in_common(prime_factors[i], prime_factors[j]))
+            bool checker = true;
+            for (auto prime : prime_factors[j])
+            {
+                if (prime_set.count(prime) != 0)
+                {
+                    checker = false;
+                }
+            }
+            if (checker)
             {
                 temp.push_back(j);
                 marked[j] = true;
+                for (auto prime : prime_factors[j])
+                {
+                    prime_set.insert(prime);
+                }
             }
         }
         ans.push_back(temp);
     }
-    int a=ans.size();
-    cout<<a<<endl;
+    cout << ans.size() << endl;
     for (auto i : ans)
     {
-        cout<<i.size()<<" ";
-        sort(i.begin(), i.end());
+        cout << i.size() << " ";
         for (auto j : i)
         {
-            cout<<j<<" ";
+            cout << j << " ";
         }
-        cout<<endl;
+        cout << endl;
     }
 }
 int main()
