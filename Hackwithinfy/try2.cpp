@@ -2,31 +2,32 @@
 #include <vector>
 #include <math.h>
 #define m 1000000007
+#define ll long long int
 #include <unordered_set>
 #include <algorithm>
 using namespace std;
 
-void makeSieve(int n)
+void makeSieve(ll n)
 {
     bool *isprime = new bool[n + 1];
-    for (int i = 0; i < n + 1; i++)
+    for (ll i = 0; i < n + 1; i++)
     {
         isprime[i] = true;
     }
     isprime[0] = false;
     isprime[1] = false;
-    for (int i = 2; i <= sqrt(n); i++)
+    for (ll i = 2; i <= sqrt(n); i++)
     {
         if (isprime[i])
-            for (int j = i; j * i <= n; j++)
+            for (ll j = i; j * i <= n; j++)
             {
                 isprime[j * i] = false;
             }
     }
-    vector<vector<int>>ans;
-    vector<int>primes;
+    vector<vector<ll>>ans;
+    vector<ll>primes;
     primes.push_back(1);
-    for(int i=2; i<=n; i++)
+    for(ll i=2; i<=n; i++)
     {
         if(isprime[i])
         {
@@ -34,16 +35,16 @@ void makeSieve(int n)
         }
     }
     ans.push_back(primes);
-    for(int i=4; i<=n; i+=2)
+    for(ll i=4; i<=n; i+=2)
     {
         if(isprime[i])
         {
             continue;
         }
-        vector<int>temp;
+        vector<ll>temp;
         temp.push_back(i);
-        int multiplied=i;
-        for(int j=i+1; j<=n; j+=2)
+        ll multiplied=i;
+        for(ll j=i+1; j<=n; j+=2)
         {
             if(!isprime[j]&&__gcd(multiplied, j)==1)
             {
@@ -68,11 +69,11 @@ void makeSieve(int n)
 
 int main()
 {
-    int t;
+    ll t;
     cin >> t;
     while (t--)
     {
-        int n;
+        ll n;
         cin >> n;
         makeSieve(n);
     }
