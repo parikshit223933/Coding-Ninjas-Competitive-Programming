@@ -4,6 +4,7 @@
         "unordered_set": "cpp",
         "stack": "cpp",
         "xlocale": "cpp",
-        "utility": "cpp"
+        "utility": "cpp",
+        "cstdlib": "cpp"
     }
 }
