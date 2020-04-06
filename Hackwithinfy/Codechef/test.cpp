@@ -1,66 +1,53 @@
-#include <bits/stdc++.h>
+#include<iostream>
+#define endl '\n'
+#define ll long long int
 using namespace std;
-#define error(x) cout << #x << " = " << x << endl;
-#define endl "\n"
-#define F first
-#define S second
-#define pb push_back
-#define mod 1000000007
-#define int long long int
-#define all(x) x.begin(), x.end()
-#define fast                     \
-    ios::sync_with_stdio(false); \
-    cin.tie(0)
-#define scan(arr, a, n)             \
-    for (int i = (a); i < (n); i++) \
-        cin >> (arr)[i];
-#define print(arr, a, n)            \
-    for (int i = (a); i < (n); i++) \
-        cout << (arr)[i] << " ";
-int a[100000];
-int l;
-bool check(int x)
+inline bool check_for_even(ll x)
 {
-    if (abs(x) % 2 == 1 || x == 0)
+    if (abs(x)% 2 == 1 || x == 0||abs(x) % 4 == 0)
+    {
         return true;
-    if (abs(x) % 4 == 0)
-        return true;
+    }
     return false;
 }
-int32_t main()
+
+ll count_subs(ll *arr, ll n)
 {
-#ifndef ONLINE_JUDGE
-    freopen("input.txt", "r", stdin);
-#endif
-    fast;
-    //  SieveOfEratosthenes();
-    int T;
-    cin >> T;
-    while (T--)
+    ll total_count=0;
+    for(ll i=0; i<n; i++)
     {
-        int n;
-        cin >> n;
-        int a[n];
-        scan(a, 0, n);
-        int mx = 0;
-        int count = 0;
-        for (int k = 0; k < n; k++)
+        if(check_for_even(arr[i]))
         {
-            //    if(a[k]==0)
-            //     continue;
-            if (check(a[k]))
-                count++;
-            int s = a[k];
-            for (int j = k + 1; j < n; j++)
+            total_count++;
+        }
+        ll current_element=arr[i];
+        for(ll j=i+1; j<n; j++)
+        {
+            current_element*=arr[j];
+            if(check_for_even(current_element))
             {
-                //     if(a[j]==0)
-                //      break;
-                s = s * a[j];
-                if (check(s))
-                    count++;
+                total_count++;
             }
         }
-        cout << count << '\n';
+    }
+    return total_count;
+}
+int main()
+{
+    ll t;
+    cin>>t;
+    
+    while(t--)
+    {
+        ll n;
+        cin>>n;
+        ll *arr=new ll [n];
+        for(ll i=0; i<n; i++)
+        {
+            cin>>arr[i];
+        }
+        cout<<count_subs(arr,n)<<endl;
+        delete[]arr;
     }
     return 0;
 }
