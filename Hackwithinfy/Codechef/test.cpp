@@ -10,7 +10,19 @@ int main()
     {
         int n, m, k;
         cin>>n>>m>>k;
-        vector<vector<int>>arr;
+        int **arr=new int* [n];
+        for(int i=0; i<n; i++)
+        {
+            arr[i]=new int [k];
+            for(int j=0; j<k; j++)
+            {
+                cin>>arr[i][j];
+            }
+        }
+
+
+
         
+
     }
 }
