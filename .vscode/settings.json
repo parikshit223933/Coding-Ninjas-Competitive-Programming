@@ -5,6 +5,7 @@
         "stack": "cpp",
         "xlocale": "cpp",
         "utility": "cpp",
-        "cstdlib": "cpp"
+        "cstdlib": "cpp",
+        "vector": "cpp"
     }
 }
