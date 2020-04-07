@@ -12,13 +12,13 @@ bool crosser(point p, point q, point r)
     int x2 = r.x - q.x;
     int y2 = r.y - q.y;
     int value = x1 * y2 - y1 * x2;
-    return value > 0; //will change only when the cross prod is greater than 0
+    return value < 0; //will change only when the cross prod is greater than 0
     //if the cross product is =0, then the points are colinear.
 }
 void convex_hull(point *points, int n)
 {
     vector<point> hull;
-    int left=0;
+    int left = 0;
     for (int i = 1; i < n; i++)
     {
         if (points[i].x < points[left].x)
@@ -43,7 +43,7 @@ void convex_hull(point *points, int n)
     } while (p != left);
     for (auto i : hull)
     {
-        cout << i.x << " " <<  i.y << endl;
+        cout << i.x << " " << i.y << endl;
     }
 }
 int main()
