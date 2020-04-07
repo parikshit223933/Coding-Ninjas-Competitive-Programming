@@ -103,6 +103,7 @@ This Repository Contains all my codes which I wrote during the competitive progr
 43. **Sachin and Varun Problem** in applications of number theory-1.
 44. **Card Game** in Applications of Number theory-1.
 45. **Segmented sieve problem** in number theory 2.
+46. **Warehouse** in Computaional Geometry.
 
 
 
