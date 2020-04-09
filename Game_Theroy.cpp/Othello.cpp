@@ -139,4 +139,12 @@ int main()
     board[2][2]=2;
     bool check=false;
     cout<<evaluate_board(board, check)<<endl;
+    for(int i=0; i<4; i++)
+    {
+        for(int j=0; j<4; j++)
+        {
+            cout<<board[i][j]<<" ";
+        }
+        cout<<endl;
+    }
 }
