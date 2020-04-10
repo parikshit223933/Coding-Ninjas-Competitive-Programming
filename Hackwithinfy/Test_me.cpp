@@ -21,10 +21,10 @@ void makeSieve()
     }
     isprime[0] = false;
     isprime[1] = false;
-    for (ll i = 2; i <= sqrt(MAX-1); i++)
+    for (ll i = 2; i <= sqrt(MAX - 1); i++)
     {
         if (isprime[i])
-            for (ll j = i; j * i <= MAX-1; j++)
+            for (ll j = i; j * i <= MAX - 1; j++)
             {
                 isprime[j * i] = false;
             }
@@ -36,7 +36,7 @@ void makeSieve()
     }
     delete[]isprime;
 }
-int calculateNoOFactors(ll n)
+ll calculateNoOFactors(ll n)
 {
     ll i = 0;
     while (n != 1)
@@ -53,7 +53,7 @@ int calculateNoOFactors(ll n)
     }
     return 1;
 }
-int happiness_quotient(vector<ll>* edges, ll n, ll* arr, ll start, ll end, unordered_map<ll, ll>&visited)
+ll happiness_quotient(vector<ll>* edges, ll n, ll* arr, ll start, ll end, unordered_map<ll, ll>& visited)
 {
     if (start == end)
     {
@@ -71,7 +71,7 @@ int happiness_quotient(vector<ll>* edges, ll n, ll* arr, ll start, ll end, unord
                 total_happiness = calculateNoOFactors(arr[start]) + forward_happiness;
             }
         }
-        
+
     }
     return total_happiness;
 }
@@ -79,7 +79,7 @@ int happiness_quotient(vector<ll>* edges, ll n, ll* arr, ll start, ll end, unord
 int main()
 {
     fast
-    makeSieve();
+        makeSieve();
     ll t;
     cin >> t;
     while (t--)
@@ -107,11 +107,11 @@ int main()
             visited.clear();
             ll u, v;
             cin >> u >> v;
-            ll a=happiness_quotient(edges, n, arr, u-1, v-1, visited);
+            ll a = happiness_quotient(edges, n, arr, u - 1, v - 1, visited);
             ll ans = 1;
             for (auto i : m)
             {
-                ans =(ans%mod* (i.second + 1)%mod)%mod;
+                ans = ((ans % mod) * ((i.second + 1) % mod)) % mod;
             }
             cout << ans << endl;
             m.clear();
