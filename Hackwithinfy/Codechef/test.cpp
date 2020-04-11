@@ -11,11 +11,17 @@ inline bool check_for_divisibility(ll x)
     }
     return false;
 }
-
 ll count_subs(ll* arr, ll n)
 {
     ll count=0;
-    
+    for(int i=0; i<n; i++)
+    {
+        if(arr[i]==0||arr[i]%4==0)
+        {
+            count+=n-i;
+        }
+        else if()
+    }
 }
 int main()
 {
