@@ -3,46 +3,39 @@
 #define int long long int
 #define fast ios_base::sync_with_stdio(false);cin.tie(0);
 using namespace std;
-int solve(int t, int m)
-{
-    auto initial_energy=1;
-    if(t<=m)
-    {
-        return 1;
-    }
-
-    if(t/m==1)
-    {
-        int run_the_loop_till=t%m;
-        int current_multiplier=run_the_loop_till;
-        while(current_multiplier!=0)
-        {
-            initial_energy=((initial_energy%m)*(current_multiplier%m));
-            current_multiplier--;
-        }
-        return (initial_energy*(m-1))%m;
-    }
-    else
-    {
-        int run_the_loop_till=t%m;
-        int current_multiplier=run_the_loop_till;
-        while(current_multiplier!=0)
-        {
-            initial_energy=initial_energy*current_multiplier;
-            current_multiplier--;
-        }
-        return initial_energy;
-    }
+long long fact(int a, int m){
+	long long res=1;
+	for(int i=2;i<=a;i++)
+		res=(res%m * i%m)%m;
+	return res;
 }
-int32_t main()
-{
+int32_t main(){
     fast
-    int n;
-    cin>>n;
-    while(n--)
-    {
-        int t, m;
-        cin>>t>>m;
-        cout<<solve(t, m)<<endl;
-    }
+	int n;
+	cin>>n;
+	while(n--){
+		int t;
+		int m;
+		cin>>t>>m;
+		if(t<m){
+			if(m-t==1){
+				cout<<1<<endl;
+				continue;
+			}
+			else{
+				cout<<fact(t, m)%m<<endl;
+				continue;
+			}
+		}
+		else{
+			int last = t%m;
+			int facto=fact(last, m)%m;
+
+			if((t/m)%2==0)
+				cout<<facto<<endl;
+			else
+				cout<<((m-1)%m*facto%m)%m<<endl;
+		}
+	}
+	return 0;
 }
