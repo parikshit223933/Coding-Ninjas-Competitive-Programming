@@ -6,6 +6,7 @@
         "xlocale": "cpp",
         "utility": "cpp",
         "cstdlib": "cpp",
-        "vector": "cpp"
+        "vector": "cpp",
+        "chrono": "cpp"
     }
 }
