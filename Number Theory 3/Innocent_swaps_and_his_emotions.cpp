@@ -1,8 +1,4 @@
-//https://www.hackerearth.com/practice/math/combinatorics/basics-of-combinatorics/practiceproblems/algorithm/innocent-swaps-and-his-emotions-1/description/
-/*
-Oasis Surana
-Delhi Technological University
-*/
+
 #include <iostream>
 #define endl '\n'
 #define fast                          \
