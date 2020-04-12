@@ -49,7 +49,9 @@ This Repository Contains all my codes which I wrote during the competitive progr
 1. If p is a prime number, then `(a^p)%p=a`.
 2. `a^p≡a` on the condition of %p, now dividing by a on both sides, we get `a^(p-1)≡1` on the condition of %p. hence **`a^(p-1)%p=1`**.
 3. Its application is in calculating mod inverse.
-4. If m is a prime number, then, `(a^(-1))%m=(a^(m-2))%m`.
+4. If m is a prime number, then, `(a^(-1))%m=(a^(m-2))%m`.</br>
+
+:slightly_smiling_face: Nth root of unity, `Wn=pow(e, (2*pi)/n)`. and also `pow(e, i(theta))=cos(theta)+i*Sin(theta)`
 
 
 
