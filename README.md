@@ -1,5 +1,6 @@
 # Coding-Ninjas-Competitive-Programming
-This Repository Contains all my codes which I wrote during the competitive programming course with <a href="https://www.codingninjas.com/">Coding Ninjas</a></br></br>
+This Repository Contains all my codes which I wrote during the competitive programming course with <a href="https://www.codingninjas.com/">Coding Ninjas</a></br>
+(PS: For some of the questions you may like to check out the commit history to know how did I proceed step by step for any particular question)</br>
 
 # Insights (In Hinglish)
 :slightly_smiling_face: Merge sort is better than selection sort</br>
