@@ -3,7 +3,7 @@
 #include <math.h>
 #include <iostream>
 #define endl '\n'
-#define int long long int
+#define int long long
 #define fast                          \
     ios_base::sync_with_stdio(false); \
     cin.tie(0)
@@ -17,10 +17,7 @@ vector<base> init_omega(int n)
     double angle = 2 * (PI / n);
     for (int i = 0; i < n; i++)
     {
-        base number;
-        number.real = cos(angle * i);
-        number.imag = sin(angle * i);
-        omega[i] = number;
+        omega[i] = base(cos(angle * i), sin(angle * i));
     }
     return omega;
 }
@@ -42,15 +39,26 @@ vector<base> fft(vector<base> &a, vector<base> omega)
     auto yeven = fft(aeven, omega);
     auto yodd = fft(aodd, omega);
     vector<base> y(n);
-    for (int i = 0; i < n / 2; i++)
+    for (int i = 0; i < half; i++)
     {
         y[i] = yeven[i] + omega[i] * yodd[i];
-        y[i + half] = yeven[i] / omega[i] * yodd[i];
+        y[i + half] = yeven[i] - omega[i] * yodd[i];
     }
     return y;
 }
 int32_t main()
 {
     fast;
+    vector<base> a;
+    a.push_back(1);
+    a.push_back(2);
+    a.push_back(3);
+    a.push_back(4);
+    vector<base> omega = init_omega(a.size());
+    vector<base> y = fft(a, omega);
+    for (int i = 0; i < y.size(); i++)
+    {
+        cout << y[i] << endl;
+    }
     return 0;
 }
