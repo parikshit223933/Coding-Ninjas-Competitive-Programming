@@ -13,7 +13,7 @@ using namespace std;
 vector<base> init_omega(int n)
 {
     vector<base> omega(n);
-    double PI = acos(1);
+    double PI = acos(-1);
     double angle = 2 * (PI / n);
     for (int i = 0; i < n; i++)
     {
