@@ -8,6 +8,7 @@
         "cstdlib": "cpp",
         "vector": "cpp",
         "chrono": "cpp",
-        "cmath": "cpp"
+        "cmath": "cpp",
+        "iostream": "cpp"
     }
 }
