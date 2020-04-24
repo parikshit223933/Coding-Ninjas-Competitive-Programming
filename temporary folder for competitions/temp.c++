@@ -1,57 +1,65 @@
 #include <iostream>
+#include <unordered_map>
 #include <algorithm>
+#include <iterator>
+#include <vector>
 #define endl '\n'
 #define fast                          \
     ios_base::sync_with_stdio(false); \
     cin.tie(NULL);
 using namespace std;
-void printer(int *arr, int n, int element)
+bool checker(string s, int n, int m)
 {
-    int temp = 0;
-    while (arr[temp] != element && temp < n)
+    unordered_map<char, int> map;
+    for (int i = 0; i < n; i++)
     {
-        temp++;
+        map[s[i]]++;
     }
-    int i = temp;
-    int maximum_length = 0;
-    while (i < n)
+    vector<int> v;
+    for (unordered_map<char, int>::iterator itr = map.begin(); itr != map.end(); itr++)
     {
-        int j = i;
-        while (arr[j] == element && j < n)
+        v.push_back(itr->second);
+    }
+    sort(v.begin(), v.end(), greater<int>());
+    for (int i = 0; i < v.size(); i++)
+    {
+        if (m <= v[i])
         {
-            j++;
+            return true;
         }
-        maximum_length = max(maximum_length, j - i);
-        i = j;
-        while (arr[i] != element && i < n)
+        else
         {
-            i++;
+            if (v[i] % 2 == 0)
+                m -= v[i];
+            else if(v[i]==1)
+                continue;
+            else
+                m-=v[i];
         }
     }
-    cout << maximum_length;
+    if (m > 0)
+    {
+        return false;
+    }
+    return true;
 }
 int main()
 {
-    fast int n;
-    cin >> n;
-    int *arr = new int[n];
-    for (int i = 0; i < n; i++)
+    fast int t;
+    cin >> t;
+    while (t--)
     {
+        int n, m;
+        cin >> n >> m;
         string s;
         cin >> s;
-        if (s == "Heads")
+        if (checker(s, n, m))
         {
-            arr[i] = 1;
+            cout << "Yes" << endl;
         }
-        else //tails
+        else
         {
-            arr[i] = 0;
+            cout << "No" << endl;
         }
-        /* 0==tails, 1==heads */
     }
-    printer(arr, n, 1);
-    cout << " ";
-    printer(arr, n, 0);
-    cout << endl;
-    return 0;
 }
