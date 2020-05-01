@@ -1,67 +1,48 @@
 /* #include <iostream>
+#include <unordered_map>
 #include <vector>
-#include<limits.h>
+#include <limits.h>
 #include <algorithm>
 #define endl '\n'
 #define fast                          \
     ios_base::sync_with_stdio(false); \
     cin.tie(NULL);
 using namespace std;
-void find_answer(int* arr, int n)
+int find_in_queue(string s, int n, int c, unordered_map<char, int> m)
 {
-    vector<vector<int>> final_vector;
-    vector<int> temp;
-    for (int i = 1; i < n; i++)
+
+    int total_in_queue = 0;
+    for (auto i : m)
     {
-        int distance = arr[i] - arr[i - 1];
-        if (distance <= 2)
+        if (i.second > c)
         {
-            temp.push_back(arr[i-1]);
-        }
-        else
-        {
-            temp.push_back(arr[i-1]);
-            final_vector.push_back(temp);
-            temp.clear();
+            total_in_queue += i.second - c;
         }
     }
-    if (arr[n - 1] - arr[n - 2] <= 2)
-    {
-        temp.push_back(arr[n - 1]);
-    }
-    if (temp.size() != 0)
-    {
-        final_vector.push_back(temp);
-    }
-    else
-    {
-        temp.push_back(arr[n - 1]);
-        final_vector.push_back(temp);
-    }
-    int minimum=INT_MAX;
-    int maximum=INT_MIN;
-    for(int i=0; i<final_vector.size(); i++)
-    {
-        maximum=max(maximum, (int)final_vector[i].size());
-        minimum=min(minimum, (int)final_vector[i].size());
-    }
-    cout<<minimum<<" "<<maximum<<endl;
+    return total_in_queue;
 }
 int main()
 {
     fast;
-    int t;
+    int t; //number of test cases
     cin >> t;
     while (t--)
     {
-        int n;
-        cin >> n;
-        int* arr = new int[n];
-        for (int i = 0; i < n; i++)
+        int n; //number of people
+        int q; //number of queries
+        cin >> n >> q;
+        string s; //diseases -> n sized -> for n people
+        cin >> s;
+        unordered_map<char, int> m;
+        for (auto i : s)
         {
-            cin >> arr[i];
+            m[i]++;
         }
-        sort(arr, arr + n);
-        find_answer(arr, n);
+        while (q--)
+        {
+            int c; //number of available isolation centres
+            cin >> c;
+            cout << find_in_queue(s, n, c, m) << endl;
+        }
     }
 } */
