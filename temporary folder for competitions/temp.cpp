@@ -13,7 +13,7 @@ struct triplet
 {
     int a, b, c;
 };
-void right_shift(int* arr, int left, int mid, int right)
+void right_shift(int *arr, int left, int mid, int right)
 {
     int temp_left = arr[left];
     int temp_mid = arr[mid];
@@ -23,15 +23,15 @@ void right_shift(int* arr, int left, int mid, int right)
     arr[mid] = temp_left;
     arr[right] = temp_mid;
 }
-void performer(int* arr, int n, int k)
+void performer(int *arr, int n, int k)
 {
-    int* arr2 = new int[n];
+    int *arr2 = new int[n];
     for (int i = 0; i < n; i++)
     {
         arr2[i] = arr[i];
     }
     sort(arr2, arr2 + n); //sorted
-    bool* boolean = new bool[n];
+    bool *boolean = new bool[n];
     for (int i = 0; i < n; i++)
     {
         if (arr[i] != arr2[i])
@@ -74,7 +74,7 @@ void performer(int* arr, int n, int k)
         }
 
         int right = -1;
-        for (int i = n - 1; i >= mid+1; i--)
+        for (int i = n - 1; i >= mid + 1; i--)
         {
             if (boolean[i])
             {
@@ -92,8 +92,8 @@ void performer(int* arr, int n, int k)
                 break;
             }
         }
-        
-        if (left == -1 || right == -1 || mid == -1)
+
+        if (left < 0 || right < 0 || mid < 0 || left >= n || right >= n || mid >= n)
         {
             cout << -1 << endl;
             return;
@@ -147,7 +147,7 @@ int main()
         int n;
         int k;
         cin >> n >> k;
-        int* arr = new int[n];
+        int *arr = new int[n];
         for (int i = 0; i < n; i++)
         {
             cin >> arr[i];
