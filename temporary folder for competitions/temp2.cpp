@@ -93,9 +93,49 @@ struct string_pleasure
     string s;
     int b;
 };
+void GetAllSubstrings(string s, int n, vector<string>&substrings)  
+{ 
+    /* 
+     * Fix start index in outer loop. 
+     * Reveal new character in inner loop till end of string. 
+     * Print till-now-formed string. 
+     */
+    for (int i = 0; i < n; i++) 
+    { 
+        char *temp=new char [n - i + 1]; 
+        int tempindex = 0; 
+        for (int j = i; j < n; j++) 
+        { 
+            temp[tempindex++] = s[j]; 
+            temp[tempindex] = '\0'; 
+            substrings.push_back(temp);
+        }
+        delete[]temp;
+    }
+    substrings.push_back("");
+} 
 int maximum_pleasure(string_pleasure *arr, int n, string a, string b)
 {
-    
+    vector<string>a_substrings;
+    vector<string>b_substrings;
+    GetAllSubstrings(a, a.length(), a_substrings);
+    GetAllSubstrings(b, b.length(), b_substrings);
+    int max_pleasure=INT_MIN;
+    for(auto i:a_substrings)
+    {
+        for(auto j:b_substrings)
+        {
+            string c=i+j;
+            int pleasure=0;
+            for(int k=0; k<n; k++)
+            {
+                int cnti=KMPSearch(arr[k].s, c);
+                pleasure+=cnti*arr[k].b;
+            }
+            max_pleasure=max(max_pleasure, pleasure);
+        }
+    }
+    return max_pleasure;
 }
 int32_t main()
 {
