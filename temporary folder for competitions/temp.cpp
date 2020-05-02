@@ -52,7 +52,6 @@ void performer(int* arr, int n, int k)
             if (boolean[i])
             {
                 check_in_boolean = true;
-                break;
             }
         }
         if (!check_in_boolean)
@@ -61,7 +60,7 @@ void performer(int* arr, int n, int k)
         }
 
         int maximum_element = INT_MIN;
-        int mid = 0;
+        int mid = -1;
         for (int i = 0; i < n; i++)
         {
             if (boolean[i])
@@ -74,8 +73,8 @@ void performer(int* arr, int n, int k)
             }
         }
 
-        int right = n - 1;
-        for (int i = n - 1; i >= 0; i--)
+        int right = -1;
+        for (int i = n - 1; i >= mid+1; i--)
         {
             if (boolean[i])
             {
@@ -84,17 +83,17 @@ void performer(int* arr, int n, int k)
             }
         }
 
-        int left = mid;
-        int itr=0;
-        for (int itr = mid - 1; itr >= 0; itr--)
+        int left = -1;
+        for (int i = mid - 1; i >= 0; i--)
         {
-            if (boolean[itr])
+            if (boolean[i])
             {
-                left = itr;
+                left = i;
                 break;
             }
         }
-        if (itr < 0)
+        
+        if (left == -1 || right == -1 || mid == -1)
         {
             cout << -1 << endl;
             return;
@@ -135,7 +134,7 @@ void performer(int* arr, int n, int k)
     cout << ans.size() << endl;
     for (auto i : ans)
     {
-        cout << i.a+1 << " " << i.b + 1 << " " << i.c + 1 << endl;
+        cout << i.a + 1 << " " << i.b + 1 << " " << i.c + 1 << endl;
     }
 }
 int main()
