@@ -2,6 +2,6 @@
 using namespace std;
 int main()
 {
-    unsigned long long a=1<<31;
-    cout<<a;
+    cout<<(12&(1<<2));
+
 }

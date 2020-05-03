@@ -5,16 +5,15 @@
     ios_base::sync_with_stdio(false); \
     cin.tie(NULL);
 #define endl '\n'
-#define int unsigned long long int
 using namespace std;
-int z_value(int x, int y, int l, int r)
+unsigned long long int z_value(int x, int y, unsigned long long int l, unsigned long long int r)
 {
-    int z = 0;
-    for (int32_t i = 31; i >= 0; i--)
+    unsigned long long int z = 0;
+    for (int i = 31; i >= 0; i--)
     {
         if (((x & (1 << i)) == 1) && ((y & (1 << i)) == 1))
         {
-            int new_potential_number = z | (1 << i);
+            unsigned long long int new_potential_number = z | (1 << i);
             if (new_potential_number >= l && new_potential_number <= r)
             {
                 z = new_potential_number;
@@ -28,7 +27,7 @@ int z_value(int x, int y, int l, int r)
             }
             else
             {
-                int new_potential_number = z | (1 << i);
+                unsigned long long int new_potential_number = z | (1 << i);
                 if (new_potential_number >= l && new_potential_number <= r)
                 {
                     z = new_potential_number;
@@ -39,7 +38,7 @@ int z_value(int x, int y, int l, int r)
         {
             if (x > y)
             {
-                int new_potential_number = z | (1 << i);
+                unsigned long long int new_potential_number = z | (1 << i);
                 if (new_potential_number >= l && new_potential_number <= r)
                 {
                     z = new_potential_number;
@@ -57,14 +56,15 @@ int z_value(int x, int y, int l, int r)
     }
     return z;
 }
-int32_t main()
+int main()
 {
     fast;
     int t;
     cin >> t;
     while (t--)
     {
-        int x, y, l, r;
+        int x, y;
+        unsigned long long int l, r;
         cin >> x >> y >> l >> r;
         cout << z_value(x, y, l, r) << endl;
     }
