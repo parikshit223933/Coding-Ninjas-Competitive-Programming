@@ -21,38 +21,28 @@ unsigned long long int z_value(int x, int y, unsigned long long int l, unsigned 
         }
         else if (((x & (1 << i)) == 0) && ((y & (1 << i)) != 0))
         {
-            if (x > y)
+            unsigned long long int new_potential_number = z | (1 << i);
+            if (new_potential_number >= l && new_potential_number <= r)
             {
-                continue;
-            }
-            else
-            {
-                unsigned long long int new_potential_number = z | (1 << i);
-                if (new_potential_number >= l && new_potential_number <= r)
-                {
-                    z = new_potential_number;
-                }
+                z = new_potential_number;
             }
         }
         else if (((x & (1 << i)) != 0) && ((y & (1 << i)) == 0))
         {
-            if (x > y)
+            unsigned long long int new_potential_number = z | (1 << i);
+            if (new_potential_number >= l && new_potential_number <= r)
             {
-                unsigned long long int new_potential_number = z | (1 << i);
-                if (new_potential_number >= l && new_potential_number <= r)
-                {
-                    z = new_potential_number;
-                }
-            }
-            else
-            {
-                continue;
+                z = new_potential_number;
             }
         }
         else if (((x & (1 << i)) == 0) && ((y & (1 << i)) == 0))
         {
             continue;
         }
+    }
+    if((z&x)==0||(z&y)==0)
+    {
+        return z_value(x, y, l, r-1);
     }
     return z;
 }

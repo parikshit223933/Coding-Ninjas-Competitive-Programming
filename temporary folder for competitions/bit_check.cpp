@@ -1,7 +1,6 @@
-#include<iostream>
+#include <iostream>
 using namespace std;
 int main()
 {
-    cout<<(12&(1<<2));
-
+    cout << (8 & 7) * (8 & 12) << endl;
 }
