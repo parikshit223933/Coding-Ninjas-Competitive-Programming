@@ -11,7 +11,7 @@ unsigned long long int z_value(int x, int y, unsigned long long int l, unsigned 
     unsigned long long int z = 0;
     for (int i = 31; i >= 0; i--)
     {
-        if (((x & (1 << i)) == 1) && ((y & (1 << i)) == 1))
+        if (((x & (1 << i)) != 0) && ((y & (1 << i)) != 0))
         {
             unsigned long long int new_potential_number = z | (1 << i);
             if (new_potential_number >= l && new_potential_number <= r)
@@ -19,7 +19,7 @@ unsigned long long int z_value(int x, int y, unsigned long long int l, unsigned 
                 z = new_potential_number;
             }
         }
-        else if (((x & (1 << i)) == 0) && ((y & (1 << i)) == 1))
+        else if (((x & (1 << i)) == 0) && ((y & (1 << i)) != 0))
         {
             if (x > y)
             {
@@ -34,7 +34,7 @@ unsigned long long int z_value(int x, int y, unsigned long long int l, unsigned 
                 }
             }
         }
-        else if (((x & (1 << i)) == 1) && ((y & (1 << i)) == 0))
+        else if (((x & (1 << i)) != 0) && ((y & (1 << i)) == 0))
         {
             if (x > y)
             {
