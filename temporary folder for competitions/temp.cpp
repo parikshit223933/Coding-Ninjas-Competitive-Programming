@@ -9,28 +9,27 @@
     cin.tie(NULL);
 #define endl '\n'
 using namespace std;
+vector<pair<char, int>> ans;
 struct bots
 {
     int index;
     char direction;
 };
-bool arr_is_empty(int** arr, int n)
+bool arr_is_empty(int **arr, int n)
 {
-    bool check = true;
     for (int i = 0; i < n; i++)
     {
-        for (int j = 0; i < n; j++)
+        for (int j = 0; j < n; j++)
         {
             if (arr[i][j] != 0)
             {
-                check = false;
-                return check;
+                return false;
             }
         }
     }
     return true;
 }
-void create_backup(int** backup_array, int** arr, int n)
+void create_backup(int **backup_array, int **arr, int n)
 {
     for (int i = 0; i < n; i++)
     {
@@ -40,7 +39,7 @@ void create_backup(int** backup_array, int** arr, int n)
         }
     }
 }
-void restore_original_array(int** arr, int** backup_array, int n)
+void restore_original_array(int **arr, int **backup_array, int n)
 {
     for (int i = 0; i < n; i++)
     {
@@ -51,76 +50,76 @@ void restore_original_array(int** arr, int** backup_array, int n)
     }
     for (int i = 0; i < n; i++)
     {
-        delete[]backup_array[i];
+        delete[] backup_array[i];
     }
-    delete[]backup_array;
+    delete[] backup_array;
 }
-void fire(int** arr, int n, bots way, int f)
+void fire(int **arr, int n, bots way, int f)
 {
     char dir = way.direction;
     int idx = way.index;
     if (dir == 'L')
     {
-    for (int i = 0; i < n; i++)
-    {
-        if (arr[idx][i] <= f)
+        for (int i = 0; i < n; i++)
         {
-            f -= arr[idx][i];
-            arr[idx][i] = 0;
+            if (arr[idx][i] <= f)
+            {
+                f -= arr[idx][i];
+                arr[idx][i] = 0;
+            }
+            else
+            {
+                return;
+            }
         }
-        else
-        {
-            return;
-        }
-    }
     }
     else if (dir == 'R')
     {
-    for (int i = n - 1; i >= 0; i--)
-    {
-        if (arr[idx][i] <= f)
+        for (int i = n - 1; i >= 0; i--)
         {
-            f -= arr[idx][i];
-            arr[idx][i] = 0;
+            if (arr[idx][i] <= f)
+            {
+                f -= arr[idx][i];
+                arr[idx][i] = 0;
+            }
+            else
+            {
+                return;
+            }
         }
-        else
-        {
-            return;
-        }
-    }
     }
     else if (dir == 'U')
     {
-    for (int i = 0; i < n; i++)
-    {
-        if (arr[i][idx] <= f)
+        for (int i = 0; i < n; i++)
         {
-            f -= arr[i][idx];
-            arr[i][idx] = 0;
+            if (arr[i][idx] <= f)
+            {
+                f -= arr[i][idx];
+                arr[i][idx] = 0;
+            }
+            else
+            {
+                return;
+            }
         }
-        else
-        {
-            return;
-        }
-    }
     }
     else if (dir == 'D')
     {
-    for (int i = n - 1; i >= 0; i--)
-    {
-        if (arr[i][idx] <= f)
+        for (int i = n - 1; i >= 0; i--)
         {
-            f -= arr[i][idx];
-            arr[i][idx] = 0;
+            if (arr[i][idx] <= f)
+            {
+                f -= arr[i][idx];
+                arr[i][idx] = 0;
+            }
+            else
+            {
+                return;
+            }
         }
-        else
-        {
-            return;
-        }
-    }
     }
 }
-bool no_virus_is_there_in_that_line(int** arr, int n, bots way)
+bool no_virus_is_there_in_that_line(int **arr, int n, bots way)
 {
     char dir = way.direction;
     int idx = way.index;
@@ -166,7 +165,8 @@ bool no_virus_is_there_in_that_line(int** arr, int n, bots way)
     }
     return true;
 }
-bool shots(int** arr, int n, int k, int f, bots* ways)
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+bool shots(int **arr, int n, int k, int f, bots *ways)
 {
     if ((!arr_is_empty(arr, n) && k <= 0) || (k < 0))
     {
@@ -182,15 +182,19 @@ bool shots(int** arr, int n, int k, int f, bots* ways)
         {
             continue;
         }
-        int** backup_array = new int* [n];
-        for (int i = 0; i < n; i++)
+        /* creating a backup */
+        int **backup_array = new int *[n];
+        for (int j = 0; j < n; j++)
         {
-            backup_array[i] = new int[n];
+            backup_array[j] = new int[n];
         }
         create_backup(backup_array, arr, n);
+        /* firing the laser */
         fire(arr, n, ways[i], f);
+        /* asking recursion for the answer ahead */
         if (shots(arr, n, k - 1, f, ways))
         {
+            ans.push_back(make_pair(ways[i].direction, ways[i].index));
             return true;
         }
         else
@@ -201,25 +205,37 @@ bool shots(int** arr, int n, int k, int f, bots* ways)
     }
     return false;
 }
-void solver(int** arr, int n, int k, int f)
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+void solver(int **arr, int n, int k, int f)
 {
-    bots* ways = new bots[4 * n];
+    bots *ways = new bots[4 * n];
     for (int i = 0; i < n; i++)
     {
-        for (auto dir : { 'L', 'R', 'U', 'D' })
+        for (auto dir : {'L', 'R', 'U', 'D'})
         {
             ways[i].direction = dir;
             ways[i].index = i;
         }
     }
     int number_of_shots = shots(arr, n, k, f, ways);
-    cout << shots(arr, n, k, f, ways) << endl;
+    if (shots(arr, n, k, f, ways))
+    {
+        cout << ans.size() << endl;
+        for (auto i : ans)
+        {
+            cout << i.first << " " << i.second + 1 << endl;
+        }
+    }
+    else
+    {
+        cout << -1 << endl;
+    }
 }
 int main()
 {
     int n, f;
     cin >> n >> f;
-    int** arr = new int* [n];
+    int **arr = new int *[n];
     for (int i = 0; i < n; i++)
     {
         arr[i] = new int[n];
