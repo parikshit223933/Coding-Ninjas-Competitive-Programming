@@ -48,11 +48,6 @@ void restore_original_array(int **arr, int **backup_array, int n)
             arr[i][j] = backup_array[i][j];
         }
     }
-    for (int i = 0; i < n; i++)
-    {
-        delete[] backup_array[i];
-    }
-    delete[] backup_array;
 }
 void fire(int **arr, int n, bots way, int f)
 {
@@ -176,6 +171,11 @@ bool shots(int **arr, int n, int k, int f, bots *ways)
     {
         return true;
     }
+    int **backup_array = new int *[n];
+    for (int j = 0; j < n; j++)
+    {
+        backup_array[j] = new int[n];
+    }
     for (int i = 0; i < 4 * n; i++)
     {
         if (no_virus_is_there_in_that_line(arr, n, ways[i]))
@@ -183,11 +183,6 @@ bool shots(int **arr, int n, int k, int f, bots *ways)
             continue;
         }
         /* creating a backup */
-        int **backup_array = new int *[n];
-        for (int j = 0; j < n; j++)
-        {
-            backup_array[j] = new int[n];
-        }
         create_backup(backup_array, arr, n);
         /* firing the laser */
         fire(arr, n, ways[i], f);
@@ -203,6 +198,11 @@ bool shots(int **arr, int n, int k, int f, bots *ways)
             continue;
         }
     }
+    for (int i = 0; i < n; i++)
+    {
+        delete[] backup_array[i];
+    }
+    delete[] backup_array;
     return false;
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -217,7 +217,6 @@ void solver(int **arr, int n, int k, int f)
             ways[i].index = i;
         }
     }
-    int number_of_shots = shots(arr, n, k, f, ways);
     if (shots(arr, n, k, f, ways))
     {
         cout << ans.size() << endl;
