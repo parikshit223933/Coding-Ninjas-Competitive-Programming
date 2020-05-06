@@ -1,15 +1,16 @@
 #include <algorithm>
 #include <iostream>
 #include <utility>
+#include <iterator>
 #include <limits.h>
 #include <vector>
-#include <unordered_map>
 #define fast                          \
     ios_base::sync_with_stdio(false); \
     cin.tie(NULL);
 #define endl '\n'
 using namespace std;
 vector<pair<char, int>> ans;
+int complete_sum_of_array = 0;
 struct bots
 {
     int index;
@@ -17,17 +18,9 @@ struct bots
 };
 bool arr_is_empty(int **arr, int n)
 {
-    for (int i = 0; i < n; i++)
-    {
-        for (int j = 0; j < n; j++)
-        {
-            if (arr[i][j] != 0)
-            {
-                return false;
-            }
-        }
-    }
-    return true;
+    if (complete_sum_of_array == 0)
+        return true;
+    return false;
 }
 void create_backup(int **backup_array, int **arr, int n)
 {
@@ -41,13 +34,16 @@ void create_backup(int **backup_array, int **arr, int n)
 }
 void restore_original_array(int **arr, int **backup_array, int n)
 {
+    int old_sum = 0;
     for (int i = 0; i < n; i++)
     {
         for (int j = 0; j < n; j++)
         {
             arr[i][j] = backup_array[i][j];
+            old_sum += arr[i][j];
         }
     }
+    complete_sum_of_array = old_sum;
 }
 void fire(int **arr, int n, bots way, int f)
 {
@@ -60,6 +56,7 @@ void fire(int **arr, int n, bots way, int f)
             if (arr[idx][i] <= f)
             {
                 f -= arr[idx][i];
+                complete_sum_of_array -= arr[idx][i];
                 arr[idx][i] = 0;
             }
             else
@@ -75,6 +72,7 @@ void fire(int **arr, int n, bots way, int f)
             if (arr[idx][i] <= f)
             {
                 f -= arr[idx][i];
+                complete_sum_of_array -= arr[idx][i];
                 arr[idx][i] = 0;
             }
             else
@@ -90,6 +88,7 @@ void fire(int **arr, int n, bots way, int f)
             if (arr[i][idx] <= f)
             {
                 f -= arr[i][idx];
+                complete_sum_of_array -= arr[i][idx];
                 arr[i][idx] = 0;
             }
             else
@@ -105,6 +104,7 @@ void fire(int **arr, int n, bots way, int f)
             if (arr[i][idx] <= f)
             {
                 f -= arr[i][idx];
+                complete_sum_of_array -= arr[i][idx];
                 arr[i][idx] = 0;
             }
             else
@@ -161,7 +161,7 @@ bool no_virus_is_there_in_that_line(int **arr, int n, bots way)
     return true;
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-bool shots(int **arr, int n, int k, int f, bots *ways)
+bool shots(int **arr, int n, int k, int f, vector<bots> &ways)
 {
     if ((!arr_is_empty(arr, n) && k <= 0) || (k < 0))
     {
@@ -208,30 +208,38 @@ bool shots(int **arr, int n, int k, int f, bots *ways)
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void solver(int **arr, int n, int k, int f)
 {
-    bots *ways = new bots[4 * n];
+    vector<bots> ways;
     for (int i = 0; i < n; i++)
     {
         for (auto dir : {'L', 'R', 'U', 'D'})
         {
-            ways[i].direction = dir;
-            ways[i].index = i;
+            bots b;
+            b.direction = dir;
+            b.index = i;
+            ways.push_back(b);
         }
     }
     if (shots(arr, n, k, f, ways))
     {
         cout << ans.size() << endl;
-        for (auto i : ans)
+        for (int i = ans.size() - 1; i >= 0; i--)
         {
-            cout << i.first << " " << i.second + 1 << endl;
+            cout << ans[i].first << " " << ans[i].second + 1 << endl;
         }
     }
     else
     {
         cout << -1 << endl;
     }
+    for (int i = 0; i < n; i++)
+    {
+        delete[] arr[i];
+    }
+    delete[] arr;
 }
 int main()
 {
+    fast;
     int n, f;
     cin >> n >> f;
     int **arr = new int *[n];
@@ -241,6 +249,7 @@ int main()
         for (int j = 0; j < n; j++)
         {
             cin >> arr[i][j];
+            complete_sum_of_array += arr[i][j];
         }
     }
     int k;
