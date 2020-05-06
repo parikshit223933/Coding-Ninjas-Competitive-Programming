@@ -4,7 +4,6 @@
 #include <limits.h>
 #include <vector>
 #include <unordered_map>
-#define int long long int
 #define fast                          \
     ios_base::sync_with_stdio(false); \
     cin.tie(NULL);
@@ -15,20 +14,7 @@ struct bots
     int index;
     char direction;
 };
-bool all_visited(bool *visited, int n)
-{
-    bool check = true;
-    for (int i = 0; i < n; i++)
-    {
-        if (visited[i] = false)
-        {
-            check = false;
-            return check;
-        }
-    }
-    return check;
-}
-bool arr_is_empty(int **arr, int n)
+bool arr_is_empty(int** arr, int n)
 {
     bool check = true;
     for (int i = 0; i < n; i++)
@@ -44,20 +30,17 @@ bool arr_is_empty(int **arr, int n)
     }
     return true;
 }
-int **create_backup(int **backup_array, int **arr, int n)
+void create_backup(int** backup_array, int** arr, int n)
 {
-    backup_array = new int *[n];
     for (int i = 0; i < n; i++)
     {
-        backup_array[i] = new int[n];
-        for (int j = 0; i < n; j++)
+        for (int j = 0; j < n; j++)
         {
             backup_array[i][j] = arr[i][j];
         }
     }
-    return backup_array;
 }
-void restore_original_array(int **arr, int **backup_array, int n)
+void restore_original_array(int** arr, int** backup_array, int n)
 {
     for (int i = 0; i < n; i++)
     {
@@ -66,8 +49,78 @@ void restore_original_array(int **arr, int **backup_array, int n)
             arr[i][j] = backup_array[i][j];
         }
     }
+    for (int i = 0; i < n; i++)
+    {
+        delete[]backup_array[i];
+    }
+    delete[]backup_array;
 }
-void fire(int **arr, int n, bots way, int f)
+void fire(int** arr, int n, bots way, int f)
+{
+    char dir = way.direction;
+    int idx = way.index;
+    if (dir == 'L')
+    {
+    for (int i = 0; i < n; i++)
+    {
+        if (arr[idx][i] <= f)
+        {
+            f -= arr[idx][i];
+            arr[idx][i] = 0;
+        }
+        else
+        {
+            return;
+        }
+    }
+    }
+    else if (dir == 'R')
+    {
+    for (int i = n - 1; i >= 0; i--)
+    {
+        if (arr[idx][i] <= f)
+        {
+            f -= arr[idx][i];
+            arr[idx][i] = 0;
+        }
+        else
+        {
+            return;
+        }
+    }
+    }
+    else if (dir == 'U')
+    {
+    for (int i = 0; i < n; i++)
+    {
+        if (arr[i][idx] <= f)
+        {
+            f -= arr[i][idx];
+            arr[i][idx] = 0;
+        }
+        else
+        {
+            return;
+        }
+    }
+    }
+    else if (dir == 'D')
+    {
+    for (int i = n - 1; i >= 0; i--)
+    {
+        if (arr[i][idx] <= f)
+        {
+            f -= arr[i][idx];
+            arr[i][idx] = 0;
+        }
+        else
+        {
+            return;
+        }
+    }
+    }
+}
+bool no_virus_is_there_in_that_line(int** arr, int n, bots way)
 {
     char dir = way.direction;
     int idx = way.index;
@@ -75,64 +128,45 @@ void fire(int **arr, int n, bots way, int f)
     {
         for (int i = 0; i < n; i++)
         {
-            if (arr[idx][i] <= f)
+            if (arr[idx][i] != 0)
             {
-                f -= arr[idx][i];
-                arr[idx][i] = 0;
-            }
-            else
-            {
-                return;
+                return false;
             }
         }
     }
-    if (dir == 'R')
+    else if (dir == 'R')
     {
         for (int i = n - 1; i >= 0; i--)
         {
-            if (arr[idx][i] <= f)
+            if (arr[idx][i] != 0)
             {
-                f -= arr[idx][i];
-                arr[idx][i] = 0;
-            }
-            else
-            {
-                return;
+                return false;
             }
         }
     }
-    if (dir == 'U')
+    else if (dir == 'U')
     {
-        for (int i = 0; i <n; i++)
+        for (int i = 0; i < n; i++)
         {
-            if (arr[i][idx] <= f)
+            if (arr[i][idx] != 0)
             {
-                f -= arr[i][idx];
-                arr[i][idx] = 0;
-            }
-            else
-            {
-                return;
+                return false;
             }
         }
     }
-    if (dir == 'D')
+    else if (dir == 'D')
     {
         for (int i = n - 1; i >= 0; i--)
         {
-            if (arr[i][idx] <= f)
+            if (arr[i][idx] != 0)
             {
-                f -= arr[i][idx];
-                arr[i][idx] = 0;
-            }
-            else
-            {
-                return;
+                return false;
             }
         }
     }
+    return true;
 }
-bool shots(int **arr, int n, int k, int f, bots *ways)
+bool shots(int** arr, int n, int k, int f, bots* ways)
 {
     if ((!arr_is_empty(arr, n) && k <= 0) || (k < 0))
     {
@@ -144,10 +178,18 @@ bool shots(int **arr, int n, int k, int f, bots *ways)
     }
     for (int i = 0; i < 4 * n; i++)
     {
-        int **backup_array;
-        backup_array = create_backup(backup_array, arr, n);
+        if (no_virus_is_there_in_that_line(arr, n, ways[i]))
+        {
+            continue;
+        }
+        int** backup_array = new int* [n];
+        for (int i = 0; i < n; i++)
+        {
+            backup_array[i] = new int[n];
+        }
+        create_backup(backup_array, arr, n);
         fire(arr, n, ways[i], f);
-        if (shots(arr, n, k, f, ways))
+        if (shots(arr, n, k - 1, f, ways))
         {
             return true;
         }
@@ -157,13 +199,14 @@ bool shots(int **arr, int n, int k, int f, bots *ways)
             continue;
         }
     }
+    return false;
 }
-void solver(int **arr, int n, int k, int f)
+void solver(int** arr, int n, int k, int f)
 {
-    bots *ways = new bots[4 * n];
+    bots* ways = new bots[4 * n];
     for (int i = 0; i < n; i++)
     {
-        for (auto dir : {'L', 'R', 'U', 'D'})
+        for (auto dir : { 'L', 'R', 'U', 'D' })
         {
             ways[i].direction = dir;
             ways[i].index = i;
@@ -172,11 +215,11 @@ void solver(int **arr, int n, int k, int f)
     int number_of_shots = shots(arr, n, k, f, ways);
     cout << shots(arr, n, k, f, ways) << endl;
 }
-int32_t main()
+int main()
 {
     int n, f;
     cin >> n >> f;
-    int **arr = new int *[n];
+    int** arr = new int* [n];
     for (int i = 0; i < n; i++)
     {
         arr[i] = new int[n];
