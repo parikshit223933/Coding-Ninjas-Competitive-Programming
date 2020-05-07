@@ -11,6 +11,7 @@
 using namespace std;
 vector<pair<char, int>> ans;
 int complete_sum_of_array = 0;
+int original_k=0;
 struct bots
 {
     int index;
@@ -163,6 +164,10 @@ bool no_virus_is_there_in_that_line(int **arr, int n, bots way)
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 bool shots(int **arr, int n, int k, int f, vector<bots> &ways)
 {
+    if(complete_sum_of_array>k*f)
+    {
+        return false;
+    }
     if ((!arr_is_empty(arr, n) && k <= 0) || (k < 0))
     {
         return false;
@@ -254,5 +259,6 @@ int main()
     }
     int k;
     cin >> k;
+    original_k=k;
     solver(arr, n, k, f);
 }
