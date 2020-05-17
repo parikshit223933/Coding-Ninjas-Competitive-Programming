@@ -5,6 +5,7 @@
 #include <iterator>
 #include <limits.h>
 #include <vector>
+#define int long long int
 #define fast                          \
     ios_base::sync_with_stdio(false); \
     cin.tie(NULL);
@@ -92,7 +93,7 @@ int countdowns(int *arr, int n, int k)
     txt=txt.substr(0, txt.length()-1);
     return KMPSearch(pat, txt);
 }
-int main()
+int32_t main()
 {
     fast;
     int t;
