@@ -1,112 +1,86 @@
-#include <algorithm>
+/* #include <algorithm>
 #include <iostream>
 #include <utility>
 #include<string>
 #include <iterator>
 #include <limits.h>
 #include <vector>
-#define int long long int
+#include<unordered_map>
+#include<unordered_set>
 #define fast                          \
     ios_base::sync_with_stdio(false); \
     cin.tie(NULL);
 #define endl '\n'
 using namespace std;
-void computeLPSArray(string pat, int M, int* lps)
+bool checker(int *arr, int n)
 {
-    int len = 0;
-    int i = 1;
-    lps[0] = 0;
-    while (i < M)
-    {
-        if (pat[i] == pat[len])
-        {
-            len++;
-            lps[i] = len;
-            i++;
-        }
-        else
-        {
-            if (len != 0)
-            {
-                len = lps[len - 1];
-            }
-            else
-            {
-                lps[i] = len;
-                i++;
-            }
-        }
-    }
-}
-int KMPSearch(string pat, string txt)
-{
-    int M = pat.length();
-    int N = txt.length();
-    int* lps = new int[M];
-    int j = 0;
-    computeLPSArray(pat, M, lps);
-
-    int i = 0;
-    int res = 0;
-    int next_i = 0;
-
-    while (i < N)
-    {
-        if (pat[j] == txt[i])
-        {
-            j++;
-            i++;
-        }
-        if (j == M)
-        {
-            j = lps[j - 1];
-            res++;
-            if (lps[j] != 0)
-                i = ++next_i;
-            j = 0;
-        }
-        else if (i < N && pat[j] != txt[i])
-        {
-            if (j != 0)
-                j = lps[j - 1];
-            else
-                i = i + 1;
-        }
-    }
-    return res;
-}
-
-
-int countdowns(int *arr, int n, int k)
-{
-    string pat="";
-    for(int i=k; i>=1; i--)
-    {
-        pat+=to_string(i)+"|";
-    }
-    pat=pat.substr(0, pat.length()-1);
-    string txt="";
+    unordered_map<int, int> m;
     for(int i=0; i<n; i++)
     {
-        txt+=to_string(arr[i])+"|";
+        m[arr[i]]++;
     }
-    txt=txt.substr(0, txt.length()-1);
-    return KMPSearch(pat, txt);
+    unordered_set<int>keys;
+    unordered_set<int>values;
+    for(auto i:m)
+    {
+        keys.insert(i.first);
+        values.insert(i.second);
+    }
+    if(keys.size()!=values.size())
+    {
+        return false;
+    }
+    
+
+
+
+    int *arr_temp=new int [1001];
+    bool *visited=new bool[1001];
+    for(int i=0; i<1001; i++)
+    {
+        arr_temp[i]=0;
+        visited[i]=false;
+    }
+    arr_temp[arr[0]]++;
+    for(int i=1; i<n; i++)
+    {
+        arr_temp[arr[i]]++;
+        if(arr[i]!=arr[i-1])
+        {
+            visited[arr[i-1]]=true;
+        }
+        if(visited[arr[i-1]])
+        {
+            if(m[arr[i-1]]!=arr_temp[arr[i-1]])
+            {
+                return false;
+            }
+        }
+    }
+    return true;
 }
 int32_t main()
 {
     fast;
     int t;
-    cin >> t;
-    for (int p = 1; p <= t; p++)
+    cin>>t;
+    while(t--)
     {
-        int n, k;
-        cin >> n >> k;
-        int *arr = new int[n];
-        for (int i = 0; i < n; i++)
+        int n;
+        cin>>n;
+        int *arr=new int [n];
+        for(int i=0; i<n; i++)
         {
-            cin >> arr[i];
+            cin>>arr[i];
         }
-        cout << "Case #" << p << ": " << countdowns(arr, n, k) << endl;
+        if(checker(arr, n))
+        {
+            cout<<"YES"<<endl;
+        }
+        else
+        {
+            cout<<"NO"<<endl;
+        }
+        
     }
-}
+} */
