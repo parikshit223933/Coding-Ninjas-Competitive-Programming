@@ -14,7 +14,31 @@
 using namespace std;
 int total_distance(int *a, int *b, int n)
 {
-    int dist_a=0;
+    int ans=0;
+    int **arr=new int *[2];
+    arr[0]=new int [n+1];
+    arr[1]=new int [n+1];
+    arr[0][0]=0;
+    arr[1][0]=0;
+    for(int i=1; i<=n; i++)
+    {
+        arr[0][i]=arr[0][i-1]+a[i-1];
+        arr[1][i]=arr[1][i-1]+b[i-1];
+    }
+
+    for(int i=0; i<n; i++)
+    {
+        if(arr[0][i]==arr[1][i] && arr[0][i+1]==arr[1][i+1])
+        {
+            ans+=arr[0][i+1]-arr[0][i];
+        }
+    }
+    return ans;
+
+
+
+
+    /* int dist_a=0;
     int dist_b=0;
     int dist=0;
 
@@ -32,7 +56,7 @@ int total_distance(int *a, int *b, int n)
             dist+=a[i+1];
         }
     }
-    return dist;
+    return dist; */
 }
 int main()
 {
