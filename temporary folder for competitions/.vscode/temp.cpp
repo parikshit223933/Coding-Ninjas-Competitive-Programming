@@ -12,8 +12,22 @@
     cin.tie(NULL);
 #define endl '\n'
 using namespace std;
+void check_if_possible(string a, string b, int n)
+{
+    
+}
 int main()
 {
     fast;
-    
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        int n;
+        cin>>n;
+        string a, b;
+        cin>>a>>b;
+        check_if_possible(a, b, n);
+    }
+    return 0;
 }
