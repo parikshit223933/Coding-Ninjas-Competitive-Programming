@@ -12,14 +12,27 @@
     cin.tie(NULL);
 #define endl '\n'
 using namespace std;
-bool checker(int *arr, int p, int n)
+int total_distance(int *a, int *b, int n)
 {
-    int total_sum=0;
-    for(int i=0; i<n; i++)
+    int dist_a=0;
+    int dist_b=0;
+    int dist=0;
+
+    if(a[0]==b[0])
     {
-        total_sum+=p*arr[i];
+        dist+=a[0];
     }
-    return (total_sum>(24*5));
+
+    for(int i=0; i<n-1; i++)
+    {
+        dist_a+=a[i];
+        dist_b+=b[i];
+        if(dist_a==dist_b && dist_a+a[i+1]==dist_b+b[i+1])
+        {
+            dist+=a[i+1];
+        }
+    }
+    return dist;
 }
 int main()
 {
@@ -28,21 +41,18 @@ int main()
     cin>>t;
     while(t--)
     {
-        int n=5;
-        int *arr=new int [n];
+        int n;
+        cin>>n;
+        int *a=new int [n];
+        int *b=new int [n];
         for(int i=0; i<n; i++)
         {
-            cin>>arr[i];
+            cin>>a[i];
         }
-        int p;
-        cin>>p;
-        if(checker(arr, p, n))
+        for(int i=0; i<n; i++)
         {
-            cout<<"Yes"<<endl;
+            cin>>b[i];
         }
-        else
-        {
-            cout<<"No"<<endl;
-        }
+        cout<<total_distance(a, b, n)<<endl;
     }
 }
