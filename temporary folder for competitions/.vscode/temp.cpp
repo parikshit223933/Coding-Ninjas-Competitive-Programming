@@ -16,121 +16,68 @@
 #define ll long long int
 using namespace std;
 
-int maximum_pairs(string s)
+bool check(int* arr, int n, int count5, int count10, int count15)
 {
-    int n = s.length();
-    int *arr = new int[n];
-
-    for (int i = 0; i < n; i++)
+    if (n <= 0)
     {
-        if (s[i] == 'x')
+        if (count5 >= 0 && count10 >= 0 && count15 >= 0)
         {
-            arr[i] = 1;
+            return true;
         }
         else
         {
-            arr[i] = 0;
+            return false;
         }
     }
 
-    unordered_map<int, int> m;
-    for (int i = 0; i < n; i++)
+    if (arr[0] == 5)
     {
-        m[arr[i]]++;
+        return true && check(arr + 1, n - 1, count5 + 1, count10, count15);
     }
+    else if (arr[0] == 10)
+    {
+        if (count5 > 0)
+            return true && check(arr + 1, n - 1, count5 - 1, count10 + 1, count15);
+        else
+            return false;
+    }
+    else if (arr[0] == 15)
+    {
+        bool option1 = check(arr + 1, n - 1, count5 - 2, count10, count15 + 1);
+        bool option2 = check(arr + 1, n - 1, count5, count10 - 1, count15 + 1);
 
-    int count = 0;
-    if (m[0] > m[1]) /* there are less ones */
-    {
-        for (int i = 0; i < n; i++)
-        {
-            if (arr[i] == 1)
-            {
-                if (i == 0)
-                {
-                    if (arr[i + 1] == 0)
-                    {
-                        count++;
-                        arr[i] = 2;
-                        arr[i+1]=2;
-                    }
-                    continue;
-                }
-                else if (i == n - 1)
-                {
-                    if (arr[i - 1] == 0)
-                    {
-                        count++;
-                        arr[i] = 2;
-                        arr[i-1]=2;
-                    }
-                    continue;
-                }
-                else
-                {
-                    if (arr[i - 1] == 0)
-                    {
-                        arr[i] = 2;
-                        arr[i - 1] = 2;
-                        count++;
-                    }
-                    else if (arr[i + 1] == 0)
-                    {
-                        arr[i] = 2;
-                        arr[i + 1] = 2;
-                        count++;
-                    }
-                }
-            }
-        }
+        if (count5 >= 2)
+            option1 = option1 & true;
+        else
+            option1 = false;
+
+        if (count10 > 0)
+            option2 = option2 & true;
+        else
+            option2 = false;
+
+        return option1 || option2;
     }
-    else /* there are less zeros */
-    {
-        for (int i = 0; i < n; i++)
-        {
-            if (arr[i] == 0)
-            {
-                if (i == 0)
-                {
-                    if (arr[i + 1] == 1)
-                    {
-                        count++;
-                        arr[i] = 2;
-                        arr[i+1]=2;
-                    }
-                    continue;
-                }
-                if (i == n - 1)
-                {
-                    if (arr[i - 1] == 1)
-                    {
-                        count++;
-                        arr[i] = 2;
-                        arr[i-1]=2;
-                    }
-                    continue;
-                }
-                else
-                {
-                    if (arr[i - 1] == 1)
-                    {
-                        arr[i] = 2;
-                        arr[i - 1] = 2;
-                        count++;
-                    }
-                    else if (arr[i + 1] == 1)
-                    {
-                        arr[i] = 2;
-                        arr[i + 1] = 2;
-                        count++;
-                    }
-                }
-            }
-        }
-    }
-    delete[] arr;
-    return count;
+    return true;
 }
+
+string isPossible(int* arr, int n)
+{
+    if (arr[0] != 5)
+    {
+        return "NO";
+    }
+
+    if (check(arr, n, 0, 0, 0))
+    {
+        return "YES";
+    }
+    else
+    {
+        return "NO";
+    }
+}
+
 int main()
 {
     fast;
@@ -138,8 +85,13 @@ int main()
     cin >> t;
     while (t--)
     {
-        string s;
-        cin >> s;
-        cout << maximum_pairs(s) << endl;
+        int n;
+        cin >> n;
+        int* arr = new int[n];
+        for (int i = 0; i < n; i++)
+        {
+            cin >> arr[i];
+        }
+        cout << isPossible(arr, n) << endl;
     }
 }
