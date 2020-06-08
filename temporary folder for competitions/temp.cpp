@@ -163,6 +163,16 @@ int distance(point a, point b)
     return sqrt((x*x)+(y*y));
 }
 
+/* to sort the distance array */
+bool distance_sorter(pair<point, int>a, pair<point, int>b)
+{
+    if(a.second<b.second)
+    {
+        return true;
+    }
+    return false;
+}
+
 /* this gives the deliciousness of cake */
 int deliciousness(point*arr, int n, int query_x, int query_y)
 {
@@ -175,11 +185,17 @@ int deliciousness(point*arr, int n, int query_x, int query_y)
         return 0;
     }
 
+    /* mapping the point to its distance from p. */
     pair<point, int> *distance_array=new pair<point, int> [n];
     for(int i=0; i<n; i++)
     {
-        
+        distance_array[i].first=arr[i];
+        distance_array[i].second=distance(p, arr[i]);
     }
+    /* sorting the distance array according to the small distance */
+    sort(arr, arr+n, distance_sorter);
+
+    
 }
 
 
