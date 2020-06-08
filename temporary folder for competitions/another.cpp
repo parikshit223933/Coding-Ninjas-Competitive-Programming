@@ -2,5 +2,7 @@
 using namespace std;
 int main()
 {
-    cout<<(1!=1!=1)<<endl;
+    int a;
+    cin>>a;
+    cout<<a<<endl<<a<<endl<<a<<endl<<a;
 }

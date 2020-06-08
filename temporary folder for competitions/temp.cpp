@@ -4,7 +4,6 @@
 #include <string>
 #include <iterator>
 #include <limits.h>
-#include <math.h>
 #include <vector>
 #include <unordered_map>
 #include <map>
@@ -17,112 +16,159 @@
 #define ll long long int
 using namespace std;
 
-int minimum_operations(int p, int q, int r, int a, int b, int c)
+void print(int** arr, int n)
 {
-    int *src = new int[3];
-    int *des = new int[3];
-    int equal = 0;
-    src[0] = p;
-    src[1] = q;
-    src[2] = r;
-    des[0] = a;
-    des[1] = b;
-    des[2] = c;
-
-    for (int i = 0; i < 3; i++)
+    for (int i = 0; i < n; i++)
     {
-        if (src[i] == des[i])
+        for (int j = 0; j < n; j++)
         {
-            equal++;
+            cout << arr[i][j] << " ";
         }
-    }
-
-    if (equal == 3)
-    {
-        return 0;
-    }
-    else if (equal == 2)
-    {
-        return 1;
-    }
-    else if (equal == 1)
-    {
-        if (p == a)
-        {
-            if (q - b == r - c)
-            {
-                return 1;
-            }
-            else if ((q != 0 && r != 0) && (b / q == c / r) && (b % q == 0 && c % r == 0))
-            {
-                return 1;
-            }
-        }
-        else if (q == b)
-        {
-            if (p - a == r - c)
-            {
-                return 1;
-            }
-            else if ((p != 0 && r != 0) && (a / p == c / r) && (a % p == 0 && c % r == 0))
-            {
-                return 1;
-            }
-        }
-        else if (r == c)
-        {
-            if (p - a == q - b)
-            {
-                return 1;
-            }
-            else if ((q != 0 && p != 0) && (b / q == a / p) && (b % q == 0 && a % p == 0))
-            {
-                return 1;
-            }
-        }
-        return 2;
-    }
-    else if (equal == 0)
-    {
-        int diff1 = a - p;
-        int diff2 = b - q;
-        int diff3 = c - r;
-        int mod1 = a % p;
-        int mod2 = b % q;
-        int mod3 = c % r;
-        float quo1 = (a * 1.0) / (p * 1.0);
-        float quo2 = (b * 1.0) / (q * 1.0);
-        float quo3 = (c * 1.0) / (r * 1.0);
-        /* conditions for returning 1 */
-        if (diff1 == diff2 == diff3)
-        {
-            return 1;
-        }
-        if (p != 0 && q != 0 && r != 0 && mod1 == mod2 == mod3 == 0 && quo1 == quo2 == quo3)
-        {
-            return 1;
-        }
-        /* conditions for returning 3 */
-        if (diff1 != diff2 && diff2 != diff3 && diff3 != diff1 && quo1 != quo2 && quo2 != quo3 && quo3 != quo1)
-        {
-            return 3;
-        }
-        return 2;
+        cout << endl;
     }
 }
 
+void ask(int r1, int c1, int r2, int c2)
+{
+    cout << 1 << " " << r1+1 << " " << c1+1 << " " << r2+1 << " " << c2+1 << endl;
+}
+
+int current_array_sum(int **arr, int n)
+{
+    int sum=0;
+    for(int i=0; i<n; i++)
+    {
+        for(int j=0; j<n; j++)
+        {
+            sum+=arr[i][j];
+        }
+    }
+    return sum;
+}
+
+void ask_queries_and_fill_array(int **arr, int n)
+{
+    ask(0, 0, n-1, n-1);
+    int sum_of_whole_array;
+    cin>>sum_of_whole_array;
+    if(sum_of_whole_array==0)
+    {
+        return;
+    }
+    else if(sum_of_whole_array==n*n)
+    {
+        for(int i=0; i<n; i++)
+        {
+            for(int j=0; j<n; j++)
+            {
+                arr[i][j]=1;
+            }
+        }
+        return;
+    }
+
+
+    int r1, c1, r2, c2;
+    int sum=0;
+    for(int i=0; i<n; i++)
+    {
+        r1=0;
+        r2=0;
+        c1=0;
+        c2=i;
+        ask(r1, c1, r2, c2);
+        int x;
+        cin>>x;
+        arr[0][i]=x-sum;
+        sum=x;
+    }
+    if(current_array_sum(arr, n)==sum_of_whole_array)
+    {
+        return;
+    }
+
+    sum=arr[0][0];
+    for(int i=1; i<n; i++)
+    {
+        c1=0;
+        c2=0;
+        r1=0;
+        r2=i;
+        ask(r1, c1, r2, c2);
+        int x;
+        cin>>x;
+        arr[i][0]=x-sum;
+        sum=x;
+    }
+    if(current_array_sum(arr, n)==sum_of_whole_array)
+    {
+        return;
+    }
+
+    for(int i=1; i<n; i++)
+    {
+        for(int j=1; j<n; j++)
+        {
+
+            sum=0;
+            for(int x=0; x<=i; x++)
+            {
+                for(int y=0; y<=j; y++)
+                {
+                    if(x==i&&y==j)
+                    {
+                        break;
+                    }
+                    sum+=arr[x][y];
+                }
+            }
+            r1=0;
+            c1=0;
+            r2=i;
+            c2=j;
+            ask(r1, c1, r2, c2);
+            int x;
+            cin>>x;
+            arr[i][j]=x-sum;
+
+            if(current_array_sum(arr, n)==sum_of_whole_array)
+            {
+                return;
+            }
+        }
+    }
+}
 int main()
 {
-    fast;
     int t;
     cin >> t;
     while (t--)
     {
-        int p, q, r;
-        cin >> p >> q >> r;
-        int a, b, c;
-        cin >> a >> b >> c;
+        int n, p;
+        cin >> n >> p;
+        int** arr = new int* [n];
+        for(int i=0; i<n; i++)
+        {
+            arr[i]=new int [n];
+            for(int j=0; j<n; j++)
+            {
+                arr[i][j]=0;
+            }
+        }
+        ask_queries_and_fill_array(arr, n);
 
-        cout << minimum_operations(p, q, r, a, b, c) << endl;
+        cout << 2 << endl;
+        print(arr, n);
+        int x;
+        cin >> x;
+        if (x == -1)
+        {
+            break;
+        }
+        else
+        {
+            continue;
+        }
     }
+    return 0;
 }
