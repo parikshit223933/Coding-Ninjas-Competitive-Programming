@@ -1,9 +1,19 @@
+/* When you add or multiply a subset of triplet by number t,
+ the dependence of resulting triplet p(t) is a line in 3D space.
+  There are 7 non-empty subsets of a triple and two operations,
+   so in general, you have 14 lines, which tells you what points can be achieved
+    from a given triplet in one operation.
+
+With that in mind, you just need to spawn all 14 lines from both given triplets.
+ If they share the same line: it will take one operation.
+  If any of those lines intersect at integer point: it will take two operations. Otherwise, three. */
 #include <algorithm>
 #include <iostream>
 #include <utility>
 #include <string>
 #include <iterator>
 #include <limits.h>
+#include <math.h>
 #include <vector>
 #include <unordered_map>
 #include <map>
@@ -13,162 +23,192 @@
     ios_base::sync_with_stdio(false); \
     cin.tie(NULL);
 #define endl '\n'
-#define ll long long int
+#define int long long int
 using namespace std;
 
-void print(int** arr, int n)
+bool check_3d_colinearity(long double p, long double q, long double r, long double a, long double b, long double c)
 {
-    for (int i = 0; i < n; i++)
+
+    int distance_of_pqr_from_000 = sqrt((p * p) + (q * q) + (r * r));
+    int distance_of_pqr_from_abc = sqrt(((p - a) * (p - a)) + ((q - b) * (q - b)) + ((r - c) * (r - c)));
+    int distance_of_abc_from_000 = sqrt((a * a) + (b * b) + (c * c));
+    if (distance_of_abc_from_000 == distance_of_pqr_from_000 + distance_of_pqr_from_abc)
     {
-        for (int j = 0; j < n; j++)
+        return true;
+    }
+    return false;
+}
+bool check_2d_collinearity(long double p, long double q, long double a, long double b)
+{
+    int distance_of_pq_from_00 = sqrt((p * p) + (q * q));
+    int distance_of_pq_from_ab = sqrt(((p - a) * (p - a)) + ((q - b) * (q - b)));
+    int distance_of_abc_from_000 = sqrt((a * a) + (b * b));
+    if (distance_of_abc_from_000 == distance_of_pq_from_00 + distance_of_pq_from_ab)
+    {
+        return true;
+    }
+    return false;
+}
+
+int minimum_operations(int p, int q, int r, int a, int b, int c)
+{
+    int *src = new int[3];
+    int *des = new int[3];
+    int equal = 0;
+    src[0] = p;
+    src[1] = q;
+    src[2] = r;
+    des[0] = a;
+    des[1] = b;
+    des[2] = c;
+
+    for (int i = 0; i < 3; i++)
+    {
+        if (src[i] == des[i])
         {
-            cout << arr[i][j] << " ";
+            equal++;
         }
-        cout << endl;
     }
-}
 
-void ask(int r1, int c1, int r2, int c2)
-{
-    cout << 1 << " " << r1+1 << " " << c1+1 << " " << r2+1 << " " << c2+1 << endl;
-}
-
-int current_array_sum(int **arr, int n)
-{
-    int sum=0;
-    for(int i=0; i<n; i++)
+    if (equal == 3)
     {
-        for(int j=0; j<n; j++)
+        return 0;
+    }
+    else if (equal == 2)
+    {
+        return 1;
+    }
+    else if (equal == 1)
+    {
+        if (p == a)
         {
-            sum+=arr[i][j];
-        }
-    }
-    return sum;
-}
-
-void ask_queries_and_fill_array(int **arr, int n)
-{
-    ask(0, 0, n-1, n-1);
-    int sum_of_whole_array;
-    cin>>sum_of_whole_array;
-    if(sum_of_whole_array==0)
-    {
-        return;
-    }
-    else if(sum_of_whole_array==n*n)
-    {
-        for(int i=0; i<n; i++)
-        {
-            for(int j=0; j<n; j++)
+            if (q - b == r - c)
             {
-                arr[i][j]=1;
+                return 1;
+            }
+            else if ((q != 0 && r != 0) && (b / q == c / r) && (b % q == 0 && c % r == 0))
+            {
+                return 1;
             }
         }
-        return;
-    }
-
-
-    int r1, c1, r2, c2;
-    int sum=0;
-    for(int i=0; i<n; i++)
-    {
-        r1=0;
-        r2=0;
-        c1=0;
-        c2=i;
-        ask(r1, c1, r2, c2);
-        int x;
-        cin>>x;
-        arr[0][i]=x-sum;
-        sum=x;
-    }
-    if(current_array_sum(arr, n)==sum_of_whole_array)
-    {
-        return;
-    }
-
-    sum=arr[0][0];
-    for(int i=1; i<n; i++)
-    {
-        c1=0;
-        c2=0;
-        r1=0;
-        r2=i;
-        ask(r1, c1, r2, c2);
-        int x;
-        cin>>x;
-        arr[i][0]=x-sum;
-        sum=x;
-    }
-    if(current_array_sum(arr, n)==sum_of_whole_array)
-    {
-        return;
-    }
-
-    for(int i=1; i<n; i++)
-    {
-        for(int j=1; j<n; j++)
+        else if (q == b)
         {
-
-            sum=0;
-            for(int x=0; x<=i; x++)
+            if (p - a == r - c)
             {
-                for(int y=0; y<=j; y++)
+                return 1;
+            }
+            else if ((p != 0 && r != 0) && (a / p == c / r) && (a % p == 0 && c % r == 0))
+            {
+                return 1;
+            }
+        }
+        else if (r == c)
+        {
+            if (p - a == q - b)
+            {
+                return 1;
+            }
+            else if ((q != 0 && p != 0) && (b / q == a / p) && (b % q == 0 && a % p == 0))
+            {
+                return 1;
+            }
+        }
+        return 2;
+    }
+    else if (equal == 0)
+    {
+        int diff1 = a - p;
+        int diff2 = b - q;
+        int diff3 = c - r;
+
+        /* conditions for returning 1 */
+        if (diff1 == diff2 && diff2 == diff3)
+        {
+            return 1;
+        }
+        if (p != 0 && q != 0 && r != 0 && a % p == 0 && b % q == 0 && c % r == 0 && a / p == b / q && b / q == c / r)
+        {
+            return 1;
+        }
+
+        /* conditions for returning 2 */
+
+        /* teeno mei kuch multiply karu fir teeno mei kuch add karu tab bhi 2 hi return hoga */
+        if (check_3d_colinearity(p, q, r, a, b, c))
+        {
+            return 2;
+        }
+
+        /* agar p, q, r mei se ek point zero ho bhi gaya to bhi baaki jo 2 points hein 2d plane mei vo 0, 0 k saath collinear hone chahiye */
+        if (p == 0 || q == 0 || r == 0)
+        {
+            if (p == 0)
+            {
+                if (check_2d_collinearity(q, r, b, c))
                 {
-                    if(x==i&&y==j)
-                    {
-                        break;
-                    }
-                    sum+=arr[x][y];
+                    return 2;
                 }
             }
-            r1=0;
-            c1=0;
-            r2=i;
-            c2=j;
-            ask(r1, c1, r2, c2);
-            int x;
-            cin>>x;
-            arr[i][j]=x-sum;
-
-            if(current_array_sum(arr, n)==sum_of_whole_array)
+            if (q == 0)
             {
-                return;
+                if (check_2d_collinearity(p, r, a, c))
+                {
+                    return 2;
+                }
+            }
+            if (r == 0)
+            {
+                if (check_2d_collinearity(p, q, a, b))
+                {
+                    return 2;
+                }
             }
         }
+
+        if (diff1 == diff2)
+        {
+            return 2;
+        }
+        if (diff2 == diff3)
+        {
+            return 2;
+        }
+        if (diff3 == diff1)
+        {
+            return 2;
+        }
+
+        if (p != 0 && q != 0 && a % p == 0 && b % q == 0 && a / p == b / q)
+        {
+            return 2;
+        }
+        if (q != 0 && r != 0 && b % q == 0 && c % r == 0 && c / r == b / q)
+        {
+            return 2;
+        }
+        if (p != 0 && r != 0 && a % p == 0 && c % r == 0 && a / p == c / r)
+        {
+            return 2;
+        }
+
+        /* conditions for returning 3 */
+        return 3;
     }
+    return 3;
 }
-int main()
+
+int32_t main()
 {
+    fast;
     int t;
     cin >> t;
     while (t--)
     {
-        int n, p;
-        cin >> n >> p;
-        int** arr = new int* [n];
-        for(int i=0; i<n; i++)
-        {
-            arr[i]=new int [n];
-            for(int j=0; j<n; j++)
-            {
-                arr[i][j]=0;
-            }
-        }
-        ask_queries_and_fill_array(arr, n);
+        int p, q, r;
+        cin >> p >> q >> r;
+        int a, b, c;
+        cin >> a >> b >> c;
 
-        cout << 2 << endl;
-        print(arr, n);
-        int x;
-        cin >> x;
-        if (x == -1)
-        {
-            break;
-        }
-        else
-        {
-            continue;
-        }
+        cout << minimum_operations(p, q, r, a, b, c) << endl;
     }
-    return 0;
 }
