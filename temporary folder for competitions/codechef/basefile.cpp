@@ -14,7 +14,7 @@
     ios_base::sync_with_stdio(false); \
     cin.tie(NULL);
 #define endl '\n'
-#define int long long int
+#define ll long long int
 using namespace std;
 int main()
 {
