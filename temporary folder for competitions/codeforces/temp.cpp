@@ -16,20 +16,70 @@
 #define endl '\n'
 #define ll long long int
 using namespace std;
+
+int minimum_moves(int *arr, int n)
+{
+    unordered_map<string, int>m;
+    for(int i=0; i<n; i++)
+    {
+        if(arr[i]%2!=0)
+        {
+            m["odd"]++;
+        }
+        else
+        {
+            m["even"]++;
+        }
+    }
+    int number_of_odd_indices;
+    int number_of_even_indices;
+    if(n%2==0)
+    {
+        number_of_even_indices=n/2;
+        number_of_odd_indices=n/2;
+    }
+    else
+    {
+        number_of_even_indices=(n/2)+1;
+        number_of_odd_indices=n/2;
+    }
+    if(number_of_even_indices!=m["even"]||number_of_odd_indices!=m["odd"])
+    {
+        return -1;
+    }
+
+
+    int misplaced_evens=0;
+    int misplaced_odds=0;
+    for(int i=0; i<n; i++)
+    {
+        if(i%2==0&&arr[i]%2!=0)
+        {
+            misplaced_odds++;
+        }
+        else if(i%2!=0&&arr[i]%2==0)
+        {
+            misplaced_evens++;
+        }
+    }
+    return misplaced_evens;
+    
+}
+
 int main()
 {
     fast;
     int t;
-    cin >> t;
-    while (t--)
+    cin>>t;
+    while(t--)
     {
-        string b;
-        cin >> b;
-        string a = "";
-        for (int i = 0; i < b.length(); i += 2)
+        int n;
+        cin>>n;
+        int *arr=new int [n];
+        for(int i=0; i<n; i++)
         {
-            a += b[i];
+            cin>>arr[i];
         }
-        cout << a+b[b.length()-1] << endl;
-    }
+        cout<<minimum_moves(arr, n)<<endl;
+    }    
 }
