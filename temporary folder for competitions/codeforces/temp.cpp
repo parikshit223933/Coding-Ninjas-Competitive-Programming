@@ -17,69 +17,81 @@
 #define ll long long int
 using namespace std;
 
-int minimum_moves(int *arr, int n)
+int number_of_tables(string s, int n, int k)
 {
-    unordered_map<string, int>m;
-    for(int i=0; i<n; i++)
+    int count=0;
+    /* handling starting with 0 */
+    int starting_index=0;
+    int ending_index=n-1;
+    if(s[0]=='0')
     {
-        if(arr[i]%2!=0)
+        bool check=true;
+        for(int i=1; i<=k; i++)
         {
-            m["odd"]++;
+            if(s[i]=='1')
+            {
+                check=false;
+                starting_index=i;
+                break;
+            }
         }
-        else
+        if(check)
         {
-            m["even"]++;
+            count++;
+            s[0]='1';
         }
     }
-    int number_of_odd_indices;
-    int number_of_even_indices;
-    if(n%2==0)
+    /* handling ending with 0 */
+    if(s[n-1]=='0')
     {
-        number_of_even_indices=n/2;
-        number_of_odd_indices=n/2;
+        bool check=true;
+        for(int i=n-2; i>=n-1-k ; i--)
+        {
+            if(s[i]=='1')
+            {
+                check=false;
+                ending_index=i;
+                break;
+            }
+        }
+        if(check)
+        {
+            count++;
+            s[n-1]='1';
+        }
     }
-    else
+    int temp=0;
+    for(int i=starting_index+1; i<ending_index; i++)
     {
-        number_of_even_indices=(n/2)+1;
-        number_of_odd_indices=n/2;
-    }
-    if(number_of_even_indices!=m["even"]||number_of_odd_indices!=m["odd"])
-    {
-        return -1;
-    }
+        if(s[i]=='0')
+        {
+            temp++;
+        }
+        if(s[i]=='1')
+        {
+            temp=0;
+        }
 
-
-    int misplaced_evens=0;
-    int misplaced_odds=0;
-    for(int i=0; i<n; i++)
-    {
-        if(i%2==0&&arr[i]%2!=0)
+        if(temp==2*k+1)
         {
-            misplaced_odds++;
-        }
-        else if(i%2!=0&&arr[i]%2==0)
-        {
-            misplaced_evens++;
+            count++;
+            temp/=2;
         }
     }
-    return misplaced_evens;
-    
+    return count;
 }
 
 int main()
 {
     fast;
     int t;
-    cin>>t;
-    while(t--)
+    cin >> t;
+    while (t--)
     {
-        int n;
-        cin>>n;
-        int *arr=new int [n];
-        for(int i=0; i<n; i++)
-        {
-            cin>>arr[i];
-        }
-        cout<<minimum_moves(arr, n)<<endl;
-    }    
+        int n, k;
+        cin >> n >> k;
+        string s;
+        cin >> s;
+        cout << number_of_tables(s, n, k) << endl;
+    }
 }
