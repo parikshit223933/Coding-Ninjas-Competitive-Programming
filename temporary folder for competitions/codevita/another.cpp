@@ -14,7 +14,7 @@
     ios_base::sync_with_stdio(false); \
     cin.tie(NULL);
 #define endl '\n'
-#define int long unsigned int
+#define int long long int
 using namespace std;
 
-//hidden to prevent cheating
+// hidden to prevent cheating
