@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "unordered_map": "cpp"
+        "unordered_map": "cpp",
+        "algorithm": "cpp"
     }
 }
