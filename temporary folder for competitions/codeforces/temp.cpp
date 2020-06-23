@@ -6,7 +6,7 @@
 #include <limits.h>
 #include <math.h>
 #include <vector>
-#include<cstring>
+#include <cstring>
 #include <unordered_map>
 #include <map>
 #include <set>
@@ -17,17 +17,29 @@
 #define endl '\n'
 #define ll long long int
 using namespace std;
+
+void isBeautiful(int n)
+{
+    if(n%4==0)
+    {
+        cout<<"YES"<<endl;
+    }
+    else
+    {
+        cout<<"NO"<<endl;
+    }
+    return;
+}
+
 int main()
 {
-    int n=25;
-    int current_gcd=0;
-    for(int i=1; i<=n; i++)
+    fast;
+    int t;
+    cin>>t;
+    while(t--)
     {
-        for(int j=i+1; j<=n; j++)
-        {
-            current_gcd=max(current_gcd, __gcd(i, j));
-        }
+        int n;
+        cin>>n;
+        isBeautiful(n);
     }
-    cout<<current_gcd<<endl;
-    return 0;
 }
