@@ -15,31 +15,64 @@
     ios_base::sync_with_stdio(false); \
     cin.tie(NULL);
 #define endl '\n'
-#define ll long long int
+#define int long long int
 using namespace std;
 
-void isBeautiful(int n)
+int max_happiness(int *arr, int *each_friend, int n, int k)
 {
-    if(n%4==0)
+    sort(arr, arr+n);
+    sort(each_friend, each_friend+k);
+
+    int index=k-1;
+    int sum=0;
+
+    for(int i=0; i<k; i++)
     {
-        cout<<"YES"<<endl;
+        if(each_friend[i]!=1)
+        {
+            index+=each_friend[i]-1;
+            sum+=arr[index];
+        }
     }
-    else
+    int i;
+    for(i=0; i<k; i++)
     {
-        cout<<"NO"<<endl;
+        sum+=arr[i];
     }
-    return;
+    int count=0;
+    for(; i<k; i++)
+    {
+        if(each_friend[i]==1)
+        {
+            count++;
+        }
+    }
+    for(int i=0; i<count; i++)
+    {
+        sum+=arr[i];
+    }
+    return sum;
 }
 
-int main()
+int32_t main()
 {
     fast;
     int t;
-    cin>>t;
-    while(t--)
+    cin >> t;
+    while (t--)
     {
-        int n;
-        cin>>n;
-        isBeautiful(n);
+        int n, k;
+        cin >> n >> k;
+        int *arr = new int[n];
+        for (int i = 0; i < n; i++)
+        {
+            cin >> arr[i];
+        }
+        int *each_friend = new int[k];
+        for (int i = 0; i < k; i++)
+        {
+            cin >> each_friend[i];
+        }
+        cout << max_happiness(arr, each_friend, n, k) << endl;
     }
 }
