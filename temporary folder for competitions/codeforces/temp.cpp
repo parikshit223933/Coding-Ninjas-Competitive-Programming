@@ -15,88 +15,69 @@
     ios_base::sync_with_stdio(false); \
     cin.tie(NULL);
 #define endl '\n'
-#define int long long int
+#define ll long long int
 using namespace std;
 
-void solve(int a, int b, int c)
+bool allsame(string s)
 {
-    int shop1_cost=b*a;
-    int shop2_cost=c;
-    bool checker1=false;
-    int amount1=-1;
-    bool checker2=false;
-    int amount2=-1;
-
-    for(int i=1; i*i<b; i++)
+    for (int i = 0; i < s.length() - 1; i++)
     {
-        int s1=i*a;
-        int s2=c;
-        if(s1<s2 &&!checker1)
+        if (s[i] != s[i + 1])
         {
-            checker1=true;
-            amount1=i;
-        }
-        else if(s1>s2&&!checker2)
-        {
-            checker2=true;
-            amount2=i;
-        }
-        if(checker1&&checker2)
-        {
-            break;
+            return false;
         }
     }
-    int temp=b*100;
-    for(int i=b; i<temp; i+=i)
-    {
-        int s1=i*a;
-        int s2=c*(i/b);
-        if(s1<s2&&!checker1)
-        {
-            checker1=true;
-            amount1=i;
-        }
-        else if(s1>s2&&!checker2)
-        {
-            checker2=true;
-            amount2=i;
-        }
-        if(checker1&&checker2)
-        {
-            break;
-        }
-    }
-
-
-
-    if(checker1 && amount1<1000000000)
-    {
-        cout<<amount1<<" ";
-    }
-    else
-    {
-        cout<<-1<<" ";
-    }
-    if(checker2 && amount2<1000000000)
-    {
-        cout<<amount2<<endl;
-    }
-    else
-    {
-        cout<<-1<<endl;
-    }
-    return;
+    return true;
 }
 
-int32_t main()
+bool check(string s)
+{
+    if (allsame(s)||s.length()==0)
+    {
+        return false;
+    }
+
+    int zeros=0;
+    int ones=0;
+    for(int i=0; i<s.length(); i++)
+    {
+        if(s[i]=='0')
+        {
+            zeros++;
+        }
+        else
+        {
+            ones++;
+        }
+    }
+
+    int count=min(zeros, ones);
+    if(count%2==0)
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}
+
+int main()
 {
     fast;
     int t;
-    cin>>t;
-    while(t--)
+    cin >> t;
+    while (t--)
     {
-        int a, b, c;
-        cin>>a>>b>>c;
-        solve(a, b, c);
+        string s;
+        cin >> s;
+        if (check(s))
+        {
+            cout << "DA" << endl;
+        }
+        else
+        {
+            cout << "NET" << endl;
+        }
     }
 }

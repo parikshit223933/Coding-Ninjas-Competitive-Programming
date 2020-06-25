@@ -20,8 +20,7 @@ using namespace std;
 
 int main()
 {
-	vector<int>v;
-	v.push_back(10);
-	v.pop_back();
-	cout<<v.back();
+	string s="parikshit";
+	s.erase(s.begin()+7, s.begin()+9);
+	cout<<s<<endl;
 }
