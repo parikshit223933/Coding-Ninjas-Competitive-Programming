@@ -18,61 +18,85 @@
 #define int long long int
 using namespace std;
 
-int max_happiness(int *arr, int *each_friend, int n, int k)
+void solve(int a, int b, int c)
 {
-    sort(arr, arr+n);
-    sort(each_friend, each_friend+k);
+    int shop1_cost=b*a;
+    int shop2_cost=c;
+    bool checker1=false;
+    int amount1=-1;
+    bool checker2=false;
+    int amount2=-1;
 
-    int index=k-1;
-    int sum=0;
-
-    for(int i=0; i<k; i++)
+    for(int i=1; i*i<b; i++)
     {
-        if(each_friend[i]!=1)
+        int s1=i*a;
+        int s2=c;
+        if(s1<s2 &&!checker1)
         {
-            index+=each_friend[i]-1;
-            sum+=arr[index];
+            checker1=true;
+            amount1=i;
+        }
+        else if(s1>s2&&!checker2)
+        {
+            checker2=true;
+            amount2=i;
+        }
+        if(checker1&&checker2)
+        {
+            break;
         }
     }
-    int i;
-    for(i=0; i<k; i++)
+    int temp=b*100;
+    for(int i=b; i<temp; i+=i)
     {
-        sum+=arr[i];
-    }
-    int count=0;
-    for(; i<k; i++)
-    {
-        if(each_friend[i]==1)
+        int s1=i*a;
+        int s2=c*(i/b);
+        if(s1<s2&&!checker1)
         {
-            count++;
+            checker1=true;
+            amount1=i;
+        }
+        else if(s1>s2&&!checker2)
+        {
+            checker2=true;
+            amount2=i;
+        }
+        if(checker1&&checker2)
+        {
+            break;
         }
     }
-    for(int i=0; i<count; i++)
+
+
+
+    if(checker1 && amount1<1000000000)
     {
-        sum+=arr[i];
+        cout<<amount1<<" ";
     }
-    return sum;
+    else
+    {
+        cout<<-1<<" ";
+    }
+    if(checker2 && amount2<1000000000)
+    {
+        cout<<amount2<<endl;
+    }
+    else
+    {
+        cout<<-1<<endl;
+    }
+    return;
 }
 
 int32_t main()
 {
     fast;
     int t;
-    cin >> t;
-    while (t--)
+    cin>>t;
+    while(t--)
     {
-        int n, k;
-        cin >> n >> k;
-        int *arr = new int[n];
-        for (int i = 0; i < n; i++)
-        {
-            cin >> arr[i];
-        }
-        int *each_friend = new int[k];
-        for (int i = 0; i < k; i++)
-        {
-            cin >> each_friend[i];
-        }
-        cout << max_happiness(arr, each_friend, n, k) << endl;
+        int a, b, c;
+        cin>>a>>b>>c;
+        solve(a, b, c);
     }
 }
