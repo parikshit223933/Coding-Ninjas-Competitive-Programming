@@ -15,64 +15,42 @@
     ios_base::sync_with_stdio(false); \
     cin.tie(NULL);
 #define endl '\n'
-#define int long long int
+#define ll long long int
 using namespace std;
 
-int solve(int n)
+int solve(string s, int n)
 {
-    int temp=n;
-    int count3=0;
-    while(n%3==0)
+    int count=0;
+    for(int i=0; i<n; i++)
     {
-        n/=3;
-        count3++;
-    }
-    int count2=0;
-    while(n%2==0)
-    {
-        n/=2;
-        count2++;
-    }
-    if(count3==0)
-    {
-        if(temp==1)
+        if(count>0)
         {
-            return 0;
+            if(s[i]==')')
+            {
+                count--;
+            }
+            else
+            {
+                count++;
+            }
         }
-        else
+        else if(count==0)
         {
-            return -1;
-        }
-    }
-    if(count3==count2)
-    {
-        if(temp/pow(6, count2)==1)
-        {
-            return count2;
-        }
-        else
-        {
-            return -1;
+            if(s[i]==')')
+            {
+                continue;
+            }
+            else
+            {
+                count++;
+            }
+            
         }
     }
-    if(count3>count2)
-    {
-        if((temp)/(pow(3, count3)*pow(2, count2))==1)
-        {
-            return count3+(count3-count2);
-        }
-        else
-        {
-            return -1;
-        }
-    }
-    if(count3<count2)
-    {
-        return -1;
-    }
+    return count;
 }
 
-int32_t main()
+int main()
 {
     fast;
     int t;
@@ -81,6 +59,8 @@ int32_t main()
     {
         int n;
         cin>>n;
-        cout<<solve(n)<<endl;
+        string s;
+        cin>>s;
+        cout<<solve(s, n)<<endl;
     }
 }
