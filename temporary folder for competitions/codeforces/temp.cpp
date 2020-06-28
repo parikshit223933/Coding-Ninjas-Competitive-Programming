@@ -18,36 +18,47 @@
 #define ll long long int
 using namespace std;
 
-int solve(string s, int n)
+int solve(int *arr, int n, int k)
 {
-    int count=0;
+    sort(arr, arr+n);
+    unordered_map<int, int>m;
     for(int i=0; i<n; i++)
     {
-        if(count>0)
+        if(arr[i]<k)
         {
-            if(s[i]==')')
+            int mul=1;
+            while(m[(mul*k)-arr[i]]==1)
             {
-                count--;
+                mul++;
             }
-            else
-            {
-                count++;
-            }
+            m[(mul*k)-arr[i]]++;
         }
-        else if(count==0)
+        else if(arr[i]>k)
         {
-            if(s[i]==')')
+            int mul=1;
+            while(m[(mul*k)-(arr[i]%(mul*k))]==1)
             {
-                continue;
+                mul++;
             }
-            else
+            m[(mul*k)-(arr[i]%(mul*k))]++;
+        }
+        else
+        {
+            int mul=1;
+            while(m[mul*arr[i]]==1)
             {
-                count++;
+                mul++;
             }
-            
+            m[mul*arr[i]]++;
         }
     }
-    return count;
+    int maxi=INT_MIN;
+    for(auto i:m)
+    {
+        maxi=max(maxi, i.first);
+    }
+    return maxi+1
+    ;
 }
 
 int main()
@@ -57,10 +68,13 @@ int main()
     cin>>t;
     while(t--)
     {
-        int n;
-        cin>>n;
-        string s;
-        cin>>s;
-        cout<<solve(s, n)<<endl;
+        int n, k;
+        cin>>n>>k;
+        int *arr=new int [n];
+        for(int i=0; i<n; i++)
+        {
+            cin>>arr[i];
+        }
+        cout<<solve(arr, n, k)<<endl;
     }
 }
