@@ -15,69 +15,25 @@
     ios_base::sync_with_stdio(false); \
     cin.tie(NULL);
 #define endl '\n'
-#define ll long long int
+#define int long long int
 using namespace std;
 
-bool allsame(string s)
+int solve(int x, int y, int n)
 {
-    for (int i = 0; i < s.length() - 1; i++)
-    {
-        if (s[i] != s[i + 1])
-        {
-            return false;
-        }
-    }
-    return true;
+    /* k % x = y  */
+    int current_rem=n%x;
+    if(current_rem)
 }
 
-bool check(string s)
-{
-    if (allsame(s)||s.length()==0)
-    {
-        return false;
-    }
-
-    int zeros=0;
-    int ones=0;
-    for(int i=0; i<s.length(); i++)
-    {
-        if(s[i]=='0')
-        {
-            zeros++;
-        }
-        else
-        {
-            ones++;
-        }
-    }
-
-    int count=min(zeros, ones);
-    if(count%2==0)
-    {
-        return false;
-    }
-    else
-    {
-        return true;
-    }
-}
-
-int main()
+int32_t main()
 {
     fast;
     int t;
-    cin >> t;
-    while (t--)
+    cin>>t;
+    while(t--)
     {
-        string s;
-        cin >> s;
-        if (check(s))
-        {
-            cout << "DA" << endl;
-        }
-        else
-        {
-            cout << "NET" << endl;
-        }
+        int x, y, n;
+        cin>>x>>y>>n;
+        cout<<solve(x, y, n)<<endl;
     }
 }
