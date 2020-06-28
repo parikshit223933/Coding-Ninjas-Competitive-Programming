@@ -18,11 +18,58 @@
 #define int long long int
 using namespace std;
 
-int solve(int x, int y, int n)
+int solve(int n)
 {
-    /* k % x = y  */
-    int current_rem=n%x;
-    if(current_rem)
+    int temp=n;
+    int count3=0;
+    while(n%3==0)
+    {
+        n/=3;
+        count3++;
+    }
+    int count2=0;
+    while(n%2==0)
+    {
+        n/=2;
+        count2++;
+    }
+    if(count3==0)
+    {
+        if(temp==1)
+        {
+            return 0;
+        }
+        else
+        {
+            return -1;
+        }
+    }
+    if(count3==count2)
+    {
+        if(temp/pow(6, count2)==1)
+        {
+            return count2;
+        }
+        else
+        {
+            return -1;
+        }
+    }
+    if(count3>count2)
+    {
+        if((temp)/(pow(3, count3)*pow(2, count2))==1)
+        {
+            return count3+(count3-count2);
+        }
+        else
+        {
+            return -1;
+        }
+    }
+    if(count3<count2)
+    {
+        return -1;
+    }
 }
 
 int32_t main()
@@ -32,8 +79,8 @@ int32_t main()
     cin>>t;
     while(t--)
     {
-        int x, y, n;
-        cin>>x>>y>>n;
-        cout<<solve(x, y, n)<<endl;
+        int n;
+        cin>>n;
+        cout<<solve(n)<<endl;
     }
 }
