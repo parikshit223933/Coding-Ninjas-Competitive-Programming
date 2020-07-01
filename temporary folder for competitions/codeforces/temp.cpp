@@ -15,28 +15,62 @@
     ios_base::sync_with_stdio(false); \
     cin.tie(NULL);
 #define endl '\n'
-#define ll long long int
+#define int long long int
 using namespace std;
 
-int solve(int n)
+int mod(int a)
 {
-    if(n%2==0)
+    if(a<0)
     {
-        return n/2;
+        return -1*a;
     }
-    else
-    return (n/2)+1;
+    return a;
 }
 
-int main()
+bool solve(int a, int b, int n, int m)
+{
+    
+}
+
+bool solve2(int a, int b, int n, int m)
+{
+    /* case 1: n of first type of guests */
+
+    if(m<=min(a, b))
+    {
+        int rem=max(a, b)+(min(a, b)-m);
+        if(n<=rem)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    else
+    {
+        return false;
+    }
+    
+}
+
+int32_t main()
 {
     fast;
     int t;
     cin>>t;
     while(t--)
     {
-        int n;
-        cin>>n;
-        cout<<solve(n)<<endl;
+        int a, b, n, m;
+        cin>>a>>b>>n>>m;
+        if(solve(a, b, n, m)||solve2(a, b, m, n))
+        {
+            cout<<"Yes"<<endl;
+        }
+        else
+        {
+            cout<<"No"<<endl;
+        }
     }
 }
