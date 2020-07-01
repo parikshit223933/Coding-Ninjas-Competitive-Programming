@@ -125,7 +125,7 @@ This Repository Contains all my codes which I wrote during the competitive progr
 
 
 
-# Tips for Faster C++ code Executions
+# Tips for Faster C++ code Execution
 1. Avoid cin/cout, use scanf/printf at any cost. Cin/Cout are extremely time consuming functions. If you want even better performance use getchar_unlocked. <a href="http://abhisharlives.blogspot.com/2012/06/really-fast-io-methods-for-programming.html">This</a> article explains it pretty well.
 2. Try using global arrays instead of passing them to a function. Passing array as a pointer to a function is efficient, but declaring a global array and directly using it is even better. And of course, avoid passing arguments by value. Similarly, if you are passing a vector to a function, use a constant reference.
 3. Use macros and Inline functions. Calling a function involves overhead which can be avoided by using macros or inline functions, but you need to very careful.
