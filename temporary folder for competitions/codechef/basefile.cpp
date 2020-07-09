@@ -16,43 +16,63 @@
 #define endl '\n'
 #define int long long int
 using namespace std;
-int solve(int *arr, int n)
+
+inline int power(int n)
 {
-    int count=0;
-    for(int i=0; i<n-1; i++)
+    int sum;
+    for (sum = 0; n > 0; sum += n % 10, n /= 10);
+    return sum;
+}
+
+void solve(int *a, int *b, int n)
+{
+    int sumA=0;
+    int sumB=0;
+    for(int i=0; i<n; i++)
     {
-        int diff=abs(arr[i]-arr[i+1]);
-        int toBeAdded;
-        if(diff==0)
+        if(power(a[i])>power(b[i]))
         {
-            toBeAdded=0;
+            sumA+=1;
         }
-        else if(diff==1)
+        else if(power(a[i])<power(b[i]))
         {
-            toBeAdded=0;
+            sumB+=1;
         }
         else
         {
-            toBeAdded=diff-1;
+            sumA+=1;
+            sumB+=1;
         }
-        count+=toBeAdded;
     }
-    return count;
+    if(sumA>sumB)
+    {
+        cout<<0<<" "<<sumA<<endl;
+    }
+    else if(sumA<sumB)
+    {
+        cout<<1<<" "<<sumB<<endl;
+    }
+    else
+    {
+        cout<<2<<" "<<sumA<<endl;
+    }
 }
+
 int32_t main()
 {
     fast;
     int t;
-    cin>>t;
-    while(t--)
+    cin >> t;
+    while (t--)
     {
         int n;
-        cin>>n;
-        int *arr=new int [n];
-        for(int i=0; i<n; i++)
+        cin >> n;
+        int *a = new int[n];
+        int *b = new int[n];
+        for (int i = 0; i < n; i++)
         {
-            cin>>arr[i];
+            cin >> a[i] >> b[i];
         }
-        cout<<solve(arr, n)<<endl;
+        solve(a, b, n);
     }
 }
