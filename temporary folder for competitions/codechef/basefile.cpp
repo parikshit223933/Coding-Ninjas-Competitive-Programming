@@ -19,101 +19,228 @@
 #define endl '\n'
 #define int long long int
 using namespace std;
-
-int solve(int *arr, int n, int x)
+struct mountain
 {
-	int x_temporary = x;
-	sort(arr, arr + n);
-	int *arr_temp = new int[n];
-	for (int i = 0; i < n; i++)
-	{
-		arr_temp[i] = arr[i];
-	}
-	int d1 = 0;
-	int d2 = 0;
-	int Start = 0;
-	int Max = n;
-	while (Start < Max && arr[Start] < x)
-	{
-		Start += 1;
-	}
-	int tmpStart = Start;
-	if (Start > 0)
-	{
-		tmpStart = Start - 1;
-	}
-	int frwd = Start;
-	int bkwd = Start - 1;
+	int from_height;
+	int to_height;
+	int tastiness;
+};
 
-	while (frwd < Max)
+void buildTree(mountain *arr, mountain *tree, int start, int end, int treenode)
+{
+	if (start == end)
 	{
-		d1 += 1;
-		if (x >= arr[frwd])
-		{
-			x = arr[frwd];
-			arr[frwd] = 0;
-			frwd += 1;
-		}
-		x = x << 1;
+		tree[treenode] = arr[start];
+		return;
 	}
-
-	while (bkwd >= 0)
+	int mid = (start + end) / 2;
+	buildTree(arr, tree, start, mid, 2 * treenode);
+	buildTree(arr, tree, mid + 1, end, 2 * treenode + 1);
+	mountain tLeft = tree[treenode * 2];
+	mountain tRight = tree[(treenode * 2) + 1];
+	if (tLeft.tastiness != -1 && tRight.tastiness != -1 && tRight.from_height < tLeft.to_height)
 	{
-		d1 += 1;
-		if (x >= arr[bkwd])
-		{
-			x = arr[bkwd];
-			arr[bkwd] = 0;
-			bkwd -= 1;
-		}
-		x = x << 1;
+		tree[treenode].from_height = tLeft.from_height;
+		tree[treenode].to_height = tRight.to_height;
+		tree[treenode].tastiness = tLeft.tastiness + tRight.tastiness;
 	}
-
-	frwd = tmpStart;
-	bkwd = tmpStart - 1;
-	while (frwd < Max)
+	else
 	{
-		d2 += 1;
-		if (x_temporary >= arr_temp[frwd])
-		{
-			x_temporary = arr_temp[frwd];
-			arr_temp[frwd] = 0;
-			frwd += 1;
-		}
-
-		x_temporary = x_temporary << 1;
+		tree[treenode].from_height = tLeft.from_height;
+		tree[treenode].to_height = tRight.to_height;
+		tree[treenode].tastiness = -1;
 	}
+}
 
-	while (bkwd >= 0)
+void buildTreeReverse(mountain *arr, mountain *tree, int start, int end, int treenode)
+{
+	if (start == end)
 	{
-		d2 += 1;
-		if (x_temporary >= arr_temp[bkwd])
-		{
-			x_temporary = arr_temp[bkwd];
-			arr_temp[bkwd] = 0;
-			bkwd -= 1;
-		}
-
-		x_temporary = x_temporary << 1;
+		tree[treenode] = arr[start];
+		return;
 	}
+	int mid = (start + end) / 2;
+	buildTree(arr, tree, start, mid, 2 * treenode);
+	buildTree(arr, tree, mid + 1, end, 2 * treenode + 1);
+	mountain tLeft = tree[treenode * 2];
+	mountain tRight = tree[(treenode * 2) + 1];
+	if (tLeft.tastiness != -1 && tRight.tastiness != -1 && tRight.from_height > tLeft.to_height)
+	{
+		tree[treenode].from_height = tRight.to_height;
+		tree[treenode].to_height = tLeft.from_height;
+		tree[treenode].tastiness = tLeft.tastiness + tRight.tastiness;
+	}
+	else
+	{
+		tree[treenode].from_height = tRight.to_height;
+		tree[treenode].to_height = tLeft.from_height;
+		tree[treenode].tastiness = -1;
+	}
+}
 
-	return min(d1, d2);
+void updateTree(mountain *arr, mountain *tree, int start, int end, int treenode, int index, int value)
+{
+	if (start == end)
+	{
+		arr[index].tastiness = value;
+		tree[treenode].tastiness = value;
+		return;
+	}
+	int mid = (start + end) / 2;
+	if (index > mid) //updating right
+	{
+		updateTree(arr, tree, mid + 1, end, 2 * treenode + 1, index, value);
+	}
+	else //updating left
+	{
+		updateTree(arr, tree, start, mid, 2 * treenode, index, value);
+	}
+	mountain tLeft = tree[treenode * 2];
+	mountain tRight = tree[(treenode * 2) + 1];
+	if (tLeft.tastiness != -1 && tRight.tastiness != -1 && tRight.from_height < tLeft.to_height)
+	{
+		tree[treenode].from_height = tLeft.from_height;
+		tree[treenode].to_height = tRight.to_height;
+		tree[treenode].tastiness = tLeft.tastiness + tRight.tastiness;
+	}
+	else
+	{
+		tree[treenode].from_height = tLeft.from_height;
+		tree[treenode].to_height = tRight.to_height;
+		tree[treenode].tastiness = -1;
+	}
+}
+
+void updateTreeReverse(mountain *arr, mountain *tree, int start, int end, int treenode, int index, int value)
+{
+	if (start == end)
+	{
+		arr[index].tastiness = value;
+		tree[treenode].tastiness = value;
+		return;
+	}
+	int mid = (start + end) / 2;
+	if (index > mid) //updating right
+	{
+		updateTree(arr, tree, mid + 1, end, 2 * treenode + 1, index, value);
+	}
+	else //updating left
+	{
+		updateTree(arr, tree, start, mid, 2 * treenode, index, value);
+	}
+	mountain tLeft = tree[treenode * 2];
+	mountain tRight = tree[(treenode * 2) + 1];
+	if (tLeft.tastiness != -1 && tRight.tastiness != -1 && tRight.from_height > tLeft.to_height)
+	{
+		tree[treenode].from_height = tRight.to_height;
+		tree[treenode].to_height = tLeft.from_height;
+		tree[treenode].tastiness = tLeft.tastiness + tRight.tastiness;
+	}
+	else
+	{
+		tree[treenode].from_height = tRight.to_height;
+		tree[treenode].to_height = tLeft.from_height;
+		tree[treenode].tastiness = -1;
+	}
+}
+
+int queryTree(mountain *tree, int start, int end, int treenode, int left, int right)
+{
+	//completely outside the given range
+	if (start > right || end < left)
+	{
+		return 0;
+	}
+	//completely inside the given range
+	if (start >= left && end <= right)
+	{
+		return tree[treenode].tastiness;
+	}
+	//partially inside and partially outside
+	int mid = (start + end) / 2;
+	int ans1 = queryTree(tree, start, mid, 2 * treenode, left, right);		 //left
+	int ans2 = queryTree(tree, mid + 1, end, 2 * treenode + 1, left, right); //right
+	if (ans1 != -1 && ans2 != -1)
+	{
+		return ans1 + ans2;
+	}
+	else
+	{
+		return -1;
+	}
+}
+
+int queryTreeReverse(mountain *tree, int start, int end, int treenode, int left, int right)
+{
+	//completely outside the given range
+	if (start > right || end < left)
+	{
+		return 0;
+	}
+	//completely inside the given range
+	if (start >= left && end <= right)
+	{
+		return tree[treenode].tastiness;
+	}
+	//partially inside and partially outside
+	int mid = (start + end) / 2;
+	int ans1 = queryTree(tree, start, mid, 2 * treenode, left, right);		 //left
+	int ans2 = queryTree(tree, mid + 1, end, 2 * treenode + 1, left, right); //right
+	if (ans1 != -1 && ans2 != -1)
+	{
+		return ans1 + ans2;
+	}
+	else
+	{
+		return -1;
+	}
 }
 
 int32_t main()
 {
 	fast;
-	int t;
-	cin >> t;
-	while (t--)
+	int n, q;
+	cin >> n >> q;
+	mountain *arr = new mountain[n];
+	for (int i = 0; i < n; i++)
 	{
-		int n, x;
-		cin >> n >> x;
-		int *arr = new int[n];
-		for (int i = 0; i < n; i++)
+		cin >> arr[i].from_height;
+		arr[i].to_height = arr[i].from_height;
+	}
+	for (int i = 0; i < n; i++)
+	{
+		cin >> arr[i].tastiness;
+	}
+
+	mountain *tree = new mountain[2 * n];
+	mountain *treeReverse = new mountain[2 * n];
+
+	buildTree(arr, tree, 0, n - 1, 1);
+	buildTreeReverse(arr, treeReverse, 0, n - 1, 1);
+
+	while (q--)
+	{
+		int type;
+		cin >> type;
+		if (type == 1)
 		{
-			cin >> arr[i];
+			int index, value;
+			cin >> index >> value;
+			updateTree(arr, tree, 0, n - 1, 1, index-1, value);
+			updateTreeReverse(arr, treeReverse, 0, n - 1, 1, index-1, value);
 		}
-		cout << solve(arr, n, x) << endl;
+		else
+		{
+			int b, c;
+			cin >> b >> c;
+			if (b <= c)
+			{
+				cout << queryTree(tree, 0, n - 1, 1, b-1, c-1) << endl;
+			}
+			else
+			{
+				cout << queryTreeReverse(treeReverse, 0, n - 1, 1, c-1, b-1) << endl;
+			}
+		}
 	}
 }
