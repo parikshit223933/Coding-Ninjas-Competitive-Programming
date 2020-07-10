@@ -26,6 +26,12 @@ struct point
 	int index;
 };
 
+struct distancer
+{
+	double area;
+	int index;
+};
+
 // A global point needed for  sorting points with reference
 // to  the first point Used in compare function of qsort()
 point p0;
@@ -172,7 +178,7 @@ void print(vector<point> v)
 	cout << endl;
 	for (int i = 0; i < v.size(); i++)
 	{
-		cout << v[i].x << " " << v[i].y <<" " <<v[i].index<<endl;
+		cout << v[i].x << " " << v[i].y << " " << v[i].index << endl;
 	}
 	cout << endl;
 }
@@ -188,10 +194,122 @@ bool find_point(vector<point> v, point p)
 	}
 	return false;
 }
+double distance(point p1, point p2)
+{
+	int x1 = p1.x;
+	int y1 = p1.y;
+	int x2 = p2.x;
+	int y2 = p2.y;
+	// Calculating distance
+	return sqrt(pow(x2 - x1, 2) +
+				pow(y2 - y1, 2) * 1.0);
+}
+// Function to return the minimum distance
+// between a line segment AB and a point E
+double minDistance(point A, point B, point E)
+{
 
+	// vector AB
+	point AB;
+	AB.x = B.x - A.x;
+	AB.y = B.y - A.y;
+
+	// vector BP
+	point BE;
+	BE.x = E.x - B.x;
+	BE.y = E.y - B.y;
+
+	// vector AP
+	point AE;
+	AE.x = E.x - A.x,
+	AE.y = E.y - A.y;
+
+	// Variabley to ytore dot product
+	double AB_BE, AB_AE;
+
+	// Calculating the dot product
+	AB_BE = (AB.x * BE.x + AB.y * BE.y);
+	AB_AE = (AB.x * AE.x + AB.y * AE.y);
+
+	// Minimum distance xrom
+	// point E to the line segment
+	double reqAns = 0;
+
+	// Case 1
+	if (AB_BE > 0)
+	{
+
+		// Finding the magnitude
+		double y = E.y - B.y;
+		double x = E.x - B.x;
+		reqAns = sqrt(x * x + y * y);
+	}
+
+	// Case 2
+	else if (AB_AE < 0)
+	{
+		double y = E.y - A.y;
+		double x = E.x - A.x;
+		reqAns = sqrt(x * x + y * y);
+	}
+
+	// Case 3
+	else
+	{
+
+		// Finding the perpendicular distance
+		double x1 = AB.x;
+		double y1 = AB.y;
+		double x2 = AE.x;
+		double y2 = AE.y;
+		double mod = sqrt(x1 * x1 + y1 * y1);
+		reqAns = abs(x1 * y2 - y1 * x2) / mod;
+	}
+	return reqAns;
+} //minDistance, distance
+bool areaSorter(distancer a, distancer b)
+{
+	if(a.area>b.area)
+	{
+		return true;
+	}
+	else if(a.area==b.area)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+	
+}
 void perfect_polygon(point *arr, int n, int m, vector<point> hull)
 {
-	
+	vector<distancer> hullsArea;
+	int hull_size = hull.size();
+	distancer d;
+	d.area = (0.5) * (distance(hull[hull_size - 1], hull[1])) * (minDistance(hull[hull_size - 1], hull[1], hull[0]));
+	d.index = hull[0].index;
+	hullsArea.push_back(d);
+
+	for (int i = 1; i < hull_size - 1; i++)
+	{
+		d.area = (0.5) * (distance(hull[i - 1], hull[i + 1])) * (minDistance(hull[i - 1], hull[i + 1], hull[i]));
+		d.index = hull[i].index;
+		hullsArea.push_back(d);
+	}
+
+	d.area = (0.5) * (distance(hull[hull_size - 2], hull[0])) * (minDistance(hull[hull_size - 2], hull[0], hull[hull_size-1]));
+	d.index = hull[hull_size-1].index;
+	hullsArea.push_back(d);
+
+	sort(hullsArea.begin(), hullsArea.end(), areaSorter);
+
+	for(int i=0; i<hullsArea.size(); i++)
+	{
+		cout<<hullsArea[i].index<<" ";
+	}
+	cout<<endl;
 }
 
 void imperfect_polygon(point *arr, int n, int m, vector<point> hull, vector<point> insideHull)
@@ -238,7 +356,7 @@ int32_t main()
 	for (int i = 0; i < n; i++)
 	{
 		cin >> arr[i].x >> arr[i].y;
-		arr[i].index=i+1;
+		arr[i].index = i + 1;
 	}
 	int m;
 	cin >> m;
