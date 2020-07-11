@@ -64,16 +64,16 @@ void buildTreeReverse(mountain *arr, mountain *tree, int start, int end, int tre
 	buildTree(arr, tree, mid + 1, end, 2 * treenode + 1);
 	mountain tLeft = tree[treenode * 2];
 	mountain tRight = tree[(treenode * 2) + 1];
-	if (tLeft.tastiness != -1 && tRight.tastiness != -1 && tRight.from_height > tLeft.to_height)
+	if (tLeft.tastiness != -1 && tRight.tastiness != -1 && tRight.to_height > tLeft.from_height)
 	{
-		tree[treenode].from_height = tRight.to_height;
-		tree[treenode].to_height = tLeft.from_height;
+		tree[treenode].from_height = tRight.from_height;
+		tree[treenode].to_height = tLeft.to_height;
 		tree[treenode].tastiness = tLeft.tastiness + tRight.tastiness;
 	}
 	else
 	{
-		tree[treenode].from_height = tRight.to_height;
-		tree[treenode].to_height = tLeft.from_height;
+		tree[treenode].from_height = tRight.from_height;
+		tree[treenode].to_height = tLeft.to_height;
 		tree[treenode].tastiness = -1;
 	}
 }
@@ -130,16 +130,16 @@ void updateTreeReverse(mountain *arr, mountain *tree, int start, int end, int tr
 	}
 	mountain tLeft = tree[treenode * 2];
 	mountain tRight = tree[(treenode * 2) + 1];
-	if (tLeft.tastiness != -1 && tRight.tastiness != -1 && tRight.from_height > tLeft.to_height)
+	if (tLeft.tastiness != -1 && tRight.tastiness != -1 && tRight.to_height > tLeft.from_height)
 	{
-		tree[treenode].from_height = tRight.to_height;
-		tree[treenode].to_height = tLeft.from_height;
+		tree[treenode].from_height = tRight.from_height;
+		tree[treenode].to_height = tLeft.to_height;
 		tree[treenode].tastiness = tLeft.tastiness + tRight.tastiness;
 	}
 	else
 	{
-		tree[treenode].from_height = tRight.to_height;
-		tree[treenode].to_height = tLeft.from_height;
+		tree[treenode].from_height = tRight.from_height;
+		tree[treenode].to_height = tLeft.to_height;
 		tree[treenode].tastiness = -1;
 	}
 }
@@ -206,6 +206,7 @@ int32_t main()
 	{
 		cin >> arr[i].from_height;
 		arr[i].to_height = arr[i].from_height;
+
 	}
 	for (int i = 0; i < n; i++)
 	{
