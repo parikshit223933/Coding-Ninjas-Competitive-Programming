@@ -190,7 +190,31 @@ vector<pair<int, int>> queryTree(mountain* tree, int start, int end, int treenod
 
 	return new_vect;
 }
-
+int test (mountain* tree, int start, int end, int treenode, int left, int right)
+{
+	//completely outside the given range
+	if (start > right || end < left)
+	{
+		return 0;
+	}
+	//completely inside the given range
+	if (start >= left && end <= right)
+	{
+		return tree[treenode].tastiness;
+	}
+	//partially inside and partially outside
+	int mid = (start + end) / 2;
+	int ans1 = test(tree, start, mid, 2 * treenode, left, right);		 //left
+	int ans2 = test(tree, mid + 1, end, 2 * treenode + 1, left, right); //right
+	if (ans1 != -1 && ans2 != -1)
+	{
+		return ans1 + ans2;
+	}
+	else
+	{
+		return -1;
+	}
+}
 int32_t main()
 {
 	fast;
@@ -224,7 +248,6 @@ int32_t main()
 
 	while (q--)
 	{
-		cout << endl;
 		int type;
 		cin >> type;
 		if (type == 1)
@@ -240,17 +263,13 @@ int32_t main()
 			cin >> b >> c;
 			if (b <= c)
 			{
+				int tester = test(tree, 0, n - 1, 1, b - 1, c - 1);
+				if (tester == -1)
+				{
+					cout << -1 << endl;
+					continue;
+				}
 				vector<pair<int, int>>vc=queryTree(tree, 0, n - 1, 1, b - 1, c - 1);
-				for (int i = 0; i < vc.size(); i++)
-				{
-					cout << vc[i].first << " ";
-				}
-				cout << endl;
-				for (int i = 0; i < vc.size(); i++)
-				{
-					cout << vc[i].second << " ";
-				}
-				cout << endl;
 				int current_tastiness = vc[0].second;
 				int current_height = vc[0].first;
 				int total_tastiness = vc[0].second;
@@ -279,17 +298,13 @@ int32_t main()
 			}
 			else
 			{
+				int tester = test(tree, 0, n - 1, 1, b - 1, c - 1);
+				if (tester == -1)
+				{
+					cout << -1 << endl;
+					continue;
+				}
 				vector<pair<int, int>>vc= queryTree(treeReverse, 0, n - 1, 1, n - b, n - c);
-				for (int i = 0; i < vc.size(); i++)
-				{
-					cout << vc[i].first << " ";
-				}
-				cout << endl;
-				for (int i = 0; i < vc.size(); i++)
-				{
-					cout << vc[i].second << " ";
-				}
-				cout << endl;
 				int current_tastiness = vc[0].second;
 				int current_height = vc[0].first;
 				int total_tastiness = vc[0].second;
