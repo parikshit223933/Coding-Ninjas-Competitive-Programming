@@ -17,7 +17,7 @@
 	ios_base::sync_with_stdio(false); \
 	cin.tie(NULL);
 #define endl '\n'
-#define int long long int
+#define ll long long int
 using namespace std;
 struct mountain
 {
@@ -160,29 +160,89 @@ void updateTree(mountain* arr, mountain* tree, int start, int end, int treenode,
 	tree[treenode] = new_node;
 }
 
-int queryTree(mountain* tree, int start, int end, int treenode, int left, int right)
+mountain queryTree(mountain* tree, int start, int end, int treenode, int left, int right)
 {
 	//completely outside the given range
 	if (start > right || end < left)
 	{
-		return 0;
+		mountain m;
+		m.tastiness = 0;
+		vector<pair<int, int>>vv;
+		m.vec = vv;
+		return m;
 	}
 	//completely inside the given range
 	if (start >= left && end <= right)
 	{
-		return tree[treenode].tastiness;
+		return tree[treenode];
 	}
 	//partially inside and partially outside
 	int mid = (start + end) / 2;
-	int ans1 = queryTree(tree, start, mid, 2 * treenode, left, right);		 //left
-	int ans2 = queryTree(tree, mid + 1, end, 2 * treenode + 1, left, right); //right
-	if (ans1 != -1 && ans2 != -1)
+	mountain ans1 = queryTree(tree, start, mid, 2 * treenode, left, right);		 //left
+	mountain ans2 = queryTree(tree, mid + 1, end, 2 * treenode + 1, left, right); //right
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	vector<pair<int, int>> new_vec;
+	for (int i = ans1.vec.size() - 1; i >= 0; i--)
 	{
-		return ans1 + ans2;
+		if (ans1.vec.size() == 0)
+		{
+			break;
+		}
+		new_vec.push_back(ans1.vec[i]);
+	}
+	for (int i = ans2.vec.size() - 1; i >= 0; i--)
+	{
+		if (ans2.vec.size() == 0)
+		{
+			break;
+		}
+		new_vec.push_back(ans2.vec[i]);
+	}
+	bool checker = false;
+	int current_height = new_vec[new_vec.size() - 1].first;
+	if (new_vec.size() == 1)
+	{
+		checker = true;
+	}
+	for (int i = new_vec.size() - 1; i >= 0; i--)
+	{
+		if (new_vec[i].first > current_height)
+		{
+			if (i == 0)
+			{
+				checker = true;
+			}
+			current_height = new_vec[i].first;
+		}
+	}
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	if (ans1.tastiness != -1 && ans2.tastiness != -1 && checker)
+	{
+		mountain m;
+		vector<pair<int, int>>ve;
+		for (int i = 0; i < new_vec.size(); i++)
+		{
+			ve.push_back(new_vec[new_vec.size() - i - 1]);
+		}
+        new_vec.clear();
+        ans1.vec.clear();
+        ans2.vec.clear();
+		m.vec = ve;
+		m.tastiness = ans1.tastiness + ans2.tastiness;
+		return m;
 	}
 	else
 	{
-		return -1;
+        new_vec.clear();
+        ans1.vec.clear();
+        ans2.vec.clear();
+		mountain m;
+		m.tastiness = -1;
+		vector<pair<int, int>>vv;
+		m.vec = vv;
+		return m;
 	}
 }
 
@@ -217,6 +277,8 @@ int32_t main()
 	buildTree(arr, tree, 0, n - 1, 1);
 	buildTree(arrReverse, treeReverse, 0, n - 1, 1);
 
+
+
 	while (q--)
 	{
 		int type;
@@ -234,11 +296,11 @@ int32_t main()
 			cin >> b >> c;
 			if (b <= c)
 			{
-				cout << queryTree(tree, 0, n - 1, 1, b - 1, c - 1) << endl;
+				cout << queryTree(tree, 0, n - 1, 1, b - 1, c - 1).tastiness << endl;
 			}
 			else
 			{
-				cout << queryTree(treeReverse, 0, n - 1, 1, n - b, n - c) << endl;
+				cout << queryTree(treeReverse, 0, n - 1, 1, n - b, n - c).tastiness << endl;
 			}
 		}
 	}
