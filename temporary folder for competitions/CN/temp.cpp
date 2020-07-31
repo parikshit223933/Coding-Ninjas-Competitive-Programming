@@ -19,44 +19,41 @@
 #define endl '\n'
 #define ll long long int
 using namespace std;
-void solve(string s)
+void makeSieve(int *arr, int n)
 {
-	unordered_map<char, int>m;
-	for(int i=0; i<s.length(); i++)
-	{
-		m[s[i]]++;
-	};
-	char max_char=0;
-	int max_length=0;
-	for(auto i: m)
-	{
-		if(max_length<i.second)
-		{
-			max_length=i.second;
-			max_char=i.first;
-		}
+    int *isprime=new int [n+1];
+    for(int i=0; i<n; i++)
+    {
+        isprime[i]=0;
 	}
-	if(max_length==1)
-	{
-		char lmc;
-		char mc='z';
-		for(int i=0; i<s.length(); i++)
+    isprime[0]=arr[0];
+    isprime[1]=arr[0]+arr[1];
+    for(int i=sqrt(n); i>=0; i--)
+    {
+        for(int j=i; j%i==0&&j/i>=0&&j>=0; j--)
+        {
+            isprime[j*i]+=arr[i];
+        }
+    }
+    int count=0;
+    for(int i=0; i<n+1; i++)
+    {
+        if(isprime[i])
+        count++;
+    }
+    cout<<count<<endl;
+    delete[]isprime;
+}
+
+void solve(int *arr, int n)
+{
+	for(int mul=1; mul<n; mul++)
+	[
+		for(int i=0; i<n; i+=mul)
 		{
-			if((int)s[i]<(int)mc)
-			{
-				lmc=s[i];
-			}
+
 		}
-		cout<<lmc<<endl;
-	}
-	else
-	{
-		for(int i=0; i<max_length; i++)
-		{
-			cout<<max_char;
-		}
-		cout<<endl;
-	}
+	]
 }
 int main()
 {
@@ -65,8 +62,13 @@ int main()
 	cin>>t;
 	while(t--)
 	{
-		string s;
-		cin>>s;
-		solve(s);
+		int n;
+		cin>>n;
+		int *arr=new int [n];
+		for(int i=0; i<n; i++){
+			cin>>arr[i];
+		}
+		solve(arr, n);
+		cout<<endl;
 	}
 }
