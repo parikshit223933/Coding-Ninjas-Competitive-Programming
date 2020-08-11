@@ -48,6 +48,8 @@ Sample Output
 using namespace std;
 int main()
 {
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
 	int n;
 	cin>>n;//number of coins;
 	int m;//number of days;
@@ -98,7 +100,7 @@ int main()
 	{
 		int coins;
 		cin>>coins;
-		cout<<dp[coins]<<endl;
+		cout<<dp[coins]<<"\n";
 	}
 	delete[]ke;
 	delete[]ks;
