@@ -15,31 +15,24 @@
     ios_base::sync_with_stdio(false); \
     cin.tie(NULL);
 #define endl '\n'
-#define ll long long int
+#define int long long int
 #define uint unsigned long long int
 using namespace std;
-int mod=1000000007;
-ll fact(ll n)
-{
-    if (n == 0)
-        return 1;
-    else
-    {
-        return (n%mod) * (fact(n - 1)%mod);
-    }
+
+int solve(int n1, int n2)
+{   
+    return __gcd(n1, n2);
 }
-int main()
+
+int32_t main()
 {
     fast;
-    int n;
-    cin >> n;
-
-    ll ans = fact(n-1);
-    int temp = n - 1;
-    while (temp-1)
+    int t;
+    cin>>t;
+    while(t--)
     {
-        ans = (ans%mod + (ans/temp)%mod)%mod;
-        temp--;
+        int n1, n2;
+        cin>>n1, n2;
+        cout<<solve(n1, n2)<<endl;
     }
-    cout<<ans<<endl;
 }
