@@ -19,56 +19,33 @@
 #define endl '\n'
 #define ll long long int
 using namespace std;
-void makeSieve(int *arr, int n)
+int solve(string s1, string s2, int x, int y)
 {
-    int *isprime=new int [n+1];
-    for(int i=0; i<n; i++)
-    {
-        isprime[i]=0;
+	if(s2.length()>s1.length())
+	{
+		return INT_MAX;
 	}
-    isprime[0]=arr[0];
-    isprime[1]=arr[0]+arr[1];
-    for(int i=sqrt(n); i>=0; i--)
-    {
-        for(int j=i; j%i==0&&j/i>=0&&j>=0; j--)
-        {
-            isprime[j*i]+=arr[i];
-        }
-    }
-    int count=0;
-    for(int i=0; i<n+1; i++)
-    {
-        if(isprime[i])
-        count++;
-    }
-    cout<<count<<endl;
-    delete[]isprime;
-}
-
-void solve(int *arr, int n)
-{
-	for(int mul=1; mul<n; mul++)
-	[
-		for(int i=0; i<n; i+=mul)
+	int min_length=min(s1.length(), s2.length());
+	int totalScore=0;
+	for(int i=0; i<min_length; i++)
+	{
+		if(s2[i]=='_')
 		{
-
+			totalScore+=x;
 		}
-	]
+		else if(s1[i]==s2[i])
+		{
+			totalScore+=y;
+		}
+	}
+		
 }
 int main()
 {
-	fast;
-	int t;
-	cin>>t;
-	while(t--)
-	{
-		int n;
-		cin>>n;
-		int *arr=new int [n];
-		for(int i=0; i<n; i++){
-			cin>>arr[i];
-		}
-		solve(arr, n);
-		cout<<endl;
-	}
+	string s1, s2;
+	cin>>s1>>s2;
+	int x, y;
+	cin>>x>>y;
+
+	cout<<solve(s1, s2, x, y)<<endl;
 }
