@@ -9,6 +9,7 @@
         "vector": "cpp",
         "chrono": "cpp",
         "cmath": "cpp",
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "unordered_map": "cpp"
     }
 }
