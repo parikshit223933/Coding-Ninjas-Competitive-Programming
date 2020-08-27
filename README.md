@@ -139,5 +139,12 @@ This Repository Contains all my codes which I wrote during the competitive progr
 7. Use multiple arrays instead of one large array.
 8. Use unordered_map instead of the usual stl map. Use std::sort instead of qsort.
 9. In an if else block, make sure that the condition in if block, is the one that is more likely to be true.
-10. **Always use '\n' to change the line. endl takes a lot of time. HERE IS THE PROOF:**</br></br>
-![Farmers Market Finder Demo](Media/endline_proof.gif)
+10. **Always use '\n' to change the line. endl takes a lot of time.**</br>
+
+# Contribution
+
+If you have got an optimized solution to a problem or, lets say, the existing solution is failing on some test cases and you got a working solution, then there is really a high chance of getting you pull request being accepted. 
+**Note:** If you have got an optimised solution, but the existing solution is also working, then:
+1. Make another file in the corresponding folder'
+2. Name it `<problem name in snake case>-<your name in snake case>-Optimized.cpp`. for example, if the problem name is `Angry Children`, then name of the file which will contain the optimized code should be `angry_children-parikshit_singh-Optimized.cpp`
+3. Generate a pull request and wait.
