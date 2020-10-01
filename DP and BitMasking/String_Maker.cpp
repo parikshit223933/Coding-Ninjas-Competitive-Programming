@@ -88,9 +88,3 @@ int solve(string a, string b, string c)
     }
     return ans;
 }
-int main()
-{
-    string a, b, c;
-    cin>>a>>b>>c;
-    cout<<solve(a, b, c)<<endl;
-}
