@@ -16,7 +16,17 @@
 #define endl '\n'
 #define ll long long int
 using namespace std;
+
 int main()
 {
-    
+    ll districts;
+    char alphaRangeStart, alphaRangeEnd;
+    ll digitRangeStart, digitRangeEnd;
+    cin >> districts >> alphaRangeStart >> alphaRangeEnd >> digitRangeStart >> digitRangeEnd;
+    ll series = ((ll)alphaRangeEnd - (ll)alphaRangeStart + 1) * ((ll)alphaRangeEnd - (ll)alphaRangeStart + 1);
+    ll regNumber = (digitRangeEnd - digitRangeStart + 1) *
+                    (digitRangeEnd - digitRangeStart + 1) *
+                    (digitRangeEnd - digitRangeStart + 1) *
+                    (digitRangeEnd - digitRangeStart + 1);
+    cout << series * regNumber * districts;
 }
