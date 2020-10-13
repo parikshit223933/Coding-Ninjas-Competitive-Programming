@@ -6,6 +6,12 @@
 This Repository Contains all my codes which I wrote during the competitive programming course with <a href="https://www.codingninjas.com/">Coding Ninjas</a></br>
 (PS: For some of the questions you may like to check out the commit history to know how did I proceed step by step for any particular question)</br>
 
+# Disclaimer:
+<p>Copying and pasting the code from this repo to the CN's console won't help you in the long run. Everyone wants to be a competitive programmer to get that sexy ass package at FAANG, but it takes a lot of hard work and dedication to achieve something like that. For once in life don't get frustrated, fuckin believe in yourself, give it some time, relax and eventually you will see the results.</p>
+<p>
+I am myself not very good at competitive programming as well. Moreover there is nothing like "bas dekhunga/dekhungi copy thodi na kar raha/rahi hu!". Dekha matlab copy kia. If you choose to see any of these codes before trying it on your own and giving your 100%, you chose easier path. And I wish you luck for your future. :slightly_smiling_face:
+<p>
+
 # Insights (In Hinglish)
 :slightly_smiling_face: Merge sort is better than selection sort</br>
 
