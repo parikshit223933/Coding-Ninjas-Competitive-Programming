@@ -71,7 +71,7 @@ int main() {
             total+=cost*(set[i]==i);
             air+=(set[i]==i);
         }
-        printf("Case %d: %d %d\n",cc++,total,air);
+        printf("Case #%d: %d %d\n",cc++,total,air);
     }
     return 0;
 }
