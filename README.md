@@ -70,53 +70,52 @@ I am myself not very good at competitive programming as well. Moreover there is 
 
 
 # Important lectures and questions to revised again(bookmarks):
-1. **Oscillating prices of chakri** in prerequisites lecture
-2. **Arrays and pointers video lecture** in lecture: pointers(optional to understand c++)
-3. **"what is the output"** question after arrays and pointers video lecture in lecture: pointers(optional to understand c++)
-4. **characters and pointers video lecture** in Lecture : Pointers(Optional To Understand C++)
-5. **Address type casting** in lecture :dynamic allocation(optional to understand c++)
-6. **reference and pass by reference video lecture** in Lecture : Dynamic Allocation(Optional To Understand C++)
-7. **second and third fill the output question** after macros global variable video lecture in Lecture : Dynamic Allocation(Optional To Understand C++).
-8. **First index of a number** in lecture: basics of recursion
-9. **Last index of a number** in lecture :basics of recursion. Although i did it in the first attempt, but i liked this one.
-10. **all indices of number** in lecture: basics of recursion.
-11. **time and space complexity analysis** lecture is very important.
-12. **live question 1** in time and space complexity lecture.
-13. **live question 2** in the lecture time and space complexity analysis.
-14. **live question 3** in lecture language tools. i can;t do it.
-15. **warm reception** in language tools.. it is a very good question. clears all the concepts of time complexity.
-16. **triplet sum** in language tools + time complexity assignment.
-17. **longest consecutive sequence** in lecture language tools + time and complexity assignment
-18. **aggressive cows problem** in searching and sorting applications. - i did it myself and is a very good problem.
-19. **aggressive cows and inversion count problems** are searching ans sorting applications respectively. these are very important.
-20. **searching and sorting applications lecture** is very very important.
-21. **last question** of advanced recursion.
-22. **alpha code question** in dynamic programming-1.
-23. **largest bitonic subarray** in dynamic programming -1 lecture. (I raised a doubt regarding this. I couldn't do it myself).
-24. dynamic programming-1 live **question 1**.
-25. dynamic programming-1 **live question 2**.
-26. dynamic programming -1 -**minimum count** question.
-27. **adjacent bit count** and the **problem before that** are important. these are for the basic concept. in dynamic programming-1.
-28. **All the assignment questions in DP-1** are also important.
-29. **last problem of DP-1** is also very important, I couldn't do it myself
-30. **balika vadhu** probelm in dp-2.
-31. **Trader Profit** in dp2.
-32. **Distinct subsequences** in dynamic programming 2.
-33. **shortest subsequence** in dp2.
-34. **weighted job scheduling** in greedy problems(very very important)
-35. **2vs3** in segment trees
-36. **Prims algorithm** in graphs 2
-37. **connected horses** in advanced graphhs.
-38. **FillMTR** and **AIRPORTS** in Advanced Graphs.
-39. **Monk and the islands** in advanced graphs.
-40. **Maximum XOR Subarray** in Tries.
-41. **Distinct Query Problem**, **OrderSet Problem**, **KQUERY Problem**, **Shil and Wave Sequence**, **INCSEQ(Very Important)**
- in Fenwick Tree Lecture.
-42. **Counting APs** and **Number of Strings** in DP & Bitmasking.
-43. **Sachin and Varun Problem** in applications of number theory-1.
-44. **Card Game** in Applications of Number theory-1.
-45. **Segmented sieve problem** in number theory 2.
-46. **Warehouse** in Computaional Geometry.
+* [ ] **Oscillating prices of chakri** in prerequisites lecture
+* [ ] **Arrays and pointers video lecture** in lecture: pointers(optional to understand c++)
+* [ ] **"what is the output"** question after arrays and pointers video lecture in lecture: pointers(optional to understand c++)
+* [ ] **characters and pointers video lecture** in Lecture : Pointers(Optional To Understand C++)
+* [ ] **Address type casting** in lecture :dynamic allocation(optional to understand c++)
+* [ ] **reference and pass by reference video lecture** in Lecture : Dynamic Allocation(Optional To Understand C++)
+* [ ] **second and third fill the output question** after macros global variable video lecture in Lecture : Dynamic Allocation(Optional To Understand C++).
+* [ ] **First index of a number** in lecture: basics of recursion
+* [ ] **Last index of a number** in lecture :basics of recursion. Although i did it in the first attempt, but i liked this one.
+* [ ] **all indices of number** in lecture: basics of recursion.
+* [ ] **time and space complexity analysis** lecture is very important.
+* [ ] **live question 1** in time and space complexity lecture.
+* [ ] **live question 2** in the lecture time and space complexity analysis.
+* [ ] **live question 3** in lecture language tools. i can;t do it.
+* [ ] **warm reception** in language tools.. it is a very good question. clears all the concepts of time complexity.
+* [ ] **triplet sum** in language tools + time complexity assignment.
+* [ ] **longest consecutive sequence** in lecture language tools + time and complexity assignment
+* [ ] **aggressive cows problem** in searching and sorting applications. - i did it myself and is a very good problem.
+* [ ] **aggressive cows and inversion count problems** are searching ans sorting applications respectively. these are very important.
+* [ ] **searching and sorting applications lecture** is very very important.
+* [ ] **last question** of advanced recursion.
+* [ ] **alpha code question** in dynamic programming-1.
+* [ ] **largest bitonic subarray** in dynamic programming -1 lecture. (I raised a doubt regarding this. I couldn't do it myself).
+* [ ] dynamic programming-1 live **question 1**.
+* [ ] dynamic programming-1 **live question 2**.
+* [ ] dynamic programming -1 -**minimum count** question.
+* [ ] **adjacent bit count** and the **problem before that** are important. these are for the basic concept. in dynamic programming-1.
+* [ ] **All the assignment questions in DP-1** are also important.
+* [ ] **last problem of DP-1** is also very important, I couldn't do it myself
+* [ ] **balika vadhu** probelm in dp-2.
+* [ ] **Trader Profit** in dp2.
+* [ ] **Distinct subsequences** in dynamic programming 2.
+* [ ] **shortest subsequence** in dp2.
+* [ ] **weighted job scheduling** in greedy problems(very very important)
+* [ ] **2vs3** in segment trees
+* [ ] **Prims algorithm** in graphs 2
+* [ ] **connected horses** in advanced graphhs.
+* [ ] **FillMTR** and **AIRPORTS** in Advanced Graphs.
+* [ ] **Monk and the islands** in advanced graphs.
+* [ ] **Maximum XOR Subarray** in Tries.
+* [ ] **Distinct Query Problem**, **OrderSet Problem**, **KQUERY Problem**, **Shil and Wave Sequence**, **INCSEQ(Very Important)** in Fenwick Tree Lecture.
+* [ ] **Counting APs** and **Number of Strings** in DP & Bitmasking.
+* [ ] **Sachin and Varun Problem** in applications of number theory-1.
+* [ ] **Card Game** in Applications of Number theory-1.
+* [ ] **Segmented sieve problem** in number theory 2.
+* [ ] **Warehouse** in Computaional Geometry.
 
 
 
@@ -124,10 +123,10 @@ I am myself not very good at competitive programming as well. Moreover there is 
 
 
 # Lectures to be done again
-1. Greedy
-2. Advanced Graphs
-3. Fenwick Trees
-4. Number Theory 3
+* [ ] Greedy
+* [ ] Advanced Graphs
+* [ ] Fenwick Trees
+* [ ] Number Theory 3
 
 
 
