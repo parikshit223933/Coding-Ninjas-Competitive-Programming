@@ -22,66 +22,38 @@ Sample Output ;
 2 3 7
 2 4 6
 3 4 5 */
-/* Time Complexity : O(n^2) 
-Space Complexity : O(n) 
-where n is size of Array/List 
-*/ 
-#include<bits/stdc++.h>
+// arr - input array
+// size - size of array
+// x - sum of triplets
+#include<iostream>
+#include<algorithm>
 using namespace std;
-int pairSum(int *arr, int startIndex, int endIndex, int num) 
-{ 
-    int numPair = 0; 
-    while (startIndex < endIndex) 
-    { 
-        if (arr[startIndex] + arr[endIndex] < num) 
-        { 
-            startIndex++; 
-            
-        } 
-        else if (arr[startIndex] + arr[endIndex] > num) 
-        { 
-            endIndex--; 
-            
-        } 
-        else 
-        { 
-            int elementAtStart = arr[startIndex];
-            int elementAtEnd = arr[endIndex]; 
-            if (elementAtStart == elementAtEnd) 
-            { 
-                int totalElementsFromStartToEnd = (endIndex - startIndex) + 1; 
-                numPair += (totalElementsFromStartToEnd * (totalElementsFromStartToEnd - 1) / 2); 
-                return numPair; 
-                
-            }
-            int tempStartIndex = startIndex + 1; 
-            int tempEndIndex = endIndex - 1; 
-            while (tempStartIndex <= tempEndIndex && arr[tempStartIndex] == elementAtStart) 
-            { 
-                tempStartIndex += 1; 
-                
-            } 
-            while (tempEndIndex >= tempStartIndex && arr[tempEndIndex] == elementAtEnd) 
-            { 
-                tempEndIndex -= 1; 
-            } 
-            int totalElementsFromStart = (tempStartIndex - startIndex); 
-            int totalElementsFromEnd = (endIndex - tempEndIndex); 
-            numPair += (totalElementsFromStart * totalElementsFromEnd); 
-            startIndex = tempStartIndex; endIndex = tempEndIndex; 
-        }
-    } 
-    return numPair; 
-} 
-int tripletSum(int *arr, int n, int num) 
-{ 
-    sort(arr, arr + n); 
-    int numTriplets = 0; 
-    for (int i = 0; i < n; i++) 
-    {
-        int pairSumFor = num - arr[i]; 
-        int numPairs = pairSum(arr, (i + 1), (n - 1), pairSumFor); 
-        numTriplets += numPairs;
-    }
-    return numTriplets;
+void FindTriplet(int arr[], int n, int x)
+{
+    sort(arr, arr+n);
+	for(int i=0; i<n; i++)
+	{
+		for(int j=i+1; j<n; j++)
+		{
+			for(int k=j+1; k<n; k++)
+			{
+				if(arr[i]+arr[j]+arr[k]==x)
+				{
+					cout<<arr[i]<<" "<<arr[j]<<" "<<arr[k]<<endl;
+				}
+				else if(arr[i]+arr[j]+arr[k]>x)
+				{
+					break;
+				}
+			}
+			if(arr[i]+arr[j]>x)
+			{
+				break;
+			}
+		}
+		if(arr[i]>x)
+		{
+			break;
+		}
+	}
 }
