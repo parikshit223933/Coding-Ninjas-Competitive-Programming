@@ -16,20 +16,16 @@ Sample Output:
 // arr - input array
 // size - size of array
 #include<iostream>
-#include<map>
-using namespace std;
-int MissingNumber(int arr[], int n)
-{
-    map<int, int>m;
-    for(int i=0; i<n; i++)
-    {
-        if(m[arr[i]]==1)
-        {
-            return arr[i];
+#include<algorithm>
+int findUnique(int *arr, int n) {
+    int i=0;
+    sort(arr,arr+n);
+    while(i<n){
+        if(arr[i]==arr[i+1]&&n>1){
+            i=i+2;
         }
-        else
-        {
-            m[arr[i]]=1;
+        else {
+            return arr[i];
         }
     }
 }
