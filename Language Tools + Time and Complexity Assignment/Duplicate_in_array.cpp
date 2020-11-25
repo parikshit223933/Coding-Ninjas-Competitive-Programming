@@ -15,6 +15,7 @@ Sample Output:
 
 // arr - input array
 // size - size of array
+//ritikagarwal231
 #include<algorithm>
 int findUnique(int *arr, int n) {
     int i=0;
