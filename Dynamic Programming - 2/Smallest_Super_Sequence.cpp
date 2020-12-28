@@ -19,50 +19,37 @@ Their smallest super-sequence can be "abc" which has length=3. */
 #include<iostream>
 #include<algorithm>
 using namespace std;
-int helper(char str1[], int len1, char str2[], int len2,int **dp)
-{
-    if(len1==0)
-    {
-         return len2;
-    }
-    if(len2==0)
-    {
-        return len1;
-    }
-    if(dp[len1][len2]>=0)
-    {
-        return dp[len1][len2];
-    }
-    int ans;
-    if(str1[0]==str2[0])
-    {
-        ans= 1+helper(str1+1, len1-1, str2+1, len2-1, dp);
-    }
-    else
-    {
-        int option1=helper(str1, len1, str2+1, len2-1, dp);
-        int option2=helper(str1+1, len1-1, str2, len2, dp);
-        ans= 1+min(option1, option2);
-    }
-    dp[len1][len2]=ans;
-    return ans;
-}
-int smallestSuperSequence(char str1[], int len1, char str2[], int len2)
-{
-    int **dp=new int *[len1+1];
-    for(int i=0; i<len1+1; i++)
-    {
-        dp[i]=new int [len2+1];
-        for(int j=0; j<len2+1; j++)
-        {
-            dp[i][j]=-1;
+int smallestSuperSequenceHelper(string s1,string s2,int m,int n,int **dp){
+    
+    for(int i=m;i>=0;i--){
+        for(int j=n;j>=0;j--){
+            if(s1[i]==s2[j]){
+                dp[i][j]=dp[i+1][j+1]+1;
+            }
+            else{
+                dp[i][j]=min(dp[i+1][j],dp[i][j+1])+1;
+            }
         }
     }
-    int ans= helper(str1, len1, str2, len2, dp);
-    for(int i=0; i<len1+1; i++)
-    {
-        delete[]dp[i];
+
+    return dp[0][0];
+}
+
+int smallestSuperSequence(string s1,string s2){
+    int m=s1.length(),n=s2.length();
+    int **dp=new int*[m+1];
+    for(int i=0;i<=m;i++){
+        dp[i]=new int[n+1];
     }
-    delete[]dp;
+    int count=0;
+    for(int i=n;i>=0;i--){
+        dp[m][i]=count++;
+    }
+    count=0;
+    for(int i=m;i>=0;i--){
+        dp[i][n]=count++;
+    }
+
+    int ans=smallestSuperSequenceHelper(s1,s2,m-1,n-1,dp);
     return ans;
 }
