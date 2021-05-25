@@ -15,17 +15,17 @@ Sample Output:
 
 // arr - input array
 // size - size of array
-//ritikagarwal231
-#include<algorithm>
+//Mohak-Goel
 int findUnique(int *arr, int n) {
-    int i=0;
-    sort(arr,arr+n);
-    while(i<n){
-        if(arr[i]==arr[i+1]&&n>1){
-            i=i+2;
-        }
-        else {
-            return arr[i];
-        }
+ 
+    int map[n] = {0};
+    
+	for(int i=0; i<n; i++){
+        
+    	if(map[arr[i]] == 0)
+           	map[arr[i]] = 1;
+        
+        else
+           	return arr[i];
     }
 }
