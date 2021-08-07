@@ -17,7 +17,8 @@ Sample Output:
 // size - size of array
 //RohanKumar01
 #include<algorithm>
-int findUnique(int *arr, int n) {
+int findDuplicate(int *arr, int n)
+{
     int i=0;
     sort(arr,arr+n);
     for(i=0; i<n; i++){
