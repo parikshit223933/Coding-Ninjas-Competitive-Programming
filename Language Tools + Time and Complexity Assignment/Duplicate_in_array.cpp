@@ -15,7 +15,6 @@ Sample Output:
 
 // arr - input array
 // size - size of array
-//RohanKumar01
 #include<algorithm>
 int findDuplicate(int *arr, int n)
 {
