@@ -142,6 +142,7 @@ This Repository Contains all my codes which I wrote during the competitive progr
 8. Use unordered_map instead of the usual stl map. Use std::sort instead of qsort.
 9. In an if else block, make sure that the condition in if block, is the one that is more likely to be true.
 10. **Always use '\n' to change the line. endl takes a lot of time.**</br>
+11. Avoid making many variables while solving pattern aor loop questions.
 
 # Contribution Guidelines
 
