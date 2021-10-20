@@ -76,5 +76,6 @@ int main(){
         }
         cout<<dp[0][n][wi]<<endl;
     }
+   
     return 0;
 }
