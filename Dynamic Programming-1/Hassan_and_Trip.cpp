@@ -25,50 +25,60 @@ Sample Output
 
 
 
-#include<iostream>
-#include<math.h>
-#include<algorithm>
+#include<bits/stdc++.h>
 using namespace std;
-double distanc(double *x, double *y, int i, int j)
-{
-	double difference_x=x[i]-x[j];
-	double difference_y=y[i]-y[j];
-	double ans= sqrt((difference_x*difference_x)+(difference_y*difference_y));
-	return ans;
-}
-inline void maximum_happiness(double *x, double *y, double *f, int n)
-{
-	double *dp=new double [3030];
-	for(int i = 0; i < n; i++)
-        dp[i] = -1e9;
-	dp[0]=0;
-	for(int i=0; i<n; i++)
-	{
-		dp[i]+=f[i];
-		for(int j=i+1; j<n; j++)
-		{
-			double dist=distanc(x, y, i, j);
-			dp[j]=max(dp[j], dp[i]-dist);
-		}
-	}
-	cout<<fixed;
-	cout.precision(6);
-	cout<< dp[n-1];
-	delete[]dp;
-}
-int main()
-{
-	int n;
-	cin>>n;
-	double *x=new double [3030];
-	double *y=new double [3030];
-	double *f=new double [3030];
-	for(int i=0; i<n; i++)
-	{
-		cin>>x[i]>>y[i]>>f[i];
-	}
-	maximum_happiness(x, y, f, n);
-	delete[]x;
-	delete[]y;
-	delete[]f;
+
+int main(){
+
+    
+
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        
+        int n;
+        cin>>n;
+        pair<pair<int,int>,int> a[n];
+
+        for(int i=0;i<n;i++)
+        {int x,y,f;
+         cin>>x>>y>>f;
+
+         pair<int,int> temp(x,y);
+         pair<pair<int,int>,int> big(temp,f);
+         a[i]=big;
+
+
+        }
+ 
+        double dp[n];
+
+        dp[n-1]=a[n-1].second;
+        
+        for(int i=n-2;i>=0;i--)
+        {
+            int j=i+1;
+            double max=INT_MIN;
+            while(j<=n-1)
+            {
+             double t1=(double)a[i].first.first-a[j].first.first;
+             double t2=(double)a[i].first.second-a[j].first.second;
+             double t3=pow(t1,2)+pow(t2,2);
+             double t4=sqrt(t3);
+     
+             double temp=dp[j]-t4+a[i].second;
+
+             if(temp>max)
+             {
+                 max=temp;
+             }
+             j++;
+            }
+            dp[i]=max;
+        }
+        cout<<fixed<<setprecision(6)<<dp[0]<<endl;
+
+    }
+    return 0;
 }
