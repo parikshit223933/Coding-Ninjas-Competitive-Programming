@@ -71,20 +71,13 @@ int solve(int n, char cake[NMAX][NMAX])
     {
         for (int j = 0; j < n; j++)
         {
-            if (arr[i][j] == 1)
+            if (arr[i][j] == 1 && visited[i][j]==0)
             {
                 visited[i][j] = true;
                 int current_maximum = count_ones(arr, n, i, j, visited);
                 if (current_maximum > maximum)
                 {
                     maximum = current_maximum;
-                }
-                for (int p = 0; p < n; p++)
-                {
-                    for (int q = 0; q < n; q++)
-                    {
-                        visited[p][q] = false;
-                    }
                 }
             }
         }
