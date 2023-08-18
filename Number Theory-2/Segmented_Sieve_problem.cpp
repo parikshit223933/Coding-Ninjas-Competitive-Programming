@@ -78,13 +78,19 @@ void print_primes(long long left, long long right, vector<int> *&primes)
             isprime[base - left] = true;
         }
     }
+
+    if(left == 1){
+        isprime[0] = false;
+    }
     for (int i = 0; i <= right - left; i++)
     {
         if (isprime[i])
         {
-            cout << i + left << endl;
+            cout << i + left << " ";
         }
     }
+    cout << endl;
+    
 }
 int main()
 {
