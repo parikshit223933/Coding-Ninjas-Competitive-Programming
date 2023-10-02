@@ -34,8 +34,14 @@ ll gcd(ll x, ll y)
     return gcd(y, x%y);   
 }
 int main()
-{
-    ll x, y;
-    cin>>x>>y;
-    cout<<gcd(x, y)<<endl;
+{   
+    int numTest;
+    cin>> numTest;
+
+    for(int i = 0; i< numTest; i++){
+        ll x, y;
+        cin>>x>>y;
+        cout<<gcd(x, y)<<endl;
+    }
+    
 }
